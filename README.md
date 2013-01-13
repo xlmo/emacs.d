@@ -1,45 +1,45 @@
-# Packages:
+#packages:
 
-dired+
-w3m
-php-mode
-dsvn
-org2blog
-magit
-twittering-mode
-undo-tree
-projectile
-helm
-helm-projectile
-helm-git
-golden-ratio
-ibuffer-vc
-session
-expand-region
-ido-ubiquitous
-pointback
-whole-line-or-region
-paredit
-js2-mode
-js3-mode
-js-comint
-smarty-mode
-mmm-mode
-slime
-slime-fuzzy
-slime-repl
-windresize
-revive
-window-number
-auto-complete
-markdown-mode
-flymake
-flymake-css
-flymake-cursor
-flymake-jslint
-flymake-php
-flymake-shell
-weibo
-window-numbering
-windows
+- dired+
+- w3m
+- php-mode
+- dsvn
+- org2blog
+- magit
+- twittering-mode
+- undo-tree
+- projectile
+- helm
+- helm-projectile
+- helm-git
+- golden-ratio
+- ibuffer-vc
+- session
+- expand-region
+- ido-ubiquitous
+- pointback
+- whole-line-or-region
+- paredit
+- js2-mode
+- js3-mode
+- js-comint
+- smarty-mode
+- mmm-mode
+- slime
+- slime-fuzzy
+- slime-repl
+- windresize
+- revive
+- window-number
+- auto-complete
+- markdown-mode
+- flymake
+- flymake-css
+- flymake-cursor
+- flymake-jslint
+- flymake-php
+- flymake-shell
+- weibo
+- window-numbering
+- windows
 
