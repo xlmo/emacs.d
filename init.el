@@ -1,22 +1,17 @@
-;;configure path
+;;路径设置
 (defvar root-path "~/.emacs.d")
 (defvar site-lisp-path (expand-file-name  "site-lisp" root-path))
 
-;;load path
+
 (add-to-list 'load-path root-path)
 
-
-
-;;----------------------------------------------------------------------------
-;; Which functionality to enable (use t or nil for true and false)
-;;----------------------------------------------------------------------------
+; Which functionality to enable (use t or nil for true and false)
 (defconst *spell-check-support-enabled* nil)
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-carbon-emacs* (eq window-system 'mac))
 (defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
 
-
-;;elpa package repositories
+;;elpa设置
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
@@ -33,9 +28,10 @@
                      unless (string-match "^\\." dir)
                      collecting (expand-file-name dir))
                load-path))))
+               
 (require 'init-func)
 
-
+;;编码设置
 (when (or window-system (locale-is-utf8-p))
   (setq utf-translate-cjk-mode nil) ; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
   (set-language-environment 'utf-8)
@@ -57,7 +53,6 @@
 (setq w3m-use-cookies t)
 (setq w3m-cookie-accept-bad-cookies t)
 (setq w3m-home-page "http://local.com/index.php")
-
 (setq w3m-use-toolbar t
       ;w3m-use-tab     nil
       w3m-key-binding 'info
@@ -65,35 +60,24 @@
 
 ;; show images in the browser
 ;(setq w3m-default-display-inline-images t)
-
 (setq w3m-search-default-engine "g")
 (eval-after-load "w3m-search" '(progn
                                  ; C-u S g RET <search term> RET
                                  (add-to-list 'w3m-search-engine-alist '("g"
-                                                                         "http://www.google.com.au/search?hl=zh-CN&q=%s" utf-8))
+                                                                         "http://www.google.com/search?hl=zh-CN&q=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("wz"
                                                                          "http://zh.wikipedia.org/wiki/Special:Search?search=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("q"
-                                                                         "http://www.google.com.au/search?hl=en&q=%s+site:stackoverflow.com" utf-8))
+                                                                         "http://www.google.com/search?hl=en&q=%s+site:stackoverflow.com" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("s"
                                                                          "http://code.google.com/codesearch?q=%s" utf-8))
-                                 (add-to-list 'w3m-search-engine-alist '("b"
-                                                                         "http://blogsearch.google.com.au/blogsearch?q=%s" utf-8))
-                                 (add-to-list 'w3m-search-engine-alist '("w"
-                                                                         "http://en.wikipedia.org/wiki/Special:Search?search=%s" utf-8))
-                                 (add-to-list 'w3m-search-engine-alist '("d"
-                                                                         "http://dictionary.reference.com/search?q=%s" utf-8))
                                  ))
-
 (setq w3m-command-arguments       '("-F" "-cookie")
       w3m-mailto-url-function     'compose-mail
       browse-url-browser-function 'w3m
       mm-text-html-renderer       'w3m)
       
 
-
-
-;;system configure
 (when *is-a-mac*
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
@@ -111,13 +95,14 @@
     (global-set-key (kbd "M-v") 'ns-paste-secondary)))
 
 
-
+;;dired递归删除
 (setq dired-recursive-deletes 'top)
 
-;(require 'uniquify)
-;(setq uniquify-buffer-name-style 'reverse)
-;(setq uniquify-separator " • ")
-;(setq uniquify-after-kill-buffer-p t)
+;buffer中更好的区分同名文件
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator " • ")
+(setq uniquify-after-kill-buffer-p t)
 
 
 ;;ibuffer
@@ -143,7 +128,7 @@
 (eval-after-load 'ibuffer
   '(require 'ibuffer-vc))
 
-;; Modify the default ibuffer-formats
+;; 修改ibuffer的显示方式
 (setq ibuffer-formats
       '((mark modified read-only vc-status-mini " "
               (name 18 18 :left :elide)
@@ -179,12 +164,6 @@
 ;; Allow the same buffer to be open in different frames
 (setq ido-default-buffer-method 'selected-window)
 
-(defun steve-ido-choose-from-recentf ()
-  "Use ido to select a recently opened file from the `recentf-list'"
-  (interactive)
-  (if (and ido-use-virtual-buffers (fboundp 'ido-toggle-virtual-buffers))
-      (ido-switch-buffer)
-    (find-file (ido-completing-read "Open file: " recentf-list nil t))))
 
 ;;hippie-expand
 (setq hippie-expand-try-functions-list
@@ -242,7 +221,7 @@
 ;(smex-initialize)
 
 
-
+;;系统设置
 (setq-default
  blink-cursor-delay 0
  blink-cursor-interval 0.4
@@ -313,9 +292,8 @@
                                   collect entry)))
 
 
-;; On-the-fly syntax checking
-;(eval-after-load 'js
-;  '(add-hook 'js-mode-hook 'flymake-jslint-load))
+(eval-after-load 'js
+  '(add-hook 'js-mode-hook 'flymake-jslint-load))
 
 
 ;; js2-mode
@@ -347,7 +325,6 @@
 ;; ---------------------------------------------------------------------------
 ;; Run and interact with an inferior JS via js-comint.el
 ;; ---------------------------------------------------------------------------
-
 (setq inferior-js-program-command "js")
 (defun add-inferior-js-keys ()
   (local-set-key "\C-x\C-e" 'js-send-last-sexp)
@@ -470,6 +447,7 @@
 
 ;;misc
 (fset 'yes-or-no-p 'y-or-n-p)
+(tool-bar-mode -1)
 (add-hook 'find-file-hooks 'goto-address-prog-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (setq goto-address-mail-face 'link)
@@ -508,24 +486,24 @@
 #+TITLE:
  \n")
 
-;;resume window
+;;恢复窗口
 ;;; windows.el keybind
 (setq win:switch-prefix "\C-z")
 
-;; layout file save place
+;; 布局文件保存位置
 (setq win:configuration-file "~/.windows")
 (require 'windows)
 (setq win:use-frame nil)
 (win:startup-with-window)
 (define-key ctl-x-map "C" 'see-you-again)
 
-;; resum when start
+;; 启动是恢复
 (add-hook 'after-init-hook (lambda() (run-with-idle-timer 0 nil 'my-resume-windows)))
-;; save when close
+;; 关闭时保存
 (add-hook 'kill-emacs-hook 'win-save-all-configurations)
 
 
-;;helm
+;;编程设置
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (electric-pair-mode t)
@@ -576,10 +554,6 @@
 (require 'helm-misc)
 (require 'helm-projectile)
 
-
-
- 
- 
  ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
@@ -636,9 +610,8 @@
 (setq ac-auto-start nil)
 (setq ac-dwim nil) ; To get pop-ups with docs even if a word is uniquely completed
 
-;;----------------------------------------------------------------------------
+
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
-;;----------------------------------------------------------------------------
 (setq tab-always-indent 'complete)  ;; use 't when auto-complete is disabled
 (add-to-list 'completion-styles 'initials t)
 
@@ -694,7 +667,6 @@ Return nil if we cannot, non-nil if we can."
 (require 'server)
 (unless (server-running-p)
   (server-start))
-
 
 
 (require 'init-custom-key)
