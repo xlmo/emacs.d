@@ -1,0 +1,6 @@
+# name: function define
+# key: func
+# --
+function ${name} (${/* params... */}) {
+	${//code here ..}
+}

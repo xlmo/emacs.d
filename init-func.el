@@ -1,15 +1,3 @@
-(defun duplicate-line ()
-  (interactive)
-  (save-excursion
-    (let ((line-text (buffer-substring-no-properties
-                      (line-beginning-position)
-                      (line-end-position))))
-      (move-end-of-line 1)
-      (newline)
-      (insert line-text))))
-
-
-
 (defun magit-status-somedir ()
   (interactive)
   (let ((current-prefix-arg t))
@@ -35,7 +23,6 @@
   "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
-
 
 (defun my-resume-windows ()
   "restore windows status ."
@@ -70,7 +57,7 @@ there's a region, all lines that region covers will be duplicated."
   (dolist (buffer (buffer-list))
     (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
       (kill-buffer buffer))))
-      
+
 (defun my-swap-windows ()
   "If you have 2 windows, it swaps them."
   (interactive)
@@ -87,8 +74,9 @@ there's a region, all lines that region covers will be duplicated."
       (set-window-start w1 s2)
       (set-window-start w2 s1)))
   (other-window 1))
- 
- (defun my-helm ()
+
+
+(defun my-helm ()
   "Preconfigured `helm'."
   (interactive)
   (condition-case nil
@@ -119,12 +107,26 @@ there's a region, all lines that region covers will be duplicated."
         (is-utf8 (getenv "LC_ALL"))
         (is-utf8 (getenv "LC_CTYPE"))
         (is-utf8 (getenv "LANG")))))
-        
+
+
 (defun steve-ido-choose-from-recentf ()
   "Use ido to select a recently opened file from the `recentf-list'"
   (interactive)
   (if (and ido-use-virtual-buffers (fboundp 'ido-toggle-virtual-buffers))
       (ido-switch-buffer)
     (find-file (ido-completing-read "Open file: " recentf-list nil t))))
-            
+
+
+(defun copy-word (&optional arg)
+  "Copy a sequence of string into kill-ring"
+  (interactive)
+  (setq onPoint (point))
+  (let ((beg (progn (re-search-backward "[^a-zA-Z0-9_-]" (line-beginning-position) 3 1)
+                       (if (looking-at "[^a-zA-Z0-9_-]") (+ (point) 1) (point) ) ))
+        (end (progn  (goto-char onPoint) (re-search-forward "[^a-zA-Z0-9_-]" (line-end-position) 3 1)
+                       (if (looking-back "[^a-zA-Z0-9_-]") (- (point) 1) (point))) ))
+    (copy-region-as-kill beg end)))
+
+
+
 (provide 'init-func)

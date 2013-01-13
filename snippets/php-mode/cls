@@ -1,0 +1,8 @@
+# name: class define
+# key: cls
+# --
+class ${class_name} {
+	public function __construct() {
+		${//code here ...}
+	}
+}

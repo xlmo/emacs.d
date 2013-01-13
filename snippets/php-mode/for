@@ -1,0 +1,6 @@
+# name: for ($a; $b; $c) {...}
+# key: for
+# --
+for (${$a}; ${$b}; ${$c}) {
+	${//code here ...}
+}

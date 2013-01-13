@@ -1,0 +1,4 @@
+# name: datetime
+# key: date
+# --
+date('Y-m-d H:i:s'${, current_time});

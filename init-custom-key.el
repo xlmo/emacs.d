@@ -1,14 +1,11 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-
 (global-set-key [(meta f11)] 'steve-ido-choose-from-recentf)
 ;(global-set-key "\M-x" 'smex)
-
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 (global-set-key (kbd "C-=") 'er/expand-region)
-
 
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 
@@ -22,7 +19,6 @@
 (global-set-key (kbd "C-;") 'ace-jump-mode)
 (global-set-key (kbd "C-:") 'ace-jump-word-mode)
 
-
 ;; multiple-cursors
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -34,12 +30,8 @@
 (global-set-key (kbd "C-c c e") 'mc/edit-ends-of-lines)
 (global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
 
-
-(global-set-key (kbd "C-c p") 'duplicate-line)
-
 (global-unset-key [M-left])
 (global-unset-key [M-right])
-
 
 (global-set-key [(meta f12)] 'magit-status)
 (global-set-key [(shift meta f12)] 'magit-status-somedir)
@@ -85,5 +77,8 @@
 
 (global-set-key (kbd "M-g o") 'golden-ratio-enable)
 (global-set-key (kbd "M-g f") 'golden-ratio-disable)
+
+(global-set-key (kbd "M-o") 'copy-word)
+
 
 (provide 'init-custom-key)

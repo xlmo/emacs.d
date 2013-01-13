@@ -42,4 +42,6 @@
 - weibo
 - window-numbering
 - windows
-
+- move-text
+- htmlize
+- exec-path-from-shell

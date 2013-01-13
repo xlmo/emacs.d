@@ -1,0 +1,4 @@
+# name: define(a,b)
+# key: define
+# --
+define('${KEY}', ${$value});

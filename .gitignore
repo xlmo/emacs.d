@@ -1,4 +1,5 @@
 *~
+*.DS_Store
 \#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
@@ -9,6 +10,7 @@ tramp
 url
 elpa
 .\#*
+.session
 
 # Org-mode
 .org-id-locations

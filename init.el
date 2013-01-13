@@ -1,7 +1,8 @@
+;;emccs 主配置文件
+
 ;;路径设置
 (defvar root-path "~/.emacs.d")
 (defvar site-lisp-path (expand-file-name  "site-lisp" root-path))
-
 
 (add-to-list 'load-path root-path)
 
@@ -11,11 +12,20 @@
 (defconst *is-carbon-emacs* (eq window-system 'mac))
 (defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
 
+;;设置shell path
+(eval-after-load 'exec-path-from-shell
+  '(progn
+     (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO"))
+       (add-to-list 'exec-path-from-shell-variables var))))
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
 ;;elpa设置
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
+
 
 ;;递归的将site-lisp加入load-path中
 (require 'cl)
@@ -28,7 +38,7 @@
                      unless (string-match "^\\." dir)
                      collecting (expand-file-name dir))
                load-path))))
-               
+
 (require 'init-func)
 
 ;;编码设置
@@ -342,9 +352,9 @@
 
 (autoload 'smarty-mode "smarty-mode" "Smarty Mode" t)
 (add-auto-mode 'smarty-mode "\\.tpl\\'")
-     
 
-;; org     
+
+;; org
 ;; Various preferences
 (setq org-log-done t
       org-completion-use-ido t
@@ -447,7 +457,8 @@
 
 ;;misc
 (fset 'yes-or-no-p 'y-or-n-p)
-(tool-bar-mode -1)
+(if (fboundp 'tool-bar-mode)
+    (tool-bar-mode -1))
 (add-hook 'find-file-hooks 'goto-address-prog-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (setq goto-address-mail-face 'link)
@@ -610,7 +621,6 @@
 (setq ac-auto-start nil)
 (setq ac-dwim nil) ; To get pop-ups with docs even if a word is uniquely completed
 
-
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
 (setq tab-always-indent 'complete)  ;; use 't when auto-complete is disabled
 (add-to-list 'completion-styles 'initials t)
@@ -619,7 +629,6 @@
 (defun set-auto-complete-as-completion-at-point-function ()
   (setq completion-at-point-functions '(auto-complete)))
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
-
 
 (set-default 'ac-sources
              '(ac-source-dictionary
@@ -660,13 +669,63 @@
 Return nil if we cannot, non-nil if we can."
        (if (and file-name (flymake-get-init-function file-name)) t nil))))
 
+;;yasnippet
+(require 'auto-complete-config)
+(ac-config-default)
+(global-auto-complete-mode t)
+;(setq ac-auto-start 2)
+;(setq ac-dwim t)
+;显示doc文档信息
+(setq ac-use-quick-help t)
+(setq ac-quick-help-delay 0)
+;输入错误时仍能匹配,需手动触发
+(setq ac-fuzzy-enable t)
+
+;设置auto-complete弹出菜单配色
+(set-face-background 'ac-candidate-face "#657B83")
+(set-face-underline 'ac-candidate-face "#657B83")
+(set-face-background 'ac-selection-face "#93A1A1")
+
+;添加需要提示的内容
+(setq-default ac-sources '(
+                           ac-source-yasnippet
+                           ac-source-filename
+                           ac-source-words-in-all-buffer
+                           ac-source-functions
+                           ac-source-variables
+                           ac-source-symbols
+                           ac-source-features
+                           ac-source-abbrev
+                           ac-source-words-in-same-mode-buffers
+                           ac-source-dictionary))
+
+;设置yasnippet
+(require 'yasnippet) ;; not yasnippet-bundle
+(yas-global-mode 1)
+(yas/load-directory "~/.emacs.d/snippets")
+
+(show-paren-mode t)
+(load-theme 'zenburn t)
 
 (require 'weibo)
 
-      
 (require 'server)
 (unless (server-running-p)
   (server-start))
 
 
 (require 'init-custom-key)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("27470eddcaeb3507eca2760710cc7c43f1b53854372592a3afa008268bcf7a75" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(safe-local-variable-values (quote ((eval when (fboundp (quote rainbow-mode)) (rainbow-mode 1)))))
+ '(session-use-package t nil (session)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

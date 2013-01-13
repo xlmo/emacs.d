@@ -1,0 +1,9 @@
+# name: switch(condition) {...}
+# key: switch
+# --
+switch (${$condition}) {
+	case ${$what}:
+	default:
+		${//code here ...}
+	break;
+}

@@ -1,0 +1,6 @@
+# name: do {...} while () 
+# key: dowhile
+# --
+do {
+	${//code here ...}
+} while (${$condition});
