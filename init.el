@@ -12,13 +12,6 @@
 (defconst *is-carbon-emacs* (eq window-system 'mac))
 (defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
 
-;;设置shell path
-(eval-after-load 'exec-path-from-shell
-  '(progn
-     (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO"))
-       (add-to-list 'exec-path-from-shell-variables var))))
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
 
 ;;elpa设置
 (require 'package)
@@ -26,6 +19,13 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
+;;设置shell path
+(eval-after-load 'exec-path-from-shell
+  '(progn
+     (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO"))
+       (add-to-list 'exec-path-from-shell-variables var))))
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;;递归的将site-lisp加入load-path中
 (require 'cl)
@@ -52,7 +52,7 @@
   (set-terminal-coding-system 'utf-8)
   (set-selection-coding-system 'utf-8)
   (prefer-coding-system 'utf-8))
-  
+
 ;;w3m
 (setq w3m-coding-system 'utf-8
       w3m-file-coding-system 'utf-8
@@ -86,7 +86,6 @@
       w3m-mailto-url-function     'compose-mail
       browse-url-browser-function 'w3m
       mm-text-html-renderer       'w3m)
-      
 
 (when *is-a-mac*
   (setq mac-command-modifier 'meta)
@@ -273,7 +272,7 @@
 (setq magit-save-some-buffers nil
       magit-process-popup-time 10
       magit-completing-read-function 'magit-ido-completing-read)
-      
+
 (eval-after-load 'compile
   '(progn
      (dolist (defn (list '(git-svn-updated "^\t[A-Z]\t\\(.*\\)$" 1 nil nil 0 1)
@@ -282,7 +281,7 @@
      (dolist (defn '(git-svn-updated git-svn-needs-update))
        (add-to-list 'compilation-error-regexp-alist defn))))
 
-(defvar git-svn--available-commands nil "Cached list of git svn subcommands")      
+(defvar git-svn--available-commands nil "Cached list of git svn subcommands")
 
 
 ;;js
@@ -420,7 +419,7 @@
          :back "\"")))
      (dolist (mode (list 'html-mode 'nxml-mode))
        (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css))))
-       
+
 ::slime
 (autoload 'slime-fuzzy-init "slime-fuzzy" "" nil)
 (eval-after-load 'slime-fuzzy
@@ -468,7 +467,7 @@
 
 (defvar my-savefile-dir "~/.emacs.savefile"
   "The savefile dir of the Emacs.")
-  
+
 ;;golden ratio
 (setq golden-ratio-exclude-modes '("shell-mode"
                                    "calendar-mode"
@@ -582,7 +581,7 @@
       '("" invocation-name " xlmo - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
-                                          
+
 ;; move window
 (require 'window-numbering)
 (window-numbering-mode 1)
@@ -651,9 +650,9 @@
 (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer)
 
 ;;markdown-mode
-(autoload 'markdown-mode "markdown-mode" "Mode for editing Markdown documents" t)
-(setq auto-mode-alist
-      (cons '("\\.\\(md\\|markdown\\)\\'" . markdown-mode) auto-mode-alist))
+;(autoload 'markdown-mode "markdown-mode" "Mode for editing Markdown documents" t)
+;(setq auto-mode-alist
+;      (cons '("\\.\\(md\\|markdown\\)\\'" . markdown-mode) auto-mode-alist))
 
 ;;flymake
 (setq flymake-gui-warnings-enabled nil)
@@ -713,6 +712,8 @@ Return nil if we cannot, non-nil if we can."
 (unless (server-running-p)
   (server-start))
 
+
+(require 'init-mew)
 
 (require 'init-custom-key)
 (custom-set-variables
