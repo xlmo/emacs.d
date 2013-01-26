@@ -195,7 +195,6 @@
   (let ((debug-on-error t))
     ad-do-it))
 
-
 ;;----------------------------------------------------------------------------
 ;; Restore histories and registers after saving
 ;;----------------------------------------------------------------------------
@@ -507,10 +506,13 @@
 (win:startup-with-window)
 (define-key ctl-x-map "C" 'see-you-again)
 
-;; 启动是恢复
+;; 启动时恢复
 (add-hook 'after-init-hook (lambda() (run-with-idle-timer 0 nil 'my-resume-windows)))
 ;; 关闭时保存
 (add-hook 'kill-emacs-hook 'win-save-all-configurations)
+;;定时保存
+(run-with-timer 1800 1800 'win-save-all-configurations)
+(run-with-timer 600 600 'desktop-save)
 
 
 ;;编程设置
@@ -525,7 +527,6 @@
 (setq c-default-style "immediate")
 (toggle-word-wrap t)
 
-(desktop-save-mode 1)
 (require 'session)
 (add-hook 'after-init-hook        'session-initialize)
 ;;backup

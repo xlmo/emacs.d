@@ -15,3 +15,5 @@ elpa
 # Org-mode
 .org-id-locations
 *_archive
+
+eshell/
