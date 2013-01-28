@@ -80,5 +80,11 @@
 
 (global-set-key (kbd "M-o") 'copy-word)
 
+;;multi-term
+(global-set-key (kbd "C-x .") 'multi-term-dedicated-open)
+(global-set-key (kbd "C-x ,") 'multi-term-dedicated-close)
+
+
+
 
 (provide 'init-custom-key)

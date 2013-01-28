@@ -45,3 +45,4 @@
 - move-text
 - htmlize
 - exec-path-from-shell
+- multi-term

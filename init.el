@@ -14,6 +14,9 @@
 
 (require 'init-elpa)
 
+(setq multi-term-program "/bin/bash")
+(setq multi-term-dedicated-select-after-open-p t)
+
 (require 'init-func)
 
 (require 'init-w3m)
