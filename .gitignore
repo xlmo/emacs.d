@@ -17,3 +17,4 @@ elpa
 *_archive
 
 eshell/
+.bookmarks.el
