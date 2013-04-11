@@ -265,7 +265,6 @@
 (window-numbering-mode 1)
 
 (global-linum-mode t)
-(scroll-bar-mode nil)
 
 
                                         ;http://stackoverflow.com/questions/3875213/ \
@@ -293,5 +292,14 @@
 (ad-activate 'linum-on)
 
 (require 'expand-region)
+
+(highlight-indentation-mode t)
+;(set-face-background 'highlight-indentation-face "#e3e3d3")
+;(set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
+
+(scroll-bar-mode 0)
+(flyspell-mode t)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
 
 (provide 'init-misc)

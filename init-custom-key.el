@@ -20,8 +20,8 @@
 (global-set-key (kbd "C-:") 'ace-jump-word-mode)
 
 ;; multiple-cursors
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;(global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-+") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 ;; From active region to multiple cursors:
