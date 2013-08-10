@@ -46,3 +46,9 @@
 - htmlize
 - exec-path-from-shell
 - multi-term
+- expand-region
+- highlight-indentation-mode
+- helm-flymake
+- helm-c-yasnippet
+- yasnippet
+- zenburn
