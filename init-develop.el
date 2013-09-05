@@ -277,5 +277,7 @@ Return nil if we cannot, non-nil if we can."
         try-expand-dabbrev
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill))
+;;compile
+(global-set-key [(f9)] 'compile)
 (provide 'init-develop)
 
