@@ -302,4 +302,7 @@
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 
+(package-initialize)
+(smartparens-global-mode t)
+
 (provide 'init-misc)

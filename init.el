@@ -27,7 +27,7 @@
 
 (require 'init-develop)
 
-(load-theme 'zenburn t)
+;; ;(load-theme 'zenburn t)
 
 (require 'weibo)
 
@@ -36,7 +36,7 @@
 (unless (server-running-p)
   (server-start))
 
-(require 'init-mew)
+;(require 'init-mew)
 
 (require 'init-custom-key)
 

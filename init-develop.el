@@ -120,6 +120,7 @@
      (dolist (mode (list 'html-mode 'nxml-mode))
        (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css))))
 
+
 ::slime
 (autoload 'slime-fuzzy-init "slime-fuzzy" "" nil)
 (eval-after-load 'slime-fuzzy
@@ -155,7 +156,7 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(electric-pair-mode t)
+;; (electric-pair-mode t)
 ;;coding style http://en.wikipedia.org/wiki/Indent_style
 (c-add-style "immediate"
              '("K&R"
@@ -163,6 +164,7 @@
 
 (setq c-default-style "immediate")
 (toggle-word-wrap t)
+
 
 
 (require 'projectile)
@@ -276,3 +278,4 @@ Return nil if we cannot, non-nil if we can."
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill))
 (provide 'init-develop)
+
