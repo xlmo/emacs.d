@@ -84,7 +84,8 @@
 (global-set-key (kbd "C-x .") 'multi-term-dedicated-open)
 (global-set-key (kbd "C-x ,") 'multi-term-dedicated-close)
 
-
+;;smex
+(global-set-key (kbd "M-x") 'smex)
 
 
 (provide 'init-custom-key)

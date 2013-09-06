@@ -6,12 +6,6 @@
 
 (add-to-list 'load-path root-path)
 
-; Which functionality to enable (use t or nil for true and false)
-(defconst *spell-check-support-enabled* nil)
-(defconst *is-a-mac* (eq system-type 'darwin))
-(defconst *is-carbon-emacs* (eq window-system 'mac))
-(defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
-
 (require 'init-elpa)
 
 (setq multi-term-program "/bin/bash")
@@ -21,15 +15,17 @@
 
 (require 'init-w3m)
 
-(require 'init-misc)
+(require 'init-compat)
 
-(require 'init-org)
+(require 'init-misc)
 
 (require 'init-develop)
 
 ;; ;(load-theme 'zenburn t)
 
 (require 'weibo)
+
+;(require 'init-org)
 
 (require 'server)
 

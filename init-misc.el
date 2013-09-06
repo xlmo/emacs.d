@@ -1,31 +1,3 @@
-(when *is-a-mac*
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'super)
-  (setq default-input-method "MacOSX")
-  ;; Make mouse wheel / trackpad scrolling less jerky
-  (setq mouse-wheel-scroll-amount '(0.001))
-  (when *is-cocoa-emacs*
-    ;; Woohoo!!
-    (global-set-key (kbd "M-`") 'ns-next-frame)
-    (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
-    (eval-after-load 'nxml-mode
-      '(define-key nxml-mode-map (kbd "M-h") nil))
-    (global-set-key (kbd "M-ˍ") 'ns-do-hide-others) ;; what describe-key reports
-    (global-set-key (kbd "M-c") 'ns-copy-including-secondary)
-    (global-set-key (kbd "M-v") 'scroll-down-command)))
-
-;;编码设置
-(when (or window-system (locale-is-utf8-p))
-  (setq utf-translate-cjk-mode nil) ; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
-  (set-language-environment 'utf-8)
-  (when *is-carbon-emacs*
-    (set-keyboard-coding-system 'utf-8-mac))
-  (setq locale-coding-system 'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8))
-
 ;;dired递归删除
 (setq dired-recursive-deletes 'top)
 
@@ -81,7 +53,7 @@
 ;; Use C-f during file selection to switch to regular find-file
 (ido-mode t)  ; use 'buffer rather than t to use only buffer switching
 (ido-everywhere t)
-(ido-ubiquitous-mode t)
+;(ido-ubiquitous-mode t) ;;启用之后minibuff有问题
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point nil)
 (setq ido-auto-merge-work-directories-length 0)
@@ -132,10 +104,9 @@
                 tags-file-name
                 register-alist)))
 
-;;----------------------------------------------------------------------------
+
 ;; ido completion in M-x
-;;----------------------------------------------------------------------------
-;(smex-initialize)
+(smex-initialize)
 
 
 ;;系统设置
