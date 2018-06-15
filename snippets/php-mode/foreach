@@ -1,7 +1,0 @@
-# name: foreach ( $a as $b => $c) {...}
-# key: foreach
-# --
-foreach (${$data} as ${$key} => ${$val})
-{
-    ${//$code here...}
-}

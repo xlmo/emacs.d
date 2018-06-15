@@ -1,6 +1,0 @@
-# name: case '' : break;
-# key: case
-# --
-case ${$condition}:
-	$0
-	break;

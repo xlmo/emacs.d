@@ -1,8 +1,0 @@
-# name: if () {...} else {...}
-# key: ifelse
-# --
-if (${$condition}) {
-	${//code here...}
-} else {
-	${//code here...}
-}
