@@ -45,7 +45,7 @@
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/Nutstore/orgdoc/org.org")
+      (quote (("t" "todo" entry (file "~/Nutstore/orgdoc/task.org")
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Nutstore/orgdoc/inbox.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
