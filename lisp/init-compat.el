@@ -14,6 +14,7 @@
     ;; Woohoo!!
     (global-set-key (kbd "M-`") 'ns-next-frame)
     (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
+    (global-set-key [(f1)] 'reveal-in-osx-finder)
     (eval-after-load 'nxml-mode
       '(define-key nxml-mode-map (kbd "M-h") nil))
     (global-set-key (kbd "M-c") 'ns-copy-including-secondary)

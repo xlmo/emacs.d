@@ -1,28 +1,38 @@
-;;emccs 主配置文件
+;;emacs 主配置文件
 
 ;;路径设置
-(defvar root-path "~/.emacs.d")
-(defvar site-lisp-path (expand-file-name  "lisp" root-path))
-
-(add-to-list 'load-path site-lisp-path)
-
-(require 'init-elpa)
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (require 'better-defaults)
 
-(require 'init-func)
+(require 'init-elpa)
 
+(require 'init-misc)
+
+(require 'init-func)
 
 (require 'init-compat)
 
-
-;(require 'init-org)
+(require 'init-org)
 
 (require 'server)
 
 (unless (server-running-p)
   (server-start))
 
-
 (require 'init-custom-key)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (which-key expand-region reveal-in-osx-finder popwin move-text))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

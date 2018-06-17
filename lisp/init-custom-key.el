@@ -1,6 +1,5 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(global-set-key [(meta f11)] 'steve-ido-choose-from-recentf)
 ;(global-set-key "\M-x" 'smex)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -16,19 +15,7 @@
 (global-set-key (kbd "M-T") 'transpose-lines)
 (global-set-key (kbd "C-.") 'set-mark-command)
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
-(global-set-key (kbd "C-;") 'ace-jump-mode)
-(global-set-key (kbd "C-:") 'ace-jump-word-mode)
 
-;; multiple-cursors
-;(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-+") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-;; From active region to multiple cursors:
-(global-set-key (kbd "C-c c r") 'set-rectangular-region-anchor)
-(global-set-key (kbd "C-c c c") 'mc/edit-lines)
-(global-set-key (kbd "C-c c e") 'mc/edit-ends-of-lines)
-(global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
 
 (global-unset-key [M-left])
 (global-unset-key [M-right])
@@ -65,8 +52,6 @@
 
 (global-set-key (kbd "M-o") 'copy-word)
 
-;;multi-term
-(global-set-key (kbd "C-x .") 'multi-term-dedicated-open)
 (global-set-key (kbd "C-x ,") 'multi-term-dedicated-close)
 
 
