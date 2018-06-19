@@ -12,9 +12,9 @@
                       reveal-in-osx-finder
                       ;;方便选择区域块C-=
                       expand-region
-                      popwin
                       ;;显示当前组合键下的全部组合
                       which-key
+		      php-mode
                       ))
 
 (package-initialize)
