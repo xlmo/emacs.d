@@ -54,16 +54,18 @@
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/Nutstore/orgdoc/task.org")
+      (quote (("t" "Personal Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Personal")
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+	      ("w" "Work Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Work")
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Nutstore/orgdoc/inbox.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("l" "List(Reading..etc)" entry (file+olp "~/Nutstore/orgdoc/task.org", "Work")
-               "* %? \n%U\n%a\n")
-              ("j" "Journal" entry (file+datetree "~/Nutstore/orgdoc/diary.org")
+	      ("l" "List(books,movie...etc)" entry (file+headline "~/Nutstore/orgdoc/task.org" "Wish List")
+               "* %? %^g\n%U\n%a\n")
+              ("d" "Diary" entry (file+datetree "~/Nutstore/orgdoc/diary.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file "~/Nutstore/orgdoc/collect.org")
-               "* TODO Review %c\n%U\n" :immediate-finish t))))
+              ("c" "Collect Items" entry (file "~/Nutstore/orgdoc/collect.org")
+               "* TODO Review %^C\n%U\n" :immediate-finish t))))
 
 ; 自动折行
 (setq truncate-lines nil)
