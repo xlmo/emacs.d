@@ -96,4 +96,6 @@
       '(("h" tags-todo "+home")
         ("w" tags-todo "+work")))
 
+(setq org-export-coding-system 'utf-8)
+
 (provide 'init-org)

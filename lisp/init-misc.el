@@ -22,6 +22,9 @@
 (global-hl-line-mode 1)
 
 (set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8)
+(set-charset-priority 'unicode)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 ;;显示当前组合键下的全部组合
 (require 'which-key)
