@@ -27,4 +27,14 @@
 (require 'which-key)
 (which-key-mode)
 
+;;保存窗口布局
+(desktop-save-mode t)
+;;启动时加载布局
+(setq desktop-dir "~/.emacs.d")
+(desktop-read desktop-dir)
+
+;;用M-数字键来切换窗口
+(require 'window-numbering)
+(window-numbering-mode 1)
+
 (provide 'init-misc)

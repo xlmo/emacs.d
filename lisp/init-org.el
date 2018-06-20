@@ -68,7 +68,8 @@
                "* TODO Review %^C\n%U\n" :immediate-finish t))))
 
 ; 自动折行
-(setq truncate-lines nil)
+;(setq truncate-lines nil) ;org mode启动后会覆盖此选项
+(global-visual-line-mode 1) 
 ; 代码高亮
 (setq org-src-fontify-natively t)
 

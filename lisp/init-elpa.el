@@ -15,6 +15,10 @@
                       ;;显示当前组合键下的全部组合
                       which-key
 		      php-mode
+                      ;; 主题
+                      doom-theme
+                      ;; 窗口切换
+                      window-numbering
                       ))
 
 (package-initialize)
