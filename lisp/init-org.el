@@ -25,6 +25,8 @@
 ;; 存储着作用于全局的状态序列
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "DOING(i)"  "NEXT(n)" "|" "DONE(d)")
+              (sequence "PROJECT(p)" "|" "DONE(d)" "CANCELLED(c@/!)")
+              (sequence "BUG(b)" "|" "FIXED(f)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING"))))
 
 ;定义进入状态和离开状态时的额外动作，可用的动作包含两个:
@@ -55,9 +57,9 @@
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
       (quote (("t" "Personal Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Personal")
-               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* TODO %?%^g\n%U\n%a\n" :clock-in t :clock-resume t)
 	      ("w" "Work Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Work")
-               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* TODO %?%^g\n%U\n%a\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Nutstore/orgdoc/inbox.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
 	      ("l" "List(books,movie...etc)" entry (file+headline "~/Nutstore/orgdoc/task.org" "Wish List")
@@ -72,5 +74,26 @@
 (global-visual-line-mode 1) 
 ; 代码高亮
 (setq org-src-fontify-natively t)
+
+; 链接缩写
+(setq org-link-abbrev-alist
+      '(("google"   . "http://www.google.com/search?q=")
+        ("dict" . "http://dict.cn/")))
+
+;记录todo完成时间
+(setq org-log-done 'time)
+;记录todo完成备注
+;(setq org-log-done 'note) 
+
+
+(setq org-agenda-files
+      (list "~/Nutstore/orgdoc/task.org"
+	    "~/Nutstore/orgdoc/collect.org"
+	    "~/Nutstore/orgdoc/inbox.org"))
+
+;自定义agenda快捷功能键
+(setq org-agenda-custom-commands
+      '(("h" tags-todo "+home")
+        ("w" tags-todo "+work")))
 
 (provide 'init-org)

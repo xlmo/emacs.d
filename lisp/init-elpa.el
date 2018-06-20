@@ -19,6 +19,7 @@
                       doom-theme
                       ;; 窗口切换
                       window-numbering
+                      htmlize
                       ))
 
 (package-initialize)
