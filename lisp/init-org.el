@@ -57,9 +57,9 @@
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
       (quote (("t" "Personal Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Personal")
-               "* TODO %?%^g\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* TODO %? :home:\n%U\n%a\n" :clock-in t :clock-resume t)
 	      ("w" "Work Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Work")
-               "* TODO %?%^g\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* TODO %? :work:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Nutstore/orgdoc/inbox.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
 	      ("l" "List(books,movie...etc)" entry (file+headline "~/Nutstore/orgdoc/task.org" "Wish List")
