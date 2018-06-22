@@ -21,6 +21,7 @@
                       window-numbering
                       htmlize
                       exec-path-from-shell
+                      w3m
                       ))
 
 (package-initialize)

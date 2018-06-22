@@ -56,13 +56,13 @@
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (("t" "Personal Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Personal")
-               "* TODO %? :home:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("w" "Work Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Work")
+      (quote (("t" "Personal Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Task")
+               "* TODO %? :personal:\n%U\n%a\n" :clock-in t :clock-resume t)
+	      ("w" "Work Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Task")
                "* TODO %? :work:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Nutstore/orgdoc/inbox.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("l" "List(books,movie...etc)" entry (file+headline "~/Nutstore/orgdoc/task.org" "Wish List")
+	      ("l" "List(books,movie...etc)" entry (file+headline "~/Nutstore/orgdoc/task.org" "List")
                "* %? %^g\n%U\n%a\n")
               ("d" "Diary" entry (file+datetree "~/Nutstore/orgdoc/diary.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
@@ -93,7 +93,7 @@
 
 ;自定义agenda快捷功能键
 (setq org-agenda-custom-commands
-      '(("h" tags-todo "+home")
+      '(("p" tags-todo "+personal")
         ("w" tags-todo "+work")))
 
 (setq org-export-coding-system 'utf-8)
