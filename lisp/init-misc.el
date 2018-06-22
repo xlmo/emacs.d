@@ -40,4 +40,10 @@
 (require 'window-numbering)
 (window-numbering-mode 1)
 
+;; eshell path
+(add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
+
+;; 自动重新加载已修改文件
+(global-auto-revert-mode t)
+
 (provide 'init-misc)

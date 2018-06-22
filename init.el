@@ -7,6 +7,8 @@
 
 (require 'init-elpa)
 
+(require 'init-exec-path)
+
 (require 'init-misc)
 
 (require 'init-func)

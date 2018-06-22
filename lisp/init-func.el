@@ -51,5 +51,11 @@ there's a region, all lines that region covers will be duplicated."
                        (if (looking-back "[^a-zA-Z0-9_-]") (- (point) 1) (point))) ))
     (copy-region-as-kill beg end)))
 
+;; 设置eshell 的PATH
+(defun eshell-mode-hook-func ()
+  (setq eshell-path-env (concat "/usr/local/bin:" eshell-path-env))
+  (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+  (define-key eshell-mode-map (kbd "M-s") 'other-window-or-split))
+
 
 (provide 'init-func)

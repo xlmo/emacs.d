@@ -20,6 +20,7 @@
                       ;; 窗口切换
                       window-numbering
                       htmlize
+                      exec-path-from-shell
                       ))
 
 (package-initialize)
