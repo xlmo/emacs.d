@@ -57,5 +57,25 @@ there's a region, all lines that region covers will be duplicated."
   (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
   (define-key eshell-mode-map (kbd "M-s") 'other-window-or-split))
 
+(defun utf8-locale-p (v)
+  "Return whether locale string V relates to a UTF-8 locale."
+  (and v (string-match "UTF-8" v)))
+
+(defun locale-is-utf8-p ()
+  "Return t iff the \"locale\" command or environment variables prefer UTF-8."
+  (or (utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
+      (utf8-locale-p (getenv "LC_ALL"))
+      (utf8-locale-p (getenv "LC_CTYPE"))
+      (utf8-locale-p (getenv "LANG"))))
+
+;; mac终端下的剪贴板共享
+
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process"pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
 
 (provide 'init-func)
