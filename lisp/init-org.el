@@ -22,6 +22,8 @@
 (global-set-key (kbd "<f7>") 'org-clock-goto)
 (global-set-key (kbd "C-<f7>") 'org-clock-in)
 
+; 使用状态快捷键
+(setq org-use-fast-todo-selection t)
 ;; 存储着作用于全局的状态序列
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "DOING(i)"  "NEXT(n)" "|" "DONE(d)")
@@ -42,8 +44,7 @@
               ("CANCELLED" :foreground "forest green" :weight bold)
               ("MEETING" :foreground "forest green" :weight bold))))
 
-; 使用状态快捷键
-(setq org-use-fast-todo-selection t)
+
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
 ; 1.当任务还有子任务未完成时，阻止任务从未完成状态到完成状态的改变
