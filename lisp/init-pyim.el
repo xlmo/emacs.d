@@ -3,7 +3,7 @@
 
 ;; 设置词库
 (setq pyim-dicts
-      '((:name "custom" :file "~/.emacs.d/dict1")))
+      '((:name "custom" :file "~/.emacs.d/pyim-bigdict.pyim")))
 
 (use-package pyim
   :ensure nil
@@ -53,4 +53,7 @@
   :bind
 (("M-j" . pyim-convert-code-at-point) ;与 pyim-probe-dynamic-english 配合
  ("C-;" . pyim-delete-word-from-personal-buffer)))
+;; 使用.,来翻页
+(define-key pyim-mode-map "." 'pyim-page-next-page)
+(define-key pyim-mode-map "," 'pyim-page-previous-page)
 (provide 'init-pyim)
