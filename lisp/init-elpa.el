@@ -22,6 +22,9 @@
                       htmlize
                       exec-path-from-shell
                       w3m
+                      ;;　输入法
+                      pyim
+                      use-package
                       ))
 
 (package-initialize)
