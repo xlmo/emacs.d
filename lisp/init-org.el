@@ -51,23 +51,23 @@
 ; 2.对基于 headline 的任务而言，若其上一级任务设置了 ":ORDERED:" 属性，则在其前面的同级任务完成前，无法被设置为完成状态
 (setq org-enforce-todo-dependencies t)
 
-(setq org-directory "~/Nutstore/orgdoc")
-(setq org-default-notes-file "~/Nutstore/orgdoc/inbox.org")
+(setq org-directory "~/Dropbox/orgdoc")
+(setq org-default-notes-file "~/Dropbox/orgdoc/inbox.org")
 
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (("t" "Personal Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Task")
-               "* TODO %? :personal:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("w" "Work Todo" entry (file+headline "~/Nutstore/orgdoc/task.org" "Task")
-               "* TODO %? :work:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("n" "note" entry (file "~/Nutstore/orgdoc/inbox.org")
-               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("l" "List(books,movie...etc)" entry (file+headline "~/Nutstore/orgdoc/task.org" "List")
-               "* %? %^g\n%U\n%a\n")
-              ("d" "Diary" entry (file+datetree "~/Nutstore/orgdoc/diary.org")
+      (quote (("t" "Personal Todo" entry (file+headline "~/Dropbox/orgdoc/task.org" "Task")
+               "* TODO %? :personal:\n%U\n\n" :clock-in t :clock-resume t)
+	      ("w" "Work Todo" entry (file+headline "~/Dropbox/orgdoc/task.org" "Task")
+               "* TODO %? :work:\n%U\n\n" :clock-in t :clock-resume t)
+              ("n" "note" entry (file "~/Dropbox/orgdoc/inbox.org")
+               "* %? :NOTE:\n%U\n\n" :clock-in t :clock-resume t)
+	      ("l" "List(books,movie...etc)" entry (file+headline "~/Dropbox/orgdoc/task.org" "List")
+               "* %? %^g\n%U\n\n")
+              ("d" "Diary" entry (file+datetree "~/Dropbox/orgdoc/diary.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("c" "Collect Items" entry (file "~/Nutstore/orgdoc/collect.org")
+              ("c" "Collect Items" entry (file "~/Dropbox/orgdoc/collect.org")
                "* TODO Review %^C\n%U\n" :immediate-finish t))))
 
 ; 自动折行
@@ -88,9 +88,9 @@
 
 
 (setq org-agenda-files
-      (list "~/Nutstore/orgdoc/task.org"
-	    "~/Nutstore/orgdoc/collect.org"
-	    "~/Nutstore/orgdoc/inbox.org"))
+      (list "~/Dropbox/orgdoc/task.org"
+	    "~/Dropbox/orgdoc/collect.org"
+	    "~/Dropbox/orgdoc/inbox.org"))
 
 ;自定义agenda快捷功能键
 (setq org-agenda-custom-commands
