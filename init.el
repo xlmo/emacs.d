@@ -28,6 +28,8 @@
 
 (require 'init-pyim)
 
+(require 'init-clang)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -35,8 +37,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (pyim w3m htmlize window-numbering doom-themes php-mode which-key expand-region reveal-in-osx-finder popwin move-text)))
-)
+    (helm-projectile anzu clean-aindent-mode counsel-projectile dtrt-indent iedit undo-tree volatile-highlights ws-butler helm-gtags zygospore pyim w3m htmlize window-numbering doom-themes php-mode which-key expand-region reveal-in-osx-finder popwin move-text))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

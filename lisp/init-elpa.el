@@ -14,7 +14,7 @@
                       expand-region
                       ;;显示当前组合键下的全部组合
                       which-key
-		      php-mode
+		              php-mode
                       ;; 主题
                       doom-theme
                       ;; 窗口切换
@@ -25,6 +25,21 @@
                       ;;　输入法
                       pyim
                       use-package
+                      ;;c相关 start
+                      zygospore
+                      helm-gtags
+                      helm yasnippet
+                      ws-butler
+                      volatile-highlights
+                      undo-tree
+                      iedit
+                      dtrt-indent
+                      counsel-projectile
+                      company
+                      clean-aindent-mode
+                      anzu
+                      helm-projectile
+                      ;;c相关 end
                       ))
 
 (package-initialize)
