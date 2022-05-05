@@ -44,7 +44,7 @@
 ;; 使用 pupup-el 来绘制选词框
 (setq pyim-page-tooltip 'popup)
 
-;; 选词框显示5个候选词
+;; 选词框显示候选词个数
 (setq pyim-page-length 9)
 
   ;; 让 Emacs 启动时自动加载 pyim 词库

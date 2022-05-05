@@ -21,10 +21,10 @@
 (global-unset-key [M-right])
 
 ;;window jump
-(global-set-key (kbd "s-k") 'windmove-up)
-(global-set-key (kbd "s-j") 'windmove-down)
-(global-set-key (kbd "s-h") 'windmove-left)
-(global-set-key (kbd "s-l") 'windmove-right)
+(global-set-key (kbd "C-c w k") 'windmove-up)
+(global-set-key (kbd "C-c w j") 'windmove-down)
+(global-set-key (kbd "C-c w h") 'windmove-left)
+(global-set-key (kbd "C-c w l") 'windmove-right)
 
 ;;resize window
 (global-set-key (kbd "M-s-<left>") 'shrink-window-horizontally)

@@ -57,3 +57,7 @@ secret.org
 .emacs.desktop*
 .*~
 agent/*
+.cache
+/history
+60e53c1c
+transient

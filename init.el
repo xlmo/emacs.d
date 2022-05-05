@@ -3,11 +3,20 @@
 ;;路径设置
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-(require 'better-defaults)
 
+;; 包管理
 (require 'init-elpa)
 
-(require 'init-exec-path)
+;; 所需扩展包
+(require 'init-packages)
+
+;; 自定义文件
+(setq custom-file "~/.emacs.d/custom.el")
+(unless (file-exists-p custom-file)  ;; 如果文件不存在
+  (write-region "" nil custom-file)) ;; 创建文件
+(load custom-file)
+
+;; (require 'init-exec-path)
 
 (require 'init-misc)
 
@@ -15,33 +24,15 @@
 
 (require 'init-compat)
 
-(require 'init-org)
+;; (require 'init-org)
 
-(require 'server)
+;; (require 'server)
 
-(unless (server-running-p)
-  (server-start))
+;; (unless (server-running-p)
+;;  (server-start))
 
 (require 'init-custom-key)
 
 (require 'init-theme)
 
-(require 'init-pyim)
-
-(require 'init-clang)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (helm-projectile anzu clean-aindent-mode counsel-projectile dtrt-indent iedit undo-tree volatile-highlights ws-butler helm-gtags zygospore pyim w3m htmlize window-numbering doom-themes php-mode which-key expand-region reveal-in-osx-finder popwin move-text))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(put 'narrow-to-region 'disabled nil)
+;; (require 'init-pyim)
