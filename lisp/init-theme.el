@@ -22,5 +22,8 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+;; 设置中文字体
+(set-fontset-font "fontset-default" 'han "Microsoft YaHei UI")
+
 
 (provide 'init-theme)

@@ -138,7 +138,10 @@
    (which-key-mode)
 )
 
-;; 更好的默认设置
+;; 修正默认配置的一些不合理配置
 (use-package better-defaults)
+
+
+(use-package yaml-mode)
 
 (provide 'init-packages)

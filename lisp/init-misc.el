@@ -16,11 +16,73 @@
 ;; ;;高亮当前行
 (global-hl-line-mode 1)
 
-(set-language-environment "UTF-8")
-(prefer-coding-system 'utf-8)
-(set-charset-priority 'unicode)
-(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+;; 显示行号
+(global-display-line-numbers-mode 1)
 
+;; title 显示文件全路径
+(setq frame-title-format
+      '((:eval( if (buffer-file-name)
+                  (abbreviate-file-name (buffer-file-name))
+                "%b"))))
+
+;; 更改光标样式
+(setq-default cursor-type 'bar)
+
+;; 关闭启动帮助画面
+(setq inhibit-splash-screen 1)
+(setq inhibit-splash-screen t)
+(setq initial-scratch-message nil)
+
+;; 翻页之后光标位置不变
+(setq scroll-preserve-screen-position t)
+
+
+
+
+;; 编码设置 来源自purcell
+(defun sanityinc/utf8-locale-p (v)
+  "Return whether locale string V relates to a UTF-8 locale."
+  (and v (string-match "UTF-8" v)))
+
+(defun sanityinc/locale-is-utf8-p ()
+  "Return t iff the \"locale\" command or environment variables prefer UTF-8."
+  (or (sanityinc/utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
+      (sanityinc/utf8-locale-p (getenv "LC_ALL"))
+      (sanityinc/utf8-locale-p (getenv "LC_CTYPE"))
+      (sanityinc/utf8-locale-p (getenv "LANG"))))
+
+(when (or window-system (sanityinc/locale-is-utf8-p))
+  (set-language-environment 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-selection-coding-system (if (eq system-type 'windows-nt) 'utf-16-le 'utf-8))
+  (prefer-coding-system 'utf-8))
+
+;; 设置字体大小
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+;;(set-face-attribute 'default nil :height 90)
+
+;; 更好的滚动
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+
+
+;; 统一管理弹出窗口
+(use-package popper
+  :ensure t ; or :straight t
+  :bind (("C-`"   . popper-toggle-latest)
+         ("M-`"   . popper-cycle)
+         ("C-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          help-mode
+          compilation-mode))
+  (popper-mode +1)
+  (popper-echo-mode +1)) 
 
 ;; ;;保存窗口布局
 ;; (desktop-save-mode t)

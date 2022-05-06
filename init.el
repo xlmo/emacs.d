@@ -10,15 +10,8 @@
 ;; 所需扩展包
 (require 'init-packages)
 
-;; 自定义文件
-(setq custom-file "~/.emacs.d/custom.el")
-(unless (file-exists-p custom-file)  ;; 如果文件不存在
-  (write-region "" nil custom-file)) ;; 创建文件
-(load custom-file)
 
 ;; (require 'init-exec-path)
-
-(require 'init-misc)
 
 (require 'init-func)
 
@@ -34,5 +27,13 @@
 (require 'init-custom-key)
 
 (require 'init-theme)
+
+(require 'init-misc)
+
+;; 自定义文件
+(setq custom-file "~/.emacs.d/custom.el")
+(unless (file-exists-p custom-file)  ;; 如果文件不存在
+  (write-region "" nil custom-file)) ;; 创建文件
+(load custom-file)
 
 ;; (require 'init-pyim)
