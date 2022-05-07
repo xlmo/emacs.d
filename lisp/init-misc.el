@@ -1,19 +1,19 @@
-;; (require 'cl)
+;; 综合设置
 
-;; ;;当你选中一段文字 之后输入一个字符会替换掉你选中部分的文字
-;; (delete-selection-mode 1)
-;; ;;关闭自动保存文件
+;;当你选中一段文字 之后输入一个字符会替换掉你选中部分的文字
+(delete-selection-mode 1)
+;;关闭自动保存文件
 (setq auto-save-default nil)
-;; ;;关闭备份文件
+;;关闭备份文件
 (setq make-backup-files nil)
 
-;; ;;关闭警告音
+;;关闭警告音
 (setq ring-bell-function 'ignore)
-
+;; 简化yes or no 的回答
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; (setq dired-dwin-target 1)
-;; ;;高亮当前行
+
+;;高亮当前行
 (global-hl-line-mode 1)
 
 ;; 显示行号
@@ -99,5 +99,12 @@
 
 ;; ;; 自动重新加载已修改文件
 ;; (global-auto-revert-mode t)
+
+
+;; 显示菜单栏
+(menu-bar-mode 1)
+
+;; dired 大小用KB/MB/GB来显示
+(setq dired-listing-switches "-alh")
 
 (provide 'init-misc)
