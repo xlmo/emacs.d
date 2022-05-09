@@ -98,7 +98,7 @@
 ;; (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
 
 ;; ;; 自动重新加载已修改文件
-;; (global-auto-revert-mode t)
+(global-auto-revert-mode t)
 
 
 ;; 显示菜单栏

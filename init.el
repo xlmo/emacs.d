@@ -26,6 +26,8 @@
 
 (require 'init-compat)
 
+(require 'init-func)
+
 ;; (require 'init-org)
 
 ;; (require 'server)
@@ -33,7 +35,7 @@
 ;; (unless (server-running-p)
 ;;  (server-start))
 
-;(require 'init-custom-key)
+(require 'init-custom-key)
 
 (require 'init-theme)
 

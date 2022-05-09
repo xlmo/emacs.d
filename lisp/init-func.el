@@ -1,19 +1,4 @@
-(defun smp/set-up-slime-repl-auto-complete ()
-  "Bind TAB to `indent-for-tab-command', as in regular Slime buffers."
-  (local-set-key (kbd "TAB") 'indent-for-tab-command))
-
-(defun add-auto-mode (mode &rest patterns)
-  "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
-  (dolist (pattern patterns)
-    (add-to-list 'auto-mode-alist (cons pattern mode))))
-
-(defun my-resume-windows ()
-  "restore windows status ."
-  (interactive)
-  (resume-windows t)
-  (clear-active-region-all-buffers)
-  )
-
+;; 重复当前行
 (defun my-duplicate-current-line-or-region (arg)
   "Duplicates the current line or region ARG times.
 If there's no region, the current line will be duplicated. However, if
@@ -34,48 +19,56 @@ there's a region, all lines that region covers will be duplicated."
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
-(defun my-kill-other-buffers ()
-  "Kill all buffers but the current one. Doesn't mess with special buffers."
-  (interactive)
-  (dolist (buffer (buffer-list))
-    (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
-      (kill-buffer buffer))))
+;; 移动行
+(defun move-text-internal (arg)
+  (cond
+   ((and mark-active transient-mark-mode)
+    (if (> (point) (mark))
+        (exchange-point-and-mark))
+    (let ((column (current-column))
+          (text (delete-and-extract-region (point) (mark))))
+      (forward-line arg)
+      (move-to-column column t)
+      (set-mark (point))
+      (insert text)
+      (exchange-point-and-mark)
+      (setq deactivate-mark nil)))
+   (t
+    (let ((column (current-column)))
+      (beginning-of-line)
+      (when (or (> arg 0) (not (bobp)))
+        (forward-line)
+        (when (or (< arg 0) (not (eobp)))
+          (transpose-lines arg)
+          (when (and
+                 ;; Account for changes to transpose-lines in Emacs 24.3
+                 (eval-when-compile
+                   (not (version-list-<
+                         (version-to-list emacs-version)
+                         '(24 3 50 0))))
+                 ;; Make `move-text-up' works with Emacs 26.0
+                 (eval-when-compile
+                   (version-list-<
+                    (version-to-list emacs-version)
+                    '(26 0 50 1)))
+                 (< arg 0))
+            (forward-line -1)))
+        (forward-line -1))
+      (move-to-column column t)))))
 
-(defun copy-word (&optional arg)
-  "Copy a sequence of string into kill-ring"
-  (interactive)
-  (setq onPoint (point))
-  (let ((beg (progn (re-search-backward "[^a-zA-Z0-9_-]" (line-beginning-position) 3 1)
-                       (if (looking-at "[^a-zA-Z0-9_-]") (+ (point) 1) (point) ) ))
-        (end (progn  (goto-char onPoint) (re-search-forward "[^a-zA-Z0-9_-]" (line-end-position) 3 1)
-                       (if (looking-back "[^a-zA-Z0-9_-]") (- (point) 1) (point))) ))
-    (copy-region-as-kill beg end)))
+;;;###autoload
+(defun move-text-down (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines down."
+  (interactive "*p")
+  (move-text-internal arg))
 
-;; 设置eshell 的PATH
-(defun eshell-mode-hook-func ()
-  (setq eshell-path-env (concat "/usr/local/bin:" eshell-path-env))
-  (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
-  (define-key eshell-mode-map (kbd "M-s") 'other-window-or-split))
+;;;###autoload
+(defun move-text-up (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines up."
+  (interactive "*p")
+  (move-text-internal (- arg)))
 
-(defun utf8-locale-p (v)
-  "Return whether locale string V relates to a UTF-8 locale."
-  (and v (string-match "UTF-8" v)))
-
-(defun locale-is-utf8-p ()
-  "Return t iff the \"locale\" command or environment variables prefer UTF-8."
-  (or (utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
-      (utf8-locale-p (getenv "LC_ALL"))
-      (utf8-locale-p (getenv "LC_CTYPE"))
-      (utf8-locale-p (getenv "LANG"))))
-
-;; mac终端下的剪贴板共享
-
-(defun copy-from-osx ()
-  (shell-command-to-string "pbpaste"))
-(defun paste-to-osx (text &optional push)
-  (let ((process-connection-type nil))
-    (let ((proc (start-process"pbcopy" "*Messages*" "pbcopy")))
-      (process-send-string proc text)
-      (process-send-eof proc))))
 
 (provide 'init-func)

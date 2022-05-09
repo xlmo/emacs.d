@@ -37,15 +37,15 @@
                    :font (font-spec :family font
                                     :weight 'normal
                                     :slant 'normal
-                                    :size (cond ((eq system-type 'gnu/linux) 14.0)
-                                                ((eq system-type 'windows-nt) 12.5)))))
+                                    :size (cond ((eq system-type 'gnu/linux) 12.0)
+                                                ((eq system-type 'windows-nt) 10.0)))))
   (cl-loop for font in '("OpenSansEmoji" "Noto Color Emoji" "Segoe UI Emoji"
                          "EmojiOne Color" "Apple Color Emoji" "Symbola" "Symbol")
            when (font-installed-p font)
            return (set-fontset-font t 'unicode
                                     (font-spec :family font
-                                               :size (cond ((eq system-type 'gnu/linux) 16.5)
-                                                           ((eq system-type 'windows-nt) 15.0)))
+                                               :size (cond ((eq system-type 'gnu/linux) 14.5)
+                                                           ((eq system-type 'windows-nt) 12.5)))
                                     nil 'prepend))
   (cl-loop for font in '("思源黑体 CN" "思源宋体 CN" "微软雅黑 CN"
                          "Source Han Sans CN" "Source Han Serif CN"
@@ -56,15 +56,15 @@
                                     (font-spec :name font
                                                :weight 'normal
                                                :slant 'normal
-                                               :size (cond ((eq system-type 'gnu/linux) 16.5)
-                                                           ((eq system-type 'windows-nt) 15.0)))))
+                                               :size (cond ((eq system-type 'gnu/linux) 14.5)
+                                                           ((eq system-type 'windows-nt) 12.5)))))
   (cl-loop for font in '("HanaMinB" "SimSun-ExtB")
            when (font-installed-p font)
            return (set-fontset-font t '(#x20000 . #x2A6DF)
                                     (font-spec :name font
                                                :weight 'normal
                                                :slant 'normal
-                                               :size (cond ((eq system-type 'gnu/linux) 16.5)
-                                                           ((eq system-type 'windows-nt) 15.0))))))
+                                               :size (cond ((eq system-type 'gnu/linux) 14.5)
+                                                           ((eq system-type 'windows-nt) 12.5))))))
 
 (provide 'init-theme)
