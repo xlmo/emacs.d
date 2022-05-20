@@ -28,7 +28,7 @@
 
 (require 'init-func)
 
-;; (require 'init-org)
+(require 'init-org)
 
 ;; (require 'server)
 
