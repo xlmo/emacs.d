@@ -1,7 +1,11 @@
 ;; org
 
-(setq org-directory "~/Nutstore Files/OrgFiles")
-(setq org-default-notes-file "~/Nutstore Files/OrgFiles/inbox.org")
+(setq org-directory (concat local-cloud-directory "OrgFiles/"))
+(setq org-inbox-file (concat org-directory "inbox.org"))
+(setq org-default-notes-file org-inbox-file)
+(setq org-task-file (concat org-directory "task.org"))
+(setq org-journals-file (concat org-directory "journals.org"))
+(setq org-billing-file (concat org-directory "billing.org"))
 
 ;; 自动换行
 (global-visual-line-mode 1) 
@@ -12,7 +16,7 @@
 ;; (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
 ;; (global-set-key "\C-cl" 'org-store-link)
-;; (global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-ca" 'org-agenda)
 ;; (global-set-key "\C-cb" 'org-iswitchb)
 
 ;; (global-set-key (kbd "<f10>") 'org-agenda)
@@ -68,18 +72,21 @@
 
 (add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
-             '("tp" "Personal Task" entry (file+headline "~/Nutstore Files/OrgFiles/task.org" "Personal Task")
+             '("tp" "Personal Task" entry (file+headline org-task-file "Personal Task")
                "* TODO %? :Personal:\n%U\n\n" :clock-in t :clock-resume t))
 (add-to-list 'org-capture-templates
-	     '("tw" "Work Task" entry (file+headline "~/Nutstore Files/OrgFiles/task.org" "Work Task")
+	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
                "* TODO %? :Work:\n%U\n\n"))
 (add-to-list 'org-capture-templates             
-             '("j" "Journals" entry (file+datetree "~/Nutstore Files/OrgFiles/journals.org")
+             '("j" "Journals" entry (file+datetree org-journals-file)
+               "* %?\n\n"))
+(add-to-list 'org-capture-templates             
+             '("i" "Inbox" entry (file org-inbox-file)
                "* %?\n\n"))
 
 (add-to-list 'org-capture-templates
              '("b" "Billing" plain
-               (file+function "~/Nutstore Files/OrgFiles/billing.org" find-month-tree)
+               (file+function org-billing-file  find-month-tree)
                " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
 
@@ -136,7 +143,7 @@
 
 
 (setq org-agenda-files
-      (list "~/Nutstore Files/OrgFiles/task.org"
+      (list (concat org-directory "/task.org")
 ;;	    "~/Nutstore Files/OrgFiles/collect.org"
 ;;	    "~/Nutstore Files/OrgFiles/inbox.org"
             ))
@@ -147,5 +154,61 @@
 ;;         ("w" tags-todo "+work")))
 
 ;; (setq org-export-coding-system 'utf-8)
+
+(setq org-agenda-time-grid
+      (quote ((daily today require-timed)
+              (300 600 900 1200 1500 1800 2100 2400)
+              "......"
+              "-----------------------------------------------------"
+              )))
+
+(setq org-agenda-start-day "-7d")
+(setq org-agenda-span 21)
+(setq org-agenda-include-diary t)
+
+;; 获取经纬度：https://www.latlong.net/
+(setq calendar-latitude +28.228209)
+(setq calendar-longitude +112.938812)
+(setq calendar-location-name "长沙")
+(setq calendar-remove-frame-by-deleting t)
+
+(setq calendar-remove-frame-by-deleting t)
+
+; 每周第一天是周一。
+(setq calendar-week-start-day 1)
+;; 标记有记录的日期。
+(setq mark-diary-entries-in-calendar t)
+;; 标记节假日。
+(setq mark-holidays-in-calendar nil)
+;; 不显示节日列表。
+(setq view-calendar-holidays-initially nil)
+(setq org-agenda-include-diary t)
+
+;; 除去基督徒、希伯来和伊斯兰教的节日。
+(setq christian-holidays nil
+      hebrew-holidays nil
+      islamic-holidays nil
+      solar-holidays nil
+      bahai-holidays nil)
+
+(setq mark-diary-entries-in-calendar t
+      appt-issue-message nil
+      mark-holidays-in-calendar t
+      view-calendar-holidays-initially nil)
+
+(setq diary-date-forms '((year "/" month "/" day "[^/0-9]"))
+      calendar-date-display-form '(year "/" month "/" day)
+      calendar-time-display-form '(24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")")))
+
+(add-hook 'today-visible-calendar-hook 'calendar-mark-today)
+
+(autoload 'chinese-year "cal-china" "Chinese year data" t)
+
+;; (setq calendar-load-hook '(lambda ()
+;;                             (set-face-foreground 'diary-face   "skyblue")
+;;                             (set-face-background 'holiday-face "slate blue")
+;;                             (set-face-foreground 'holiday-face "white")))
+
+(use-package org-super-agenda)
 
 (provide 'init-org)

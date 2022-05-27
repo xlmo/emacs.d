@@ -107,4 +107,33 @@
 ;; dired 大小用KB/MB/GB来显示
 (setq dired-listing-switches "-alh")
 
+
+;; 使用系统剪贴板，实现与其它程序相互粘贴。
+(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
+(setq x-select-enable-primary t)
+(setq select-enable-primary t)
+
+(defvar backup-dir (expand-file-name local-backup-directory))
+(if (not (file-exists-p backup-dir))
+    (make-directory backup-dir t))
+;; 文件第一次保存时备份。
+(setq make-backup-files t)
+(setq backup-by-copying t)
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+;; 备份文件时使用版本号。
+(setq version-control t)
+;; 删除过多的版本。
+(setq delete-old-versions t)
+(setq kept-new-versions 6)
+(setq kept-old-versions 2)
+
+(defvar autosave-dir (expand-file-name local-autosave-directory))
+(if (not (file-exists-p autosave-dir))
+    (make-directory autosave-dir t))
+;; auto-save 访问的文件。
+(setq auto-save-default t)
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+
 (provide 'init-misc)
