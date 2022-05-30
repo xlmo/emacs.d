@@ -16,6 +16,9 @@
 ;;高亮当前行
 (global-hl-line-mode 1)
 
+;; 自动换行
+(global-visual-line-mode 1) 
+
 ;; 显示行号
 (global-display-line-numbers-mode 1)
 

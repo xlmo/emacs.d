@@ -32,6 +32,8 @@
 
 (require 'init-org)
 
+(require 'init-calendar)
+
 ;; (require 'server)
 
 ;; (unless (server-running-p)
@@ -42,7 +44,5 @@
 (require 'init-theme)
 
 (require 'init-misc)
-
-
 
 ;; (require 'init-pyim)

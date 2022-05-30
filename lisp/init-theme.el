@@ -204,4 +204,8 @@
   :config
   (diredfl-global-mode))
 
+;; 美化org结构
+;; (require 'org-bars)                     
+;; (add-hook 'org-mode-hook #'org-bars-mode)
+
 (provide 'init-theme)

@@ -16,10 +16,30 @@
 # 其他
 - 搜索需要用到AG [ggreer/the_silver_searcher: A code-searching tool similar to ack, but faster.](https://github.com/ggreer/the_silver_searcher)
 - custom.el
+- [Pandoc - About pandoc](https://pandoc.org/) org 导出需要
 
 ```elisp
-;; 本地org文件目录
-(setq local-cloud-directory "d:/Temp/orgfile/")
+;; 本地云同步目录
+(setq local-cloud-directory "d:/Temp")
+;; org 文件目录
+(setq org-directory (concat local-cloud-directory "/OrgFiles"))
+;; 各种类型文件
+(setq org-inbox-file (concat org-directory "/inbox.org"))
+(setq org-collect-file (concat org-directory "/collect.org"))
+(setq org-default-notes-file org-inbox-file)
+(setq org-task-file (concat org-directory "/task.org"))
+(setq org-billing-file (concat org-directory "/billing.org"))
+;; journal 目录
+(setq org-journal-dir (concat org-directory "/journal"))
+;; 笔记目录
+(setq org-notes-dir (concat org-directory "/notes"))
+
+
+;; 本地静态资源目录
+(setq org-static-file-dir (concat local-cloud-directory "/static"))
+;; 本地静态图片目录
+(setq org-static-images-file-dir (concat org-static-file-dir "/images"))
+
 ;; 本地备份目录
 (setq local-backup-directory "d:/Temp/backup/")
 ;; 本地自动保存目录

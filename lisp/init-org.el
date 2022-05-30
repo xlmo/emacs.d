@@ -1,14 +1,11 @@
 ;; org
+;; (setq org-directory (concat local-cloud-directory "OrgFiles/"))
+;; (setq org-inbox-file (concat org-directory "inbox.org"))
+;; (setq org-collect-file (concat org-directory "collect.org"))
+;; (setq org-default-notes-file org-inbox-file)
+;; (setq org-task-file (concat org-directory "task.org"))
+;; (setq org-billing-file (concat org-directory "billing.org"))
 
-(setq org-directory (concat local-cloud-directory "OrgFiles/"))
-(setq org-inbox-file (concat org-directory "inbox.org"))
-(setq org-default-notes-file org-inbox-file)
-(setq org-task-file (concat org-directory "task.org"))
-(setq org-journals-file (concat org-directory "journals.org"))
-(setq org-billing-file (concat org-directory "billing.org"))
-
-;; 自动换行
-(global-visual-line-mode 1) 
 (global-set-key (kbd "C-c c") 'org-capture)
 
 
@@ -49,7 +46,6 @@
 
 (setq org-todo-keyword-faces
       (quote (("DOING" :foreground "red" :weight bold))))
-
 ;; (setq org-todo-keyword-faces
 ;;       (quote (("TODO" :foreground "red" :weight bold)
 ;;               ("NEXT" :foreground "blue" :weight bold)
@@ -78,12 +74,11 @@
 	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
                "* TODO %? :Work:\n%U\n\n"))
 (add-to-list 'org-capture-templates             
-             '("j" "Journals" entry (file+datetree org-journals-file)
-               "* %?\n\n"))
-(add-to-list 'org-capture-templates             
              '("i" "Inbox" entry (file org-inbox-file)
-               "* %?\n\n"))
-
+               "* %?\n%U\n\n"))
+(add-to-list 'org-capture-templates             
+             '("c" "Collect Items" entry (file org-collect-file)
+               "* %?\n%U\n\n"))
 (add-to-list 'org-capture-templates
              '("b" "Billing" plain
                (file+function org-billing-file  find-month-tree)
@@ -143,9 +138,7 @@
 
 
 (setq org-agenda-files
-      (list (concat org-directory "/task.org")
-;;	    "~/Nutstore Files/OrgFiles/collect.org"
-;;	    "~/Nutstore Files/OrgFiles/inbox.org"
+      (list org-task-file
             ))
 
 ;; ;自定义agenda快捷功能键
@@ -155,60 +148,148 @@
 
 ;; (setq org-export-coding-system 'utf-8)
 
-(setq org-agenda-time-grid
-      (quote ((daily today require-timed)
-              (300 600 900 1200 1500 1800 2100 2400)
-              "......"
-              "-----------------------------------------------------"
-              )))
+;; (setq org-agenda-time-grid
+;;       (quote ((daily today require-timed)
+;;               (300 600 900 1200 1500 1800 2100 2400)
+;;               "......"
+;;               "-----------------------------------------------------"
+;;               )))
 
-(setq org-agenda-start-day "-7d")
-(setq org-agenda-span 21)
-(setq org-agenda-include-diary t)
+;(setq org-agenda-start-day "-7d")
+;;(setq org-agenda-span 21)               
+;(setq org-agenda-include-diary t)     
 
-;; 获取经纬度：https://www.latlong.net/
-(setq calendar-latitude +28.228209)
-(setq calendar-longitude +112.938812)
-(setq calendar-location-name "长沙")
-(setq calendar-remove-frame-by-deleting t)
 
-(setq calendar-remove-frame-by-deleting t)
+;; (setq org-agenda-include-diary t)
 
-; 每周第一天是周一。
-(setq calendar-week-start-day 1)
-;; 标记有记录的日期。
-(setq mark-diary-entries-in-calendar t)
-;; 标记节假日。
-(setq mark-holidays-in-calendar nil)
-;; 不显示节日列表。
-(setq view-calendar-holidays-initially nil)
-(setq org-agenda-include-diary t)
 
-;; 除去基督徒、希伯来和伊斯兰教的节日。
-(setq christian-holidays nil
-      hebrew-holidays nil
-      islamic-holidays nil
-      solar-holidays nil
-      bahai-holidays nil)
+;; (use-package org-super-agenda
+;;   :init
+;;   (org-super-agenda-mode t))
 
-(setq mark-diary-entries-in-calendar t
-      appt-issue-message nil
-      mark-holidays-in-calendar t
-      view-calendar-holidays-initially nil)
+;; (let ((org-super-agenda-groups
+;;        '((:auto-group t))))
+;;   (org-agenda-list))
 
-(setq diary-date-forms '((year "/" month "/" day "[^/0-9]"))
-      calendar-date-display-form '(year "/" month "/" day)
-      calendar-time-display-form '(24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")")))
 
-(add-hook 'today-visible-calendar-hook 'calendar-mark-today)
 
-(autoload 'chinese-year "cal-china" "Chinese year data" t)
+(setq org-journal-prefix-key "C-c j")
+(use-package org-journal
+  :demand
+  :commands org-journal-new-entry
+  :init
+  (defun org-journal-save-entry-and-exit()
+    (interactive)
+    (save-buffer)
+    (kill-buffer-and-window))
+  :bind
+  (:map org-journal-mode-map
+        ("C-c C-j" . 'org-journal-new-entry)
+        ("C-c C-e" . 'org-journal-save-entry-and-exit))
+  :config
+  (setq org-journal-file-type 'monthly)
+  (setq org-journal-find-file 'find-file)
+  (setq org-journal-date-format "%Y-%m-%d, %A")
+  (setq org-journal-file-format "%Y-%m")
+  
+  ;; 加密 journal 文件。
+;  (setq org-journal-enable-encryption t) 
+;  (setq org-journal-encrypt-journal t)
+  (defun my-old-carryover (old_carryover)
+    (save-excursion
+      (let ((matcher (cdr (org-make-tags-matcher org-journal-carryover-items))))
+        (dolist (entry (reverse old_carryover))
+          (save-restriction
+            (narrow-to-region (car entry) (cadr entry))
+            (goto-char (point-min))
+            (org-scan-tags '(lambda ()
+                              (org-set-tags ":carried:"))
+                           matcher org--matcher-tags-todo-only))))))
+  (setq org-journal-handle-old-carryover 'my-old-carryover)
 
-;; (setq calendar-load-hook '(lambda ()
-;;                             (set-face-foreground 'diary-face   "skyblue")
-;;                             (set-face-background 'holiday-face "slate blue")
-;;                             (set-face-foreground 'holiday-face "white")))
+  ;; journal 文件头。
+  (defun org-journal-file-header-func (time)
+    "Custom function to create journal header."
+    (concat
+     (pcase org-journal-file-type
+       (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything")
+       (`weekly "#+TITLE: Weekly Journal\n#+STARTUP: folded")
+       (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: folded")
+       (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded"))))
+  (setq org-journal-file-header 'org-journal-file-header-func)
 
-(use-package org-super-agenda)
+  ;; org-agenda 集成。
+  ;; automatically adds the current and all future journal entries to the agenda
+  ;;(setq org-journal-enable-agenda-integration t)
+  ;; When org-journal-file-pattern has the default value, this would be the regex.
+  (setq org-agenda-file-regexp "\\`\\\([^.].*\\.org\\\|[0-9]\\\{8\\\}\\\(\\.gpg\\\)?\\\)\\'")
+  (add-to-list 'org-agenda-files org-journal-dir)
+
+  ;; org-capture 集成。
+  (defun org-journal-find-location ()
+    (org-journal-new-entry t)
+    (unless (eq org-journal-file-type 'daily)
+      (org-narrow-to-subtree))
+    (goto-char (point-max)))
+  (setq org-capture-templates
+        (cons '("j" "Journal" plain (function org-journal-find-location)
+                "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
+                :jump-to-captured t :immediate-finish t) org-capture-templates)))
+
+
+
+(setq org-confirm-babel-evaluate nil)
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+;; 为 #+begin_quote 和  #+begin_verse 添加特殊 face 。
+(setq org-fontify-quote-and-verse-blocks t)
+;; 不自动缩进。
+(setq org-src-preserve-indentation t)
+(setq org-edit-src-content-indentation 0)
+;; 在当前窗口编辑 SRC Block.
+(setq org-src-window-setup 'current-window)
+
+
+;; org 里执行代码
+(require 'org)
+(use-package ob-go)
+(use-package ob-php)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((shell . t)
+   (js . t)
+   (go . t)
+   (php . t)
+   (emacs-lisp . t)
+   (python . t)
+   (dot . t)
+   (css . t)))
+
+
+;; 预览  `org-preview-html-mode`
+(use-package org-preview-html)
+;; 导出
+(use-package ox-pandoc)
+
+;; 导入图片
+(use-package org-download
+;  :ensure-system-package pngpaste
+  :bind
+;  ("<f6>" . org-download-screenshot)
+  :config
+  (setq-default org-download-image-dir org-static-images-file-dir)
+  ;; 默认会将图片保存到所在 headline 为文件夹名称的目录下，下面的设置是取消这种行为
+  (setq-default org-download-heading-lvl nil)
+  (defun dummy-org-download-annotate-function (link)
+  "")
+  (setq org-download-annotate-function
+      #'dummy-org-download-annotate-function)
+  (setq org-download-method 'directory
+        org-download-display-inline-images 'posframe
+;        org-download-screenshot-method "pngpaste %s"
+        org-download-image-attr-list '("#+ATTR_HTML: :width 400 :align center"))
+  (add-hook 'dired-mode-hook 'org-download-enable)
+  (org-download-enable))
+
 
 (provide 'init-org)
