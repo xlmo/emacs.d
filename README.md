@@ -15,8 +15,8 @@
     
 # 其他
 - 搜索需要用到AG [ggreer/the_silver_searcher: A code-searching tool similar to ack, but faster.](https://github.com/ggreer/the_silver_searcher)
-- custom.el
 - [Pandoc - About pandoc](https://pandoc.org/) org 导出需要
+- custom.el
 
 ```elisp
 ;; 本地云同步目录
