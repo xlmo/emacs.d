@@ -117,7 +117,7 @@
   (setq org-journal-file-type 'monthly)
   (setq org-journal-find-file 'find-file)
   (setq org-journal-date-format "%Y-%m-%d, %A")
-  (setq org-journal-file-format "%Y-%m")
+  (setq org-journal-file-format "%Y-%m.org")
   
   ;; 加密 journal 文件。
 ;  (setq org-journal-enable-encryption t) 
