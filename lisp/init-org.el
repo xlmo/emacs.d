@@ -1,11 +1,4 @@
 ;; org
-;; (setq org-directory (concat local-cloud-directory "OrgFiles/"))
-;; (setq org-inbox-file (concat org-directory "inbox.org"))
-;; (setq org-collect-file (concat org-directory "collect.org"))
-;; (setq org-default-notes-file org-inbox-file)
-;; (setq org-task-file (concat org-directory "task.org"))
-;; (setq org-billing-file (concat org-directory "billing.org"))
-
 (global-set-key (kbd "C-c c") 'org-capture)
 
 
@@ -73,12 +66,12 @@
 (add-to-list 'org-capture-templates
 	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
                "* TODO %? :Work:\n%U\n\n"))
+
+;; 临时捕获
 (add-to-list 'org-capture-templates             
              '("i" "Inbox" entry (file org-inbox-file)
                "* %?\n%U\n\n"))
-(add-to-list 'org-capture-templates             
-             '("c" "Collect Items" entry (file org-collect-file)
-               "* %?\n%U\n\n"))
+
 (add-to-list 'org-capture-templates
              '("b" "Billing" plain
                (file+function org-billing-file  find-month-tree)
@@ -291,5 +284,19 @@
   (add-hook 'dired-mode-hook 'org-download-enable)
   (org-download-enable))
 
+
+
+;; 浏览器捕获
+(require 'org-protocol)
+(require 'org-capture)
+(defun transform-square-brackets-to-round-ones(string-to-transform)
+  "Transforms [ into ( and ] into ), other chars left unchanged."
+  (concat 
+  (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
+  )
+
+(add-to-list 'org-capture-templates
+	     '("c" "Captured" entry (file+headline org-capture-file "Inbox")
+        "* %t %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
 
 (provide 'init-org)

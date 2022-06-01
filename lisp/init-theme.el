@@ -106,9 +106,6 @@
 ;;                                                            ((eq system-type 'windows-nt) 12.5))))))
 
 
-
-
-
 ;; 参考: https://github.com/DogLooksGood/dogEmacs/blob/master/elisp/init-font.el
 ;; 缺省字体（英文，如显示代码）。
 (setq +font-family "Fira Code Retina")
@@ -117,7 +114,7 @@
 (setq +fixed-pitch-family "Sarasa Mono SC")
 (setq +variable-pitch-family "Sarasa Mono SC")
 (setq +font-unicode-family "Sarasa Mono SC")
-(setq +font-size 14)
+(setq +font-size 10)
 
 ;; 设置缺省字体。
 (defun +load-base-font ()
@@ -175,8 +172,6 @@
     :custom
     (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
     :hook prog-mode))
-
-
 
 
 ;; 设置缩放模式, 避免最大化窗口后右边和下边有空隙

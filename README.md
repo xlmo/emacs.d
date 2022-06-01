@@ -12,10 +12,11 @@
 - Symbols 字体: Noto Sans Symbols 和 Noto Sans Symbols2: https://fonts.google.com/noto
 - 花園明朝：HanaMinB：http://fonts.jp/hanazono/
 - Emacs 默认后备字体：Symbola: https://dn-works.com/ufas/    
-    
+
 # 其他
 - 搜索需要用到AG [ggreer/the_silver_searcher: A code-searching tool similar to ack, but faster.](https://github.com/ggreer/the_silver_searcher)
-- [Pandoc - About pandoc](https://pandoc.org/) org 导出需要
+- org 导出需要用到Pandoc [Pandoc - About pandoc](https://pandoc.org/) 
+- 配置org-protocol [org-protocol](https://orgmode.org/worg/org-contrib/org-protocol.html) 
 - custom.el
 
 ```elisp
@@ -25,7 +26,7 @@
 (setq org-directory (concat local-cloud-directory "/OrgFiles"))
 ;; 各种类型文件
 (setq org-inbox-file (concat org-directory "/inbox.org"))
-(setq org-collect-file (concat org-directory "/collect.org"))
+(setq org-capture-file (concat org-directory "/capture.org"))
 (setq org-default-notes-file org-inbox-file)
 (setq org-task-file (concat org-directory "/task.org"))
 (setq org-billing-file (concat org-directory "/billing.org"))

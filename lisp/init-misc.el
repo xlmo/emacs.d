@@ -139,4 +139,12 @@
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
+
+(use-package server
+    :if window-system
+     :commands (server-running-p)
+     :init
+  (unless (server-running-p)
+      (server-start)
+      (message "Emacs Server …DONE")))
 (provide 'init-misc)
