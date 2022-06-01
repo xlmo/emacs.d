@@ -34,6 +34,8 @@
 
 (require 'init-calendar)
 
+(require 'init-agenda)
+
 ;; (require 'server)
 
 ;; (unless (server-running-p)

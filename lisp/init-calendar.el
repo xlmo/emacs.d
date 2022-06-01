@@ -1,4 +1,4 @@
-
+;; 日历
 (require 'cal-china-x)
 (setq mark-holidays-in-calendar t)
 (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)

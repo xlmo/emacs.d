@@ -1,27 +1,7 @@
 ;; org
 (global-set-key (kbd "C-c c") 'org-capture)
 
-
-;; (require 'org-protocol)
-;; (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-
-;; (global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-;; (global-set-key "\C-cb" 'org-iswitchb)
-
-;; (global-set-key (kbd "<f10>") 'org-agenda)
-;; ;(global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
-;; (global-set-key (kbd "<f9> c") 'calendar)
-;; (global-set-key (kbd "<f9> f") 'boxquote-insert-file)
-;; (global-set-key (kbd "<f9> r") 'boxquote-region)
-;; (global-set-key (kbd "<f9> v") 'visible-mode)
-;; (global-set-key (kbd "<f9> l") 'org-toggle-link-display)
-;; (global-set-key (kbd "C-<f9>") 'previous-buffer)
-;; (global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
-;; (global-set-key (kbd "C-x n r") 'narrow-to-region)
-;; (global-set-key (kbd "C-<f10>") 'next-buffer)
-;; (global-set-key (kbd "<f7>") 'org-clock-goto)
-;; (global-set-key (kbd "C-<f7>") 'org-clock-in)
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
 ;; ; 使用状态快捷键
 (setq org-use-fast-todo-selection t)
@@ -78,18 +58,6 @@
                " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
 
-;; (add-to-list 'org-capture-templates '("l" "List")) ;
-;; (add-to-list 'org-capture-templates
-;; 	     '("l" "List(books,movie...etc)" entry (file+headline "~/Nutstore Files/OrgFiles/list.org" "List")
-;;                "* %? %^g\n%U\n\n"))
-;; (add-to-list 'org-capture-templates
-;;              '("n" "note" entry (file "~/Nutstore Files/OrgFiles/inbox.org")
-;;                "* %? :NOTE:\n%U\n\n" :clock-in t :clock-resume t))
-;; (add-to-list 'org-capture-templates             
-;;              '("c" "Collect Items" entry (file "~/Nutstore Files/OrgFiles/collect.org")
-;;                "* TODO Review %^C\n%U\n" :immediate-finish t))
-
-
 (defun get-year-and-month ()
 (list (format-time-string "%Y年") (format-time-string "%m月")))
 
@@ -129,41 +97,7 @@
 ;; ;记录todo完成备注
 ;; ;(setq org-log-done 'note) 
 
-
-(setq org-agenda-files
-      (list org-task-file
-            ))
-
-;; ;自定义agenda快捷功能键
-;; (setq org-agenda-custom-commands
-;;       '(("p" tags-todo "+personal")
-;;         ("w" tags-todo "+work")))
-
 ;; (setq org-export-coding-system 'utf-8)
-
-;; (setq org-agenda-time-grid
-;;       (quote ((daily today require-timed)
-;;               (300 600 900 1200 1500 1800 2100 2400)
-;;               "......"
-;;               "-----------------------------------------------------"
-;;               )))
-
-;(setq org-agenda-start-day "-7d")
-;;(setq org-agenda-span 21)               
-;(setq org-agenda-include-diary t)     
-
-
-;; (setq org-agenda-include-diary t)
-
-
-;; (use-package org-super-agenda
-;;   :init
-;;   (org-super-agenda-mode t))
-
-;; (let ((org-super-agenda-groups
-;;        '((:auto-group t))))
-;;   (org-agenda-list))
-
 
 
 (setq org-journal-prefix-key "C-c j")
@@ -297,6 +231,18 @@
 
 (add-to-list 'org-capture-templates
 	     '("c" "Captured" entry (file+headline org-capture-file "Inbox")
-        "* %t %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
+               "* %t %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
+
+;; refile 
+;; refile 的位置是 agenda 文件的前三层 headline 。
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+;; 使用文件路径的形式显示 filename 和 headline, 方便在文件的 top-head 添加内容。
+(setq org-refile-use-outline-path 'file)
+;; 必须设置为 nil 才能显示 headline, 否则只显示文件名 。
+(setq org-outline-path-complete-in-steps nil)
+;; 支持为 subtree 在 refile target 文件指定一个新的父节点 。
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+
+
 
 (provide 'init-org)

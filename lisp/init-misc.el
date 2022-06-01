@@ -139,12 +139,17 @@
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
+;; 用这个每次启动都要联网检查包状态
+;; (use-package server
+;;     :if window-system
+;;      :commands (server-running-p)
+;;      :init
+;;   (unless (server-running-p)
+;;       (server-start)
+;;       (message "Emacs Server …DONE")))
 
-(use-package server
-    :if window-system
-     :commands (server-running-p)
-     :init
-  (unless (server-running-p)
-      (server-start)
-      (message "Emacs Server …DONE")))
+
+(unless (server-running-p)
+  (server-start)
+  (message "Emacs Server …DONE"))
 (provide 'init-misc)
