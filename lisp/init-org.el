@@ -7,7 +7,7 @@
 (setq org-use-fast-todo-selection t)
 ;; 存储着作用于全局的状态序列
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "DOING(i@/!)"  "DONE(d)")
+      (quote ((sequence "TODO(t)" "WAITING(w@/!)" "DOING(i@/!)"  "DONE(dx)")
 ;              (sequence "PROJECT(p)" "|" "DONE(d)" "CANCELLED(c@/!)")
 ;              (sequence "BUG(b)" "|" "FIXED(f)")
 ;              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING")
@@ -18,7 +18,9 @@
 ;; ; 2.只添加状态变更信息，用"!"表示
 
 (setq org-todo-keyword-faces
-      (quote (("DOING" :foreground "red" :weight bold))))
+      (quote (("DOING" :foreground "red" :weight bold)
+              ("WAITING" :foreground "green" :weight bold)
+              )))
 ;; (setq org-todo-keyword-faces
 ;;       (quote (("TODO" :foreground "red" :weight bold)
 ;;               ("NEXT" :foreground "blue" :weight bold)
@@ -230,8 +232,8 @@
   )
 
 (add-to-list 'org-capture-templates
-	     '("c" "Captured" entry (file+headline org-capture-file "Inbox")
-               "* %t %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
+	     '("c" "Captured via org protocol" entry (file+headline org-capture-file "Inbox")
+               "* %T %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
 
 ;; refile 
 ;; refile 的位置是 agenda 文件的前三层 headline 。
@@ -244,5 +246,10 @@
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 
 
+;; 归档设置
+;(setq org-archive-location (concat org-directory "gtd/_archive/" (format-time-string "%Y%m") "_archive.org::datetree/* Archive from %s"))
+
+;;information added to property when a subtree is moved
+(setq org-archive-save-context-info '(time file ltags itags todo category olpath))
 
 (provide 'init-org)

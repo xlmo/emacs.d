@@ -103,6 +103,12 @@
 ;; ;; 自动重新加载已修改文件
 (global-auto-revert-mode t)
 
+(defun xlmo/refresh-file()
+  "重新从磁盘读取文件，更新到缓冲区"
+  (interactive)
+  (revert-buffer t (not (buffer-modified-p)) t))
+(global-set-key [f5] 'xlmo/refresh-file)
+
 
 ;; 显示菜单栏
 (menu-bar-mode 1)
