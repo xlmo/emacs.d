@@ -34,7 +34,8 @@
 (setq org-journal-dir (concat org-directory "/journal"))
 ;; 笔记目录
 (setq org-notes-dir (concat org-directory "/notes"))
-
+;; 技术笔记目录
+(setq org-technology-notes-dir (concat org-directory "/technology"))
 
 ;; 本地静态资源目录
 (setq org-static-file-dir (concat local-cloud-directory "/static"))

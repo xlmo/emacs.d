@@ -3,6 +3,9 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
+;; 默认展开两级
+(setq org-startup-folded 'show2levels)
+
 ;; ; 使用状态快捷键
 (setq org-use-fast-todo-selection t)
 ;; 存储着作用于全局的状态序列
