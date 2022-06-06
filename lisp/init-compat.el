@@ -75,6 +75,9 @@
   (setq gc-cons-percentage 0.5)
   (run-with-idle-timer 5 t #'garbage-collect)
 
+
+(when (eq system-type 'windows-nt)
+  (setq system-time-locale "C"))
 ;; 
 ;; (setq garbage-collection-messages t)
 
