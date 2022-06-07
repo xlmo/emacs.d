@@ -107,6 +107,7 @@
 
 (setq org-journal-prefix-key "C-c j")
 (use-package org-journal
+  :defer t
   :demand
   :commands org-journal-new-entry
   :init
@@ -184,8 +185,10 @@
 
 ;; org 里执行代码
 (require 'org)
-(use-package ob-go)
-(use-package ob-php)
+(use-package ob-go
+  :defer t)
+(use-package ob-php
+  :defer t)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((shell . t)
@@ -199,12 +202,15 @@
 
 
 ;; 预览  `org-preview-html-mode`
-(use-package org-preview-html)
+(use-package org-preview-html
+  :defer t)
 ;; 导出
-(use-package ox-pandoc)
+(use-package ox-pandoc
+  :defer t)
 
 ;; 导入图片
 (use-package org-download
+  :defer t
 ;  :ensure-system-package pngpaste
   :bind
 ;  ("<f6>" . org-download-screenshot)

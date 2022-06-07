@@ -20,6 +20,7 @@
 
 
 ;; (global-set-key (kbd "M-o") 'copy-word)
-
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (provide 'init-custom-key)

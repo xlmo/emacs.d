@@ -40,51 +40,6 @@
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
-;; 设置中文字体
-;(set-fontset-font "fontset-default" 'han "Microsoft YaHei UI")
-;; (defun font-installed-p (font-name)
-;;   "Check if font with FONT-NAME is available."
-;;   (find-font (font-spec :name font-name)))
-;; (when (display-graphic-p)
-;;   (cl-loop for font in '("Cascadia Code" "SF Mono" "Source Code Pro"
-;;                          "Fira Code" "Menlo" "Monaco" "Dejavu Sans Mono"
-;;                          "Lucida Console" "Consolas" "SAS Monospace")
-;;            when (font-installed-p font)
-;;            return (set-face-attribute
-;;                    'default nil
-;;                    :font (font-spec :family font
-;;                                     :weight 'normal
-;;                                     :slant 'normal
-;;                                     :size (cond ((eq system-type 'gnu/linux) 12.0)
-;;                                                 ((eq system-type 'windows-nt) 10.0)))))
-;;   (cl-loop for font in '("OpenSansEmoji" "Noto Color Emoji" "Segoe UI Emoji"
-;;                          "EmojiOne Color" "Apple Color Emoji" "Symbola" "Symbol")
-;;            when (font-installed-p font)
-;;            return (set-fontset-font t 'unicode
-;;                                     (font-spec :family font
-;;                                                :size (cond ((eq system-type 'gnu/linux) 14.5)
-;;                                                            ((eq system-type 'windows-nt) 12.5)))
-;;                                     nil 'prepend))
-;;   (cl-loop for font in '("思源黑体 CN" "思源宋体 CN" "微软雅黑 CN"
-;;                          "Source Han Sans CN" "Source Han Serif CN"
-;;                          "WenQuanYi Micro Hei" "文泉驿等宽微米黑"
-;;                          "Microsoft Yahei UI" "Microsoft Yahei")
-;;            when (font-installed-p font)
-;;            return (set-fontset-font t '(#x4e00 . #x9fff)
-;;                                     (font-spec :name font
-;;                                                :weight 'normal
-;;                                                :slant 'normal
-;;                                                :size (cond ((eq system-type 'gnu/linux) 14.5)
-;;                                                            ((eq system-type 'windows-nt) 12.5)))))
-;;   (cl-loop for font in '("HanaMinB" "SimSun-ExtB")
-;;            when (font-installed-p font)
-;;            return (set-fontset-font t '(#x20000 . #x2A6DF)
-;;                                     (font-spec :name font
-;;                                                :weight 'normal
-;;                                                :slant 'normal
-;;                                                :size (cond ((eq system-type 'gnu/linux) 14.5)
-;;                                                            ((eq system-type 'windows-nt) 12.5))))))
-
 
 ;; 参考: https://github.com/DogLooksGood/dogEmacs/blob/master/elisp/init-font.el
 ;; 缺省字体（英文，如显示代码）。
@@ -147,8 +102,11 @@
 
 ;; all-the-icons 和 fire-code-mode 只能在 GUI 模式下使用。
 (when (display-graphic-p)
-  (use-package all-the-icons :demand)
+  (use-package all-the-icons
+    :defer t
+    :demand)
   (use-package fira-code-mode
+    :defer t
     :custom
     (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
     :hook prog-mode))
@@ -176,6 +134,7 @@
 
 ;; dired 显示高亮增强。
 (use-package diredfl
+  :defer t
   :config
   (diredfl-global-mode))
 

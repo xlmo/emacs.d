@@ -17,18 +17,23 @@
 ;;   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 ;; 各种mode
-(use-package php-mode)
-(use-package go-mode)
-(use-package yaml-mode)
+(use-package php-mode
+  :defer t)
+(use-package go-mode
+  :defer t)
+(use-package yaml-mode
+  :defer t)
 
 
 ;; 窗口跳转 用M-数字键来切换窗口
 (use-package window-numbering
+  :defer 5
   :config
   (window-numbering-mode 1)
   )
 ;; 自动完成框架
 (use-package helm
+  :defer t
   ;; 等价于 ((bind-key "M-x" #'helm-M-x)
   :bind (("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files)
@@ -38,10 +43,12 @@
   (helm-mode 1))
 
 ;; 项目内搜索
-(use-package helm-ag)
+(use-package helm-ag
+  :defer t)
 
 ;; buffer内搜索
 (use-package helm-swoop
+  :defer t
   ;; 更多关于它的配置方法: https://github.com/ShingoFukuyama/helm-swoop
   ;; 以下我的配置仅供参考
   :bind
@@ -63,6 +70,7 @@
 
 ;; 文本补全
 (use-package company
+  :defer t
   ;; 等价于 (add-hook 'after-init-hook #'global-company-mode)
   :hook (after-init . global-company-mode)
   :config
@@ -76,6 +84,7 @@
 
 ;; 项目管理
 (use-package projectile
+  :defer t
   :config
   ;; 把它的缓存挪到 ~/.emacs.d/.cache/ 文件夹下，让 gitignore 好做
   (setq projectile-cache-file (expand-file-name ".cache/projectile.cache" user-emacs-directory))
@@ -85,12 +94,14 @@
   (define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map))
 
 (use-package helm-projectile
+  :defer t
   :if (functionp 'helm) ;; 如果使用了 helm 的话，让 projectile 的选项菜单使用 Helm 呈现
   :config
   (helm-projectile-on))
 
 ;; 版本管理
-(use-package magit)
+(use-package magit
+  :defer t)
 
 
 ;; C-s增强 C-s 替换成ctrlf
@@ -101,6 +112,7 @@
 
 ;; lsp
 (use-package lsp-mode
+  :defer t
   ;; 延时加载：仅当 (lsp) 函数被调用时再 (require)
   :commands (lsp)
   ;; 在哪些语言 major mode 下启用 LSP
@@ -117,6 +129,7 @@
 
 ;; 内容呈现
 (use-package lsp-ui
+  :defer t
   ;; 仅在某软件包被加载后再加载
   :after (lsp-mode)
   ;; 延时加载
@@ -147,6 +160,7 @@
 
 ;;显示当前组合键下的全部组合
 (use-package which-key
+  :defer 3
   :config
    (which-key-mode)
    )
@@ -154,19 +168,19 @@
 ;; hydra
 ;;(use-package hydra)
 
-;; 修正默认配置的一些不合理配置
-(use-package better-defaults)
-
 
 ;; 窗口管理
 ;; C-x r b 打开  C-x r w 保存
 (use-package burly
+  :defer 2
   :bind
   ("C-x r w" . burly-bookmark-windows)
   :custom
   (burly-bookmark-prefix "WG:")
   )
 
+(use-package w3m
+  :defer t)
 
 
 ;; dashboard的可选功能
@@ -177,6 +191,8 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook)
+  (setq dashboard-banner-logo-title "Welcome to Emacs!")
+  (setq dashboard-set-footer nil)
   (setq dashboard-startup-banner 'logo))
 
 (provide 'init-packages)

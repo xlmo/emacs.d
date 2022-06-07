@@ -73,6 +73,7 @@
 
 ;; 统一管理弹出窗口
 (use-package popper
+  :defer t
   :ensure t ; or :straight t
   :bind (("C-`"   . popper-toggle-latest)
          ("M-`"   . popper-cycle)
@@ -147,15 +148,19 @@
 
 ;; 用这个每次启动都要联网检查包状态
 ;; (use-package server
-;;     :if window-system
-;;      :commands (server-running-p)
-;;      :init
+;;   :if window-system
+;;   :commands (server-running-p)
+;;   :init
 ;;   (unless (server-running-p)
 ;;       (server-start)
 ;;       (message "Emacs Server …DONE")))
 
-
-(unless (server-running-p)
-  (server-start)
-  (message "Emacs Server …DONE"))
+;; (unless (server-running-p)
+;;   (server-start)
+;;   (message "Emacs Server …DONE"))
+(add-hook 'after-init-hook
+          (lambda ()
+            (require 'server)
+            (unless (server-running-p)
+              (server-start))))
 (provide 'init-misc)

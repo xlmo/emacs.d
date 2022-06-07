@@ -61,19 +61,19 @@
     (global-set-key (kbd "M-v") 'scroll-down-command)))
 
 ;;编码设置
-(when (or window-system (locale-is-utf8-p))
-  (setq utf-translate-cjk-mode nil) ; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
-  (set-language-environment 'utf-8)
-  (when *is-carbon-emacs*
-    (set-keyboard-coding-system 'utf-8-mac))
-  (setq locale-coding-system 'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8))
-  (setq gc-cons-threshold (* 512 1024 1024))
-  (setq gc-cons-percentage 0.5)
-  (run-with-idle-timer 5 t #'garbage-collect)
+;; (when (or window-system (locale-is-utf8-p))
+;;   (setq utf-translate-cjk-mode nil) ; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
+;;   (set-language-environment 'utf-8)
+;;   (when *is-carbon-emacs*
+;;     (set-keyboard-coding-system 'utf-8-mac))
+;;   (setq locale-coding-system 'utf-8)
+;;   (set-default-coding-systems 'utf-8)
+;;   (set-terminal-coding-system 'utf-8)
+;;   (set-selection-coding-system 'utf-8)
+;;   (prefer-coding-system 'utf-8))
+;;   (setq gc-cons-threshold (* 512 1024 1024))
+;;   (setq gc-cons-percentage 0.5)
+;;   (run-with-idle-timer 5 t #'garbage-collect)
 
 
 (when (eq system-type 'windows-nt)

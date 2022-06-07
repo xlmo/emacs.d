@@ -31,15 +31,15 @@
 (setq inhibit-compacting-font-caches t)
 
 ;; Garbage Collector Magic Hack
-(use-package gcmh
-  :demand
-  :init
-  ;; 在 minibuffer 显示 GC 信息。
-  ;;(setq garbage-collection-messages t)
-  ;;(setq gcmh-verbose t)
-  (setq gcmh-idle-delay 5)
-  (setq gcmh-high-cons-threshold (* 64 1024 1024))
-  (gcmh-mode 1)
-  (gcmh-set-high-threshold))
+;; (use-package gcmh
+;;   :demand
+;;   :init
+;;   ;; 在 minibuffer 显示 GC 信息。
+;;   ;;(setq garbage-collection-messages t)
+;;   ;;(setq gcmh-verbose t)
+;;   (setq gcmh-idle-delay 5)
+;;   (setq gcmh-high-cons-threshold (* 64 1024 1024))
+;;   (gcmh-mode 1)
+;;   (gcmh-set-high-threshold))
 
 (provide 'init-tuning)
