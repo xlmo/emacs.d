@@ -1,5 +1,15 @@
 ;;emacs 主配置文件
 
+(let (
+      ;; 加载的时候临时增大`gc-cons-threshold'以加速启动速度。
+      (gc-cons-threshold most-positive-fixnum)
+      ;; 清空避免加载远程文件的时候分析文件。
+      (file-name-handler-alist nil))
+  ;; (require 'benchmark-init-modes)
+  ;; (require 'benchmark-init)
+  ;; (benchmark-init/activate)
+)
+
 ;; 自定义文件
 (setq custom-file "~/.emacs.d/custom.el")
 (unless (file-exists-p custom-file)  ;; 如果文件不存在

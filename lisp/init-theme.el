@@ -105,11 +105,12 @@
   (use-package all-the-icons
     :defer t
     :demand)
-  (use-package fira-code-mode
-    :defer t
-    :custom
-    (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
-    :hook prog-mode))
+  ;; (use-package fira-code-mode
+  ;;   :defer t
+  ;;   :custom
+  ;;   (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
+  ;;   :hook prog-mode)
+  )
 
 
 ;; 设置缩放模式, 避免最大化窗口后右边和下边有空隙

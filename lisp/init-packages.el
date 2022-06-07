@@ -9,12 +9,6 @@
 ;; 永远按需安装
 (setq use-package-always-ensure t)
 
-;; 性能测试
-;; (use-package benchmark-init
-;;   :ensure t
-;;   :config
-;;   ;; To disable collection of benchmark data after init is done.
-;;   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 ;; 各种mode
 (use-package php-mode
@@ -193,6 +187,9 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title "Welcome to Emacs!")
   (setq dashboard-set-footer nil)
-  (setq dashboard-startup-banner 'logo))
+  (setq dashboard-items '((recents  . 9)
+                        (bookmarks . 5)
+                        (agenda . 6)))
+  (setq dashboard-startup-banner 1))
 
 (provide 'init-packages)
