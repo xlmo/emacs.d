@@ -115,10 +115,6 @@
     (interactive)
     (save-buffer)
     (kill-buffer-and-window))
-  :bind
-  (:map org-journal-mode-map
-        ("C-c C-j" . 'org-journal-new-entry)
-        ("C-c C-e" . 'org-journal-save-entry-and-exit))
   :config
   (setq org-journal-file-type 'monthly)
   (setq org-journal-find-file 'find-file)
@@ -128,17 +124,17 @@
   ;; 加密 journal 文件。
 ;  (setq org-journal-enable-encryption t) 
 ;  (setq org-journal-encrypt-journal t)
-  (defun my-old-carryover (old_carryover)
-    (save-excursion
-      (let ((matcher (cdr (org-make-tags-matcher org-journal-carryover-items))))
-        (dolist (entry (reverse old_carryover))
-          (save-restriction
-            (narrow-to-region (car entry) (cadr entry))
-            (goto-char (point-min))
-            (org-scan-tags '(lambda ()
-                              (org-set-tags ":carried:"))
-                           matcher org--matcher-tags-todo-only))))))
-  (setq org-journal-handle-old-carryover 'my-old-carryover)
+  ;; (defun my-old-carryover (old_carryover)
+  ;;   (save-excursion
+  ;;     (let ((matcher (cdr (org-make-tags-matcher org-journal-carryover-items))))
+  ;;       (dolist (entry (reverse old_carryover))
+  ;;         (save-restriction
+  ;;           (narrow-to-region (car entry) (cadr entry))
+  ;;           (goto-char (point-min))
+  ;;           (org-scan-tags '(lambda ()
+  ;;                             (org-set-tags ":carried:"))
+  ;;                          matcher org--matcher-tags-todo-only))))))
+  ;; (setq org-journal-handle-old-carryover 'my-old-carryover)
 
   ;; journal 文件头。
   (defun org-journal-file-header-func (time)
@@ -169,6 +165,8 @@
                 "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
                 :jump-to-captured t :immediate-finish t) org-capture-templates)))
 
+(global-set-key (kbd "C-c C-j") 'org-journal-new-entry)
+(global-set-key (kbd "C-c C-e") 'org-journal-save-entry-and-exit)
 
 
 (setq org-confirm-babel-evaluate nil)
