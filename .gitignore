@@ -16,6 +16,7 @@ places
 .svn
 .DS_Store
 tramp
+.git
 
 ## directories
 backups/*

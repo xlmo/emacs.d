@@ -2,7 +2,8 @@
 ;; https://github.com/manateelazycat/awesome-tray
 ;; (require 'awesome-tray)
 ;; (awesome-tray-mode 1)
-;; (setq mode-line-format nil)
+;; (setq awesome-tray-active-modules '("buffer-name" "location" "awesome-tab" "battery" "date"))
+
 
 ;; doom-modeline
 (use-package doom-modeline
@@ -19,29 +20,11 @@
 (setq display-time-24hr-format t)
 (display-time-mode t)
 
-(load-theme 'modus-vivendi) ;; 夜间
-;; (load-theme 'modus-operandi) ;; 白天
-
-;; (use-package doom-themes
-;;   :demand
-;;   ;; 添加 "extensions/*" 后才支持 visual-bell/treemacs/org 配置。
-;; ;  :straight (:files ("*.el" "themes/*" "extensions/*"))
-;;   :custom-face
-;;   (doom-modeline-buffer-file ((t (:inherit (mode-line bold)))))
-;;   :custom
-;;   (doom-themes-enable-bold t)
-;;   (doom-themes-enable-italic t)
-;;   (doom-themes-treemacs-theme "doom-colors")
-;;   ;; modeline 两边各加 4px 空白。
-;;   (doom-themes-padded-modepline t)
-;;   :config
-;;   (doom-themes-visual-bell-config)
-;;   (load-theme 'doom-palenight t)
-;;   ;; 为 treemacs 关闭 variable-pitch 模式，否则显示的较丑！
-;;   ;; 必须在执行 doom-themes-treemacs-config 前设置该变量为 nil, 否则不生效。
-;;   (setq doom-themes-treemacs-enable-variable-pitch nil)
-;;   (doom-themes-treemacs-config)
-;;   (doom-themes-org-config))
+(use-package solarized-theme
+  :init
+;;  (load-theme 'solarized-light t) ;; 白天
+  (load-theme 'solarized-dark t)  ;; 夜间
+  )
 
 
 ;; 参考: https://github.com/DogLooksGood/dogEmacs/blob/master/elisp/init-font.el
@@ -162,6 +145,8 @@
 (global-set-key (kbd "s-8") 'awesome-tab-select-visible-tab)
 (global-set-key (kbd "s-9") 'awesome-tab-select-visible-tab)
 (global-set-key (kbd "s-0") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-n") 'awesome-tab-forward-tab)
+(global-set-key (kbd "s-p") 'awesome-tab-backward-tab)
 (awesome-tab-build-helm-source)
 (setq awesome-tab-height 100)
 

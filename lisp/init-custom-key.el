@@ -23,4 +23,7 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; 关闭当前buffer
+(global-set-key (kbd "s-w") 'kill-current-buffer)
+
 (provide 'init-custom-key)
