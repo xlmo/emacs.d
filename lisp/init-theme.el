@@ -146,4 +146,24 @@
 ;; (require 'org-bars)                     
 ;; (add-hook 'org-mode-hook #'org-bars-mode)
 
+;; tab
+(require 'awesome-tab)
+(awesome-tab-mode t)
+(setq awesome-tab-show-tab-index t)
+(setq awesome-tab-display-icon nil)
+;; 根据索引来切换tab
+(global-set-key (kbd "s-1") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-2") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-3") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-4") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-5") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-6") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-7") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-8") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-9") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-0") 'awesome-tab-select-visible-tab)
+(awesome-tab-build-helm-source)
+(setq awesome-tab-height 100)
+
+
 (provide 'init-theme)
