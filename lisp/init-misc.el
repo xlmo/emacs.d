@@ -228,10 +228,18 @@ from tradition chinese to simple chinese" t)
 
 ;;(setq mode-line-format nil) ;; 隐藏 modeline
 
+;; 自动保存 停止敲键盘超过一定秒数后就自动保存
+(require 'auto-save)
+(auto-save-enable)
+(setq auto-save-slient t)
+;;(setq auto-save-idle 5)
+
+
 
 (add-hook 'after-init-hook
           (lambda ()
             (require 'server)
             (unless (server-running-p)
               (server-start))))
+
 (provide 'init-misc)
