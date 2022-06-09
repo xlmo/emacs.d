@@ -6,6 +6,8 @@ ac-comphist.dat
 *.eld
 *_archive
 .bookmarks.el
+bookmarks
+recentf
 
 
 ## misc
@@ -30,6 +32,7 @@ elpa/*
 src/*
 themes/*
 url/*
+pyim/*
 
 ## exported and encrypted files
 *gpg

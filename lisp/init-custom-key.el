@@ -26,4 +26,7 @@
 ;; 关闭当前buffer
 (global-set-key (kbd "s-w") 'kill-current-buffer)
 
+;; 搜索
+(global-set-key (kbd "C-c C-f") 'helm-ag)
+
 (provide 'init-custom-key)

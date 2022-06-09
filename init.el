@@ -29,18 +29,18 @@
     (require 'init-func)
     (require 'init-compat)
     (require 'init-func)
-    (require 'init-calendar)
     (require 'init-agenda)
     (require 'init-custom-key)
     (require 'init-theme)
     (require 'init-misc)
-    ;; (require 'init-pyim)  
     )
 
   ;; 可以延后加载的
   (run-with-idle-timer
    1 nil
    #'(lambda ()
+       (require 'init-calendar)
+       (require 'init-pyim)  
        (require 'init-org)
        )))
 
