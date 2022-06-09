@@ -259,4 +259,12 @@
 ;;information added to property when a subtree is moved
 (setq org-archive-save-context-info '(time file ltags itags todo category olpath))
 
+
+(setq org-agenda-files
+      (list org-task-file
+            org-journal-dir
+            org-capture-file
+            org-inbox-file
+            ))
+
 (provide 'init-org)
