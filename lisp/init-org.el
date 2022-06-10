@@ -10,7 +10,7 @@
 (setq org-use-fast-todo-selection t)
 ;; 存储着作用于全局的状态序列
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "WAITING(w@/!)" "DOING(i@/!)"  "DONE(dx)")
+      (quote ((sequence "TODO(t)" "WAITING(w@/!)" "SOMEDAY(m@/!)" "DOING(i@/!)"  "DONE(dx)")
 ;              (sequence "PROJECT(p)" "|" "DONE(d)" "CANCELLED(c@/!)")
 ;              (sequence "BUG(b)" "|" "FIXED(f)")
 ;              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING")
@@ -22,7 +22,9 @@
 
 (setq org-todo-keyword-faces
       (quote (("DOING" :foreground "red" :weight bold)
-              ("WAITING" :foreground "green" :weight bold)
+              ("SOMEDAY" :foreground "green" :weight bold)
+              ("WAITING" :foreground "brown" :weight bold)
+;              ("DONE" :foreground "green" :weight bold)
               )))
 ;; (setq org-todo-keyword-faces
 ;;       (quote (("TODO" :foreground "red" :weight bold)
@@ -47,10 +49,13 @@
 (add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
              '("tp" "Personal Task" entry (file+headline org-task-file "Personal Task")
-               "* TODO %? :Personal:\n%U\n\n" :clock-in t :clock-resume t))
+               "* TODO %? :personal:\n%U\n\n" :clock-in t :clock-resume t))
 (add-to-list 'org-capture-templates
 	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
-               "* TODO %? :Work:\n%U\n\n"))
+               "* TODO %? :work:\n%U\n\n"))
+(add-to-list 'org-capture-templates
+	     '("tt" "Technology Task" entry (file+headline org-task-file "Technology Task")
+               "* TODO %? :tech:\n%U\n\n"))
 
 ;; 临时捕获
 (add-to-list 'org-capture-templates             
@@ -107,7 +112,6 @@
 
 (setq org-journal-prefix-key "C-c j")
 (use-package org-journal
-  :defer t
   :demand
   :commands org-journal-new-entry
   :init
@@ -183,10 +187,8 @@
 
 ;; org 里执行代码
 (require 'org)
-(use-package ob-go
-  :defer t)
-(use-package ob-php
-  :defer t)
+(use-package ob-go)
+(use-package ob-php)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((shell . t)
@@ -200,15 +202,12 @@
 
 
 ;; 预览  `org-preview-html-mode`
-(use-package org-preview-html
-  :defer t)
+(use-package org-preview-html)
 ;; 导出
-(use-package ox-pandoc
-  :defer t)
+(use-package ox-pandoc)
 
 ;; 导入图片
 (use-package org-download
-  :defer t
 ;  :ensure-system-package pngpaste
   :bind
 ;  ("<f6>" . org-download-screenshot)

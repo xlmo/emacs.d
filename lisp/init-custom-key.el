@@ -25,8 +25,10 @@
 
 ;; 关闭当前buffer
 (global-set-key (kbd "s-w") 'kill-current-buffer)
+;; 搜索目录
+(global-set-key [f9] 'helm-ag)
+;; 搜索所有buffer
+(global-set-key [f10] 'helm-swoop)
 
-;; 搜索
-(global-set-key (kbd "C-c C-f") 'helm-ag)
 
 (provide 'init-custom-key)
