@@ -19,7 +19,6 @@
 ;; ;定义进入状态和离开状态时的额外动作，可用的动作包含两个:
 ;; ; 1.添加笔记和状态变更信息(包括时间信息)，用"@"表示
 ;; ; 2.只添加状态变更信息，用"!"表示
-
 (setq org-todo-keyword-faces
       (quote (("DOING" :foreground "red" :weight bold)
               ("SOMEDAY" :foreground "green" :weight bold)
@@ -52,13 +51,13 @@
                "* TODO %? :personal:\n%U\n\n" :clock-in t :clock-resume t))
 (add-to-list 'org-capture-templates
 	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
-               "* TODO %? :work:\n%U\n\n"))
+               "* TODO %? :work:\n%U\n\n" :clock-in t :clock-resume t))
 (add-to-list 'org-capture-templates
 	     '("tt" "Technology Task" entry (file+headline org-task-file "Technology Task")
-               "* TODO %? :tech:\n%U\n\n"))
+               "* TODO %? :tech:\n%U\n\n" :clock-in t :clock-resume t))
 
 ;; 临时捕获
-(add-to-list 'org-capture-templates             
+(add-to-list 'org-capture-templates
              '("i" "Inbox" entry (file org-inbox-file)
                "* %?\n%U\n\n"))
 
@@ -105,7 +104,7 @@
 ;; ;记录todo完成时间
 (setq org-log-done 'time)
 ;; ;记录todo完成备注
-;; ;(setq org-log-done 'note) 
+;; ;(setq org-log-done 'note)
 
 ;; (setq org-export-coding-system 'utf-8)
 
@@ -124,9 +123,9 @@
   (setq org-journal-find-file 'find-file)
   (setq org-journal-date-format "%Y-%m-%d, %A")
   (setq org-journal-file-format "%Y-%m.org")
-  
+
   ;; 加密 journal 文件。
-;  (setq org-journal-enable-encryption t) 
+;  (setq org-journal-enable-encryption t)
 ;  (setq org-journal-encrypt-journal t)
   ;; (defun my-old-carryover (old_carryover)
   ;;   (save-excursion
@@ -233,7 +232,7 @@
 (require 'org-capture)
 (defun transform-square-brackets-to-round-ones(string-to-transform)
   "Transforms [ into ( and ] into ), other chars left unchanged."
-  (concat 
+  (concat
   (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
   )
 
@@ -241,7 +240,7 @@
 	     '("c" "Captured via org protocol" entry (file+headline org-capture-file "Inbox")
                "* %T %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
 
-;; refile 
+;; refile
 ;; refile 的位置是 agenda 文件的前三层 headline 。
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 ;; 使用文件路径的形式显示 filename 和 headline, 方便在文件的 top-head 添加内容。

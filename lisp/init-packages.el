@@ -52,7 +52,7 @@
 ;; 文本补全
 (use-package company
   ;; 等价于 (add-hook 'after-init-hook #'global-company-mode)
-  :hook (after-init . global-company-mode)
+;;  :hook (after-init . global-company-mode)
   :config
   ;; setq 可以像这样连着设置多个变量的值
   (setq company-tooltip-align-annotations t ; 注释贴右侧对齐

@@ -4,7 +4,6 @@
 ;; (awesome-tray-mode 1)
 ;; (setq awesome-tray-active-modules '("buffer-name" "location" "awesome-tab" "battery" "date"))
 
-
 ;; doom-modeline
 (use-package doom-modeline
   :ensure t
@@ -20,11 +19,15 @@
 (setq display-time-24hr-format t)
 (display-time-mode t)
 
-(use-package solarized-theme
-  :init
+(add-to-list 'load-path "~/.emacs.d/elisp/lazycat-theme")
+(require 'lazycat-theme)
+(lazycat-theme-load-dark)
+;;(lazycat-theme-load-light)
+;(use-package solarized-theme
+;  :init
 ;;  (load-theme 'solarized-light t) ;; 白天
-  (load-theme 'solarized-dark t)  ;; 夜间
-  )
+;  (load-theme 'solarized-dark t)  ;; 夜间
+;  )
 
 
 ;; 参考: https://github.com/DogLooksGood/dogEmacs/blob/master/elisp/init-font.el
@@ -72,8 +75,8 @@
     (set-fontset-font t '(#x1f000 . #x1faff) (font-spec :family "Apple Color Emoji"))
     (set-fontset-font t 'symbol (font-spec :family "Symbola"))))
 
-(add-hook 'after-make-frame-functions 
-          ( lambda (f) 
+(add-hook 'after-make-frame-functions
+          ( lambda (f)
             (+load-face-font f)
             (+load-ext-font)
             (+load-emoji-font)))
@@ -126,7 +129,7 @@
   (diredfl-global-mode))
 
 ;; 美化org结构
-;; (require 'org-bars)                     
+;; (require 'org-bars)
 ;; (add-hook 'org-mode-hook #'org-bars-mode)
 
 ;; tab

@@ -13,3 +13,6 @@
 [submodule "elisp/go-mode"]
 	path = elisp/go-mode
 	url = https://github.com/dominikh/go-mode.el
+[submodule "elisp/lazycat-theme"]
+	path = elisp/lazycat-theme
+	url = https://github.com/manateelazycat/lazycat-theme.git

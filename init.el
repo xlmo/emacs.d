@@ -8,13 +8,11 @@
   ;; (require 'benchmark-init)
   ;; (benchmark-init/activate)
 
-
   ;; 自定义文件
   (setq custom-file "~/.emacs.d/custom.el")
   (unless (file-exists-p custom-file)  ;; 如果文件不存在
     (write-region "" nil custom-file)) ;; 创建文件
   (load custom-file)
-
 
   ;;路径设置
   (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -42,4 +40,5 @@
        (require 'init-org)
        (require 'init-custom-key)
        (require 'init-demo)
+       (require 'init-end)
        )))
