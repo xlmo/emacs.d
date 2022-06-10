@@ -10,3 +10,6 @@
 [submodule "elisp/auto-save"]
 	path = elisp/auto-save
 	url = https://github.com/manateelazycat/auto-save
+[submodule "elisp/go-mode"]
+	path = elisp/go-mode
+	url = https://github.com/dominikh/go-mode.el

@@ -1,7 +1,12 @@
 
 ;; 各种mode
 (use-package php-mode)
-(use-package go-mode)
+
+(add-to-list 'load-path "~/.emacs.d/elisp/go-mode")
+(autoload 'go-mode "go-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+;(use-package go-mode)
+
 (use-package yaml-mode)
 
 
@@ -81,7 +86,7 @@
   :config
   (ctrlf-mode t))
 
-;; 
+;;
 ;; (use-package popwin
 ;;   :config
 ;;   (popwin-mode 1))
