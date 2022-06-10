@@ -103,9 +103,6 @@
 ;; ;; eshell path
 ;; (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
 
-;; ;; 自动重新加载已修改文件
-(setq auto-revert-mode 1)
-
 
 (defun xlmo/refresh-file()
   "重新从磁盘读取文件，更新到缓冲区"
@@ -229,9 +226,11 @@ from tradition chinese to simple chinese" t)
 ;;(setq mode-line-format nil) ;; 隐藏 modeline
 
 ;; 自动保存 停止敲键盘超过一定秒数后就自动保存
+(add-to-list 'load-path "~/.emacs.d/elisp/auto-save") ; 
 (require 'auto-save)
 (auto-save-enable)
 (setq auto-save-slient t)
+(setq auto-save-delete-trailing-whitespace t)
 ;;(setq auto-save-idle 5)
 
 

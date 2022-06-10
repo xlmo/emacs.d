@@ -130,6 +130,7 @@
 ;; (add-hook 'org-mode-hook #'org-bars-mode)
 
 ;; tab
+(add-to-list 'load-path "~/.emacs.d/elisp/sort-tab")
 (require 'sort-tab)
 (sort-tab-mode 1)
 (global-set-key (kbd "s-n") 'sort-tab-select-next-tab)

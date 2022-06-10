@@ -1,3 +1,12 @@
 [submodule "lisp/lsp-bridge"]
 	path = lisp/lsp-bridge
 	url = https://github.com/manateelazycat/lsp-bridge.git
+[submodule "elisp/sort-tab"]
+	path = elisp/sort-tab
+	url = https://github.com/manateelazycat/sort-tab.git
+[submodule "elisp/lsp-bridge"]
+	path = elisp/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge.git
+[submodule "elisp/auto-save"]
+	path = elisp/auto-save
+	url = https://github.com/manateelazycat/auto-save

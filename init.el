@@ -1,5 +1,4 @@
 ;;emacs 主配置文件
-
 (let (
       ;; 加载的时候临时增大`gc-cons-threshold'以加速启动速度。
       (gc-cons-threshold most-positive-fixnum)
@@ -30,7 +29,6 @@
     (require 'init-agenda)
     (require 'init-theme)
     (require 'init-misc)
-    (require 'init-demo)
     )
 
   ;; 可以延后加载的
@@ -40,9 +38,8 @@
        (require 'init-packages) ;; 所需扩展包
        (require 'init-calendar)
        (require 'init-lsp)
-       (require 'init-pyim)  
+       (require 'init-pyim)
        (require 'init-org)
        (require 'init-custom-key)
+       (require 'init-demo)
        )))
-
-
