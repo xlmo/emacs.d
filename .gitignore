@@ -33,7 +33,8 @@ src/*
 themes/*
 url/*
 pyim/*
-lsp-cache/
+lsp-cache/*
+.cache/*
 
 ## exported and encrypted files
 *gpg

@@ -19,10 +19,11 @@
 (setq display-time-24hr-format t)
 (display-time-mode t)
 
-(add-to-list 'load-path "~/.emacs.d/elisp/lazycat-theme")
 (require 'lazycat-theme)
 (lazycat-theme-load-dark)
 ;;(lazycat-theme-load-light)
+; 切换主题
+(global-set-key [f12] 'lazycat-theme-toggle)
 ;(use-package solarized-theme
 ;  :init
 ;;  (load-theme 'solarized-light t) ;; 白天
@@ -133,7 +134,6 @@
 ;; (add-hook 'org-mode-hook #'org-bars-mode)
 
 ;; tab
-(add-to-list 'load-path "~/.emacs.d/elisp/sort-tab")
 (require 'sort-tab)
 (sort-tab-mode 1)
 (global-set-key (kbd "s-n") 'sort-tab-select-next-tab)

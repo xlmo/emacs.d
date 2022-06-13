@@ -2,7 +2,7 @@
 ;; 各种mode
 (use-package php-mode)
 
-(add-to-list 'load-path "~/.emacs.d/elisp/go-mode")
+;; (add-to-list 'load-path "~/.emacs.d/elisp/go-mode")
 (autoload 'go-mode "go-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 ;(use-package go-mode)
@@ -114,6 +114,10 @@
 
 (use-package yasnippet)
 
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
 
 
 (provide 'init-packages)
