@@ -23,22 +23,22 @@
     (require 'init-elpa) ;; 包管理
     (require 'init-func)
     (require 'init-compat)
-    (require 'init-func)
-    (require 'init-agenda)
-    (require 'init-theme)
-    (require 'init-misc)
+    (require 'init-dashboard)
     )
 
   ;; 可以延后加载的
   (run-with-idle-timer
    1 nil
    #'(lambda ()
+       (require 'init-misc)
        (require 'init-packages) ;; 所需扩展包
+       (require 'init-agenda)
        (require 'init-calendar)
        (require 'init-lsp)
        (require 'init-pyim)
        (require 'init-org)
        (require 'init-custom-key)
+       (require 'init-theme)
        (require 'init-demo)
        (require 'init-end)
        )))

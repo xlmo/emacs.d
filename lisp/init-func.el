@@ -71,4 +71,70 @@ there's a region, all lines that region covers will be duplicated."
   (move-text-internal (- arg)))
 
 
+;; 设置缺省字体。
+(defun +load-base-font ()
+  ;; 只为缺省字体设置 size, 其它字体都通过 :height 动态伸缩。
+  (let* ((font-spec (format "%s-%d" +font-family +font-size)))
+    (set-frame-parameter nil 'font font-spec)
+    (add-to-list 'default-frame-alist `(font . ,font-spec))))
+
+;; 设置各特定 face 的字体。
+(defun +load-face-font (&optional frame)
+  (let ((font-spec (format "%s" +font-family))
+        (modeline-font-spec (format "%s" +modeline-font-family))
+        (variable-pitch-font-spec (format "%s" +variable-pitch-family))
+        (fixed-pitch-font-spec (format "%s" +fixed-pitch-family)))
+    (set-face-attribute 'variable-pitch frame :font variable-pitch-font-spec :height 1.2)
+    (set-face-attribute 'fixed-pitch frame :font fixed-pitch-font-spec :height 1.0)
+    (set-face-attribute 'fixed-pitch-serif frame :font fixed-pitch-font-spec :height 1.0)
+    (set-face-attribute 'tab-bar frame :font font-spec :height 1.0)
+    (set-face-attribute 'mode-line frame :font modeline-font-spec :height 1.0)
+    (set-face-attribute 'mode-line-inactive frame :font modeline-font-spec :height 1.0)))
+
+;; 设置中文字体。
+(defun +load-ext-font ()
+  (when window-system
+    (let ((font (frame-parameter nil 'font))
+          (font-spec (font-spec :family +font-unicode-family)))
+      (dolist (charset '(kana han hangul cjk-misc bopomofo symbol))
+        (set-fontset-font font charset font-spec)))))
+
+;; 设置 Emoji 字体。
+(defun +load-emoji-font ()
+  (when window-system
+    (setq use-default-font-for-symbols nil)
+    (set-fontset-font t '(#x1f000 . #x1faff) (font-spec :family "Apple Color Emoji"))
+    (set-fontset-font t 'symbol (font-spec :family "Symbola"))))
+
+
+(defun +load-font ()
+  (+load-base-font)
+  (+load-face-font)
+  (+load-ext-font)
+  (+load-emoji-font))
+
+;; 切换透明背景。
+(defun my/toggle-transparency ()
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+  (add-to-list 'default-frame-alist '(alpha . (90 . 90))))
+
+;; 编码设置 来源自purcell
+(defun sanityinc/utf8-locale-p (v)
+  "Return whether locale string V relates to a UTF-8 locale."
+  (and v (string-match "UTF-8" v)))
+
+(defun sanityinc/locale-is-utf8-p ()
+  "Return t iff the \"locale\" command or environment variables prefer UTF-8."
+  (or (sanityinc/utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
+      (sanityinc/utf8-locale-p (getenv "LC_ALL"))
+      (sanityinc/utf8-locale-p (getenv "LC_CTYPE"))
+      (sanityinc/utf8-locale-p (getenv "LANG"))))
+
+
+(defun xlmo/refresh-file()
+  "重新从磁盘读取文件，更新到缓冲区"
+  (interactive)
+  (revert-buffer t (not (buffer-modified-p)) t))
+
 (provide 'init-func)

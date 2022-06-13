@@ -16,3 +16,6 @@
 [submodule "elisp/lazycat-theme"]
 	path = elisp/lazycat-theme
 	url = https://github.com/manateelazycat/lazycat-theme.git
+[submodule "elisp/awesome-tray"]
+	path = elisp/awesome-tray
+	url = https://github.com/manateelazycat/awesome-tray

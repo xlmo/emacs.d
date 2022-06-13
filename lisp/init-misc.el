@@ -11,12 +11,11 @@
 ;; 简化yes or no 的回答
 (fset 'yes-or-no-p 'y-or-n-p)
 
-
 ;;高亮当前行
 (global-hl-line-mode 1)
 
 ;; 自动换行
-(global-visual-line-mode 1) 
+(global-visual-line-mode 1)
 
 ;; 显示行号
 (global-display-line-numbers-mode 1)
@@ -37,7 +36,6 @@
 
 
 
-
 ;; 翻页之后光标位置不变
 (setq scroll-preserve-screen-position t)
 
@@ -45,17 +43,6 @@
 
 
 ;; 编码设置 来源自purcell
-(defun sanityinc/utf8-locale-p (v)
-  "Return whether locale string V relates to a UTF-8 locale."
-  (and v (string-match "UTF-8" v)))
-
-(defun sanityinc/locale-is-utf8-p ()
-  "Return t iff the \"locale\" command or environment variables prefer UTF-8."
-  (or (sanityinc/utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
-      (sanityinc/utf8-locale-p (getenv "LC_ALL"))
-      (sanityinc/utf8-locale-p (getenv "LC_CTYPE"))
-      (sanityinc/utf8-locale-p (getenv "LANG"))))
-
 (when (or window-system (sanityinc/locale-is-utf8-p))
   (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
@@ -88,7 +75,7 @@
           help-mode
           compilation-mode))
   (popper-mode +1)
-  (popper-echo-mode +1)) 
+  (popper-echo-mode +1))
 
 ;; ;;保存窗口布局
 ;; (desktop-save-mode t)
@@ -104,10 +91,6 @@
 ;; (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
 
 
-(defun xlmo/refresh-file()
-  "重新从磁盘读取文件，更新到缓冲区"
-  (interactive)
-  (revert-buffer t (not (buffer-modified-p)) t))
 (global-set-key [f5] 'xlmo/refresh-file)
 
 
@@ -219,41 +202,32 @@ from tradition chinese to simple chinese" t)
 (setq ad-redefinition-action 'accept)   ;不要烦人的 redefine warning
 (setq frame-resize-pixelwise t) ;设置缩放的模式,避免Mac平台最大化窗口以后右边和下边有空隙
 
+(setq confirm-kill-emacs 'yes-or-no-p) ;退出需要确认
+
 ;; 平滑地进行半屏滚动，避免滚动后recenter操作
 (setq scroll-step 1
       scroll-conservatively 10000)
 
-;;(setq mode-line-format nil) ;; 隐藏 modeline
 
 ;; 自动保存 停止敲键盘超过一定秒数后就自动保存
-(add-to-list 'load-path "~/.emacs.d/elisp/auto-save") ; 
+(add-to-list 'load-path "~/.emacs.d/elisp/auto-save") ;
 (require 'auto-save)
 (auto-save-enable)
 (setq auto-save-slient t)
 (setq auto-save-delete-trailing-whitespace t)
 ;;(setq auto-save-idle 5)
 
+;; 扩展区域
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 
 
+;; 启动server
 (add-hook 'after-init-hook
           (lambda ()
             (require 'server)
             (unless (server-running-p)
               (server-start))))
 
-;; dashboard的可选功能
-(use-package page-break-lines)
-
-;; dashboard
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-banner-logo-title "Welcome to Emacs!")
-  (setq dashboard-set-footer nil)
-  (setq dashboard-items '((recents  . 9)
-                        (bookmarks . 5)
-                        (agenda . 6)))
-  (setq dashboard-startup-banner 1))
 
 (provide 'init-misc)
