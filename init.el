@@ -32,6 +32,7 @@
    #'(lambda ()
        (require 'init-misc)
        (require 'init-packages) ;; 所需扩展包
+       (require 'init-company)
        (require 'init-agenda)
        (require 'init-calendar)
        (require 'init-lsp)

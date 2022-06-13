@@ -2,6 +2,7 @@
 ;; 各种mode
 (use-package php-mode)
 
+
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/go-mode")
 (autoload 'go-mode "go-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
@@ -49,18 +50,7 @@
   ;; If this value is t, split window inside the current window
   (setq helm-swoop-split-with-multiple-windows t))
 
-;; 文本补全
-(use-package company
-  ;; 等价于 (add-hook 'after-init-hook #'global-company-mode)
-;;  :hook (after-init . global-company-mode)
-  :config
-  ;; setq 可以像这样连着设置多个变量的值
-  (setq company-tooltip-align-annotations t ; 注释贴右侧对齐
-        company-tooltip-limit 20            ; 菜单里可选项数量
-        company-show-numbers t              ; 显示编号（然后可以用 M-数字 快速选定某一项）
-        company-idle-delay .2               ; 延时多少秒后弹出
-        company-minimum-prefix-length 1     ; 至少几个字符后开始补全
-        ))
+
 
 ;; 项目管理
 (use-package projectile
@@ -112,7 +102,14 @@
 
 (use-package w3m)
 
-(use-package yasnippet)
+(use-package yasnippet
+  :config
+  (setq yas-snippet-dirs
+	'("~/.emacs.d/snippets"
+	  ))
+  :init
+  (yas-global-mode 1))
+
 
 (use-package markdown-mode
   :ensure t
@@ -169,5 +166,17 @@
              ("q" . delete-window)))
 
 
+(use-package undo-tree
+  :diminish
+  :hook (after-init . global-undo-tree-mode)
+  :init
+  (setq undo-tree-visualizer-timestamps t
+        undo-tree-enable-undo-in-region nil
+        undo-tree-auto-save-history nil)
+
+  ;; HACK: keep the diff window
+  (with-no-warnings
+    (make-variable-buffer-local 'undo-tree-visualizer-diff)
+    (setq-default undo-tree-visualizer-diff t)))
 
 (provide 'init-packages)

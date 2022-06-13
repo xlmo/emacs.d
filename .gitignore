@@ -35,6 +35,7 @@ url/*
 pyim/*
 lsp-cache/*
 .cache/*
+var/*
 
 ## exported and encrypted files
 *gpg
