@@ -9,6 +9,15 @@
 ;(use-package go-mode)
 
 (use-package yaml-mode)
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html\\'" "\\.css\\'" "\\.js\\'" "\\.vue\\'")
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2))
+
+(use-package js2-mode)
 
 
 ;; 窗口跳转 用M-数字键来切换窗口

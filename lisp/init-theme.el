@@ -21,7 +21,8 @@
 ;; (display-time-mode t)
 
 (require 'lazycat-theme)
-(lazycat-theme-load-dark)
+(lazycat-theme-load)
+;;(lazycat-theme-load-dark)
 ;;(lazycat-theme-load-light)
 ; 切换主题
 (global-set-key [f12] 'lazycat-theme-toggle)

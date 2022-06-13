@@ -11,7 +11,6 @@
   ;; 等价于 (add-hook 'after-init-hook #'global-company-mode)
 ;;  :hook (after-init . global-company-mode)
   :init
-  ;; setq 可以像这样连着设置多个变量的值
   (setq company-tooltip-align-annotations t ; 注释贴右侧对齐
         company-tooltip-limit 12            ; 菜单里可选项数量
         company-show-numbers t              ; 显示编号（然后可以用 M-数字 快速选定某一项）

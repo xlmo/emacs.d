@@ -90,10 +90,6 @@
 ;; ;; eshell path
 ;; (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
 
-
-(global-set-key [f5] 'xlmo/refresh-file)
-
-
 ;; 显示菜单栏
 (menu-bar-mode 1)
 

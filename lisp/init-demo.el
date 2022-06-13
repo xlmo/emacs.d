@@ -3,7 +3,4 @@
 ; (require 'lsp-bridge)
 ; (global-lsp-bridge-mode)
 
-
-
-
 (provide 'init-demo)
