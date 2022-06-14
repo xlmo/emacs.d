@@ -132,9 +132,27 @@ there's a region, all lines that region covers will be duplicated."
       (sanityinc/utf8-locale-p (getenv "LANG"))))
 
 
+;; 暂时无用
 (defun xlmo/refresh-file()
   "重新从磁盘读取文件，更新到缓冲区"
   (interactive)
   (revert-buffer t (not (buffer-modified-p)) t))
+
+
+;; 搜索指定目录
+(defun xlmo/search-root-dir (&optional)
+  "搜索root目录"
+  (interactive "")
+  (helm-ag org-directory))
+
+(defun xlmo/search-work-dir (&optional)
+  "搜索工作目录"
+  (interactive "")
+  (helm-ag (concat org-directory "/work")))
+
+(defun xlmo/search-noee-dir (&optional)
+  "搜索note目录"
+  (interactive "")
+  (helm-ag org-notes-dir))
 
 (provide 'init-func)

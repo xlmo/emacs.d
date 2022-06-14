@@ -25,13 +25,21 @@
 
 ;; 关闭当前buffer
 (global-set-key (kbd "s-w") 'kill-current-buffer)
-;; 搜索目录
-(global-set-key [f9] 'helm-ag)
+
+;; 搜索
+;; ;; 指定目录下搜索
+(global-set-key [f5] 'xlmo/search-root-dir)
+(global-set-key [f6] 'xlmo/search-work-dir)
+(global-set-key [f7] 'xlmo/search-note-dir)
+(global-set-key [f8] 'helm-do-ag)
+
 ;; 搜索所有buffer
 (global-set-key [f10] 'helm-swoop)
 
 ;; 跳转匹配括号
 (global-set-key (kbd "C-M-f") 'forward-list)
 (global-set-key (kbd "C-M-b") 'backward-list)
+
+
 
 (provide 'init-custom-key)
