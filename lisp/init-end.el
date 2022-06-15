@@ -3,6 +3,6 @@
 (global-company-mode)
 
 ;; 隐藏modeline
-(setq-default mode-line-format nil)
+;(setq-default mode-line-format nil)
 
 (provide 'init-end)

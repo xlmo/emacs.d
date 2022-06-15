@@ -1,8 +1,8 @@
 
 ;; https://github.com/manateelazycat/awesome-tray
-(require 'awesome-tray)
-(awesome-tray-mode 1)
-(setq awesome-tray-active-modules '("buffer-name" "location" "awesome-tab" "mode-name" "date"))
+;; (require 'awesome-tray)
+;; (awesome-tray-mode 1)
+;; (setq awesome-tray-active-modules '("buffer-name" "location" "awesome-tab" "mode-name" "date"))
 
 ;; doom-modeline
 ;; (use-package doom-modeline
@@ -13,6 +13,7 @@
 ;;   (setq doom-modeline-icon nil)
 ;;   )
 
+
 ;; (column-number-mode t)
 ;; (display-battery-mode t)
 ;; (setq display-time-format "%m-%d %H:%M")
@@ -20,12 +21,33 @@
 ;; (setq display-time-24hr-format t)
 ;; (display-time-mode t)
 
-(require 'lazycat-theme)
-(lazycat-theme-load)
+
+(use-package modus-themes
+  :ensure
+  :init
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil
+        modus-themes-region '(bg-only no-extend))
+
+  ;; Load the theme files before enabling a theme
+  (modus-themes-load-themes)
+  :config
+  ;; Load the theme of your choice:
+  (modus-themes-load-operandi) ;; OR (modus-themes-load-vivendi)
+  :bind ("<f12>" . modus-themes-toggle))
+
+;; modeline
+(use-package telephone-line
+  :init
+  (telephone-line-mode 1))
+
+;(require 'lazycat-theme)
+;(lazycat-theme-load)
 ;;(lazycat-theme-load-dark)
 ;;(lazycat-theme-load-light)
 ; 切换主题
-(global-set-key [f12] 'lazycat-theme-toggle)
+;(global-set-key [f12] 'lazycat-theme-toggle)
 ;(use-package solarized-theme
 ;  :init
 ;;  (load-theme 'solarized-light t) ;; 白天
@@ -77,21 +99,8 @@
          (window-height . 0.43)
          (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
 
-
-;; dired 显示高亮增强。
-(use-package diredfl
-  :config
-  (diredfl-global-mode))
-
 ;; 美化org结构
 ;; (require 'org-bars)
 ;; (add-hook 'org-mode-hook #'org-bars-mode)
 
-;; tab
-(require 'sort-tab)
-(sort-tab-mode 1)
-(global-set-key (kbd "s-n") 'sort-tab-select-next-tab)
-(global-set-key (kbd "s-p") 'sort-tab-select-prev-tab)
-
-
-(provide 'init-theme)
+(provide 'init-ui)

@@ -39,7 +39,7 @@
        (require 'init-pyim)
        (require 'init-org)
        (require 'init-custom-key)
-       (require 'init-theme)
+       (require 'init-ui)
        (require 'init-demo)
        (require 'init-end)
        )))

@@ -225,5 +225,4 @@ from tradition chinese to simple chinese" t)
             (unless (server-running-p)
               (server-start))))
 
-
 (provide 'init-misc)

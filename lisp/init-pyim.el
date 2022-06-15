@@ -3,8 +3,6 @@
       '((:name "dict_big" :file "~/.emacs.d/pyim-bigdict.pyim") ;;大词库
       (:name "dict_sogoo" :file "~/.emacs.d/pyim-sogoudict.pyim"))) ;; 个人搜狗输入法转的词库
 
-(use-package posframe)
-
 (use-package pyim
   :ensure t
   :config

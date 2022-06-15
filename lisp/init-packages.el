@@ -188,4 +188,28 @@
     (make-variable-buffer-local 'undo-tree-visualizer-diff)
     (setq-default undo-tree-visualizer-diff t)))
 
+
+(use-package posframe)
+
+;; 窗口移动
+(use-package windmove
+  :ensure nil
+  :bind
+  (("<f2> <right>" . windmove-right)
+   ("<f2> <left>" . windmove-left)
+   ("<f2> <up>" . windmove-up)
+   ("<f2> <down>" . windmove-down)
+   ))
+
+;; dired 显示高亮增强。
+(use-package diredfl
+  :config
+  (diredfl-global-mode))
+
+;; tab
+(require 'sort-tab)
+(sort-tab-mode 1)
+(global-set-key (kbd "s-n") 'sort-tab-select-next-tab)
+(global-set-key (kbd "s-p") 'sort-tab-select-prev-tab)
+
 (provide 'init-packages)
