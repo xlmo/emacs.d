@@ -16,14 +16,17 @@
 
   ;;路径设置
   (add-to-list 'load-path "~/.emacs.d/lisp/")
- ; (add-to-list 'load-path "~/.emacs.d/elisp/")
+  ;; (add-to-list 'load-path "~/.emacs.d/elisp/")
+  ;; 生成文件存放目录
+  (setq local-cache-directory "~/.emacs.d/.cache/")
 
   (with-temp-message ""
     (require 'init-accelerate) ;; 加速
     (require 'init-elpa) ;; 包管理
     (require 'init-func)
     (require 'init-compat)
-    (require 'init-dashboard)
+    (require 'init-session)
+;    (require 'init-dashboard)
     )
 
   ;; 可以延后加载的

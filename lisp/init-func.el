@@ -150,7 +150,7 @@ there's a region, all lines that region covers will be duplicated."
   (interactive "")
   (helm-ag (concat org-directory "/work")))
 
-(defun xlmo/search-noee-dir (&optional)
+(defun xlmo/search-note-dir (&optional)
   "搜索note目录"
   (interactive "")
   (helm-ag org-notes-dir))
