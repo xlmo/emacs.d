@@ -25,6 +25,7 @@
     (require 'init-elpa) ;; 包管理
     (require 'init-func)
     (require 'init-compat)
+    (require 'init-misc)
     (require 'init-org)
     (require 'init-session)
 ;    (require 'init-dashboard)
@@ -34,12 +35,11 @@
   (run-with-idle-timer
    1 nil
    #'(lambda ()
-       (require 'init-misc)
        (require 'init-packages) ;; 所需扩展包
        (require 'init-company)
        (require 'init-agenda)
        (require 'init-calendar)
-       (require 'init-lsp)
+       ;; (require 'init-lsp)
        (require 'init-pyim)
        (require 'init-custom-key)
        (require 'init-ui)

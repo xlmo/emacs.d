@@ -2,7 +2,6 @@
 ;; 各种mode
 (use-package php-mode)
 
-
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/go-mode")
 (autoload 'go-mode "go-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
@@ -18,6 +17,27 @@
   (web-mode-code-indent-offset 2))
 (print user-emacs-directory)
 (use-package js2-mode)
+
+;; 统一管理弹出窗口
+(use-package popper
+  :defer t
+  :ensure t ; or :straight t
+  :bind (("C-`"   . popper-toggle-latest)
+         ("M-`"   . popper-cycle)
+         ("C-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          help-mode
+          compilation-mode))
+  (popper-mode +1)
+  (popper-echo-mode +1))
+
+;; 扩展区域
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 
 
 ;; 窗口跳转 用M-数字键来切换窗口

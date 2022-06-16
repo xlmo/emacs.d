@@ -48,13 +48,13 @@
 (add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
              '("tp" "Personal Task" entry (file+headline org-task-file "Personal Task")
-               "* TODO %? :personal:\n%U\n\n" :clock-in t :clock-resume t))
+               "* TODO %? :私事:\n%U\n\n" :clock-in t :clock-resume t))
 (add-to-list 'org-capture-templates
 	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
-               "* TODO %? :work:\n%U\n\n" :clock-in t :clock-resume t))
+               "* TODO %? :公事:\n%U\n\n" :clock-in t :clock-resume t))
 (add-to-list 'org-capture-templates
 	     '("tt" "Technology Task" entry (file+headline org-task-file "Technology Task")
-               "* TODO %? :tech:\n%U\n\n" :clock-in t :clock-resume t))
+               "* TODO %? :技术:\n%U\n\n" :clock-in t :clock-resume t))
 
 ;; 临时捕获
 (add-to-list 'org-capture-templates

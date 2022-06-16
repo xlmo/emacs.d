@@ -18,7 +18,8 @@
 (global-visual-line-mode 1)
 
 ;; 显示行号
-(global-display-line-numbers-mode 1)
+;; 不开启全局行号显示，因为在agenda-mode 中会有布局问题
+;(global-display-line-numbers-mode 1)
 
 ;; title 显示文件全路径
 (setq frame-title-format
@@ -33,7 +34,8 @@
 (setq inhibit-splash-screen 1)
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
-
+;; 不显示启动画面
+(setq inhibit-startup-screen t)
 
 
 ;; 翻页之后光标位置不变
@@ -60,22 +62,6 @@
 (setq mouse-wheel-progressive-speed nil)
 
 
-;; 统一管理弹出窗口
-(use-package popper
-  :defer t
-  :ensure t ; or :straight t
-  :bind (("C-`"   . popper-toggle-latest)
-         ("M-`"   . popper-cycle)
-         ("C-M-`" . popper-toggle-type))
-  :init
-  (setq popper-reference-buffers
-        '("\\*Messages\\*"
-          "Output\\*$"
-          "\\*Async Shell Command\\*"
-          help-mode
-          compilation-mode))
-  (popper-mode +1)
-  (popper-echo-mode +1))
 
 ;; ;;保存窗口布局
 ;; (desktop-save-mode t)
@@ -206,17 +192,11 @@ from tradition chinese to simple chinese" t)
 
 
 ;; 自动保存 停止敲键盘超过一定秒数后就自动保存
-(add-to-list 'load-path "~/.emacs.d/elisp/auto-save") ;
 (require 'auto-save)
 (auto-save-enable)
 (setq auto-save-slient t)
 (setq auto-save-delete-trailing-whitespace t)
 ;;(setq auto-save-idle 5)
-
-;; 扩展区域
-(use-package expand-region
-  :bind ("C-=" . er/expand-region))
-
 
 ;; 启动server
 (add-hook 'after-init-hook

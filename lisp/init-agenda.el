@@ -26,14 +26,15 @@
        "now - - - - - - - - - - - - -")
 
   ;; Set it to 'auto can not work well for Chinese user.
-(setq org-agenda-tags-column -120)
-;(setq org-agenda-tags-column 'auto)
+;(setq org-agenda-tags-column -120)
+;;(setq org-agenda-tags-column 'auto)
+;(setq org-agenda-align-tags-to-column -80)
 
 (setq org-agenda-prefix-format
       '((agenda  . " %i %-10:c %5t %s")
-        (todo  . " %i %-20:c ")
-        (tags  . " %i %-20:c ")
-        (search . " %i %-20:c ")))
+        (todo  . " %i %-10:c ")
+        (tags  . " %i %-10:c ")
+        (search . " %i %-10:c ")))
 
 (setq org-agenda-scheduled-leaders
       '("预 " "应%02d天前开始 "))

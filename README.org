@@ -20,6 +20,8 @@
 - w3m
 ** 子模块
 git submodule update --init --recursive
+** 说明
+ - 不要全局开启 display-line-numbers-mode, 会在agenda 中引起样式问题
 
 * 配置
 ** org-protocol
