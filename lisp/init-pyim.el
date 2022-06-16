@@ -1,11 +1,13 @@
 ;; 设置词库
 (setq pyim-dicts
-      '((:name "dict_big" :file "~/.emacs.d/pyim-bigdict.pyim") ;;大词库
-      (:name "dict_sogoo" :file "~/.emacs.d/pyim-sogoudict.pyim"))) ;; 个人搜狗输入法转的词库
+      '((:name "dict_big" :file "~/.emacs.d/data/pyim-bigdict.pyim") ;;大词库
+      (:name "dict_sogoo" :file "~/.emacs.d/data/pyim-sogoudict.pyim"))) ;; 个人搜狗输入法转的词库
 
 (use-package pyim
   :ensure t
   :config
+  ;; 设置cache 目录
+  (setq pyim-dcache-directory (concat local-cache-directory "pyim/dcache/"))
   ;; 激活 basedict 拼音词库
   (use-package pyim-basedict
     :ensure t
@@ -22,8 +24,8 @@
 (setq pyim-default-scheme 'quanpin)
 
 ;; 云输入法
-;; (setq pyim-cloudim 'baidu)		;
-;; (setq pyim-cloudim 'google)
+(setq pyim-cloudim 'baidu)
+;;(setq pyim-cloudim 'google)
 
 ;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
 ;; 我自己使用的中英文动态切换规则是：

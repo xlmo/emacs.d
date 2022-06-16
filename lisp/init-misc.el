@@ -7,6 +7,13 @@
 ;;关闭备份文件
 (setq make-backup-files nil)
 
+;; recentf 文件保存路径
+(setq recentf-save-file (expand-file-name "recentf" local-cache-directory))
+;; bookmarks 文件保存路径
+(setq bookmark-default-file (expand-file-name "bookmarks" local-cache-directory))
+;; history 文件保存路径
+(setq savehist-file (expand-file-name "history" local-cache-directory))
+
 
 ;; 简化yes or no 的回答
 (fset 'yes-or-no-p 'y-or-n-p)

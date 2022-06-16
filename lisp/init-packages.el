@@ -131,14 +131,12 @@
 
 (use-package w3m)
 
+;; 设置代码片断路径，这里必须先设置，不然会默认添加 ~/.emacs.d/snippets 这个路径并创建目录
+(setq yas-snippet-dirs '("~/.emacs.d/data/snippets"))
 (use-package yasnippet
-  :config
-  (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets"
-	  ))
   :init
   (yas-global-mode 1))
-
+(print yas-snippet-dirs)
 
 (use-package markdown-mode
   :ensure t
@@ -215,23 +213,28 @@
 ;;    ("<f2> <up>" . windmove-up)
 ;;    ("<f2> <down>" . windmove-down)
 ;;    ))
+
+;; 这个包有内存泄露的问题
+;;(use-package transpose-frame)
+
 ;; 窗口跳转操作
+(defvar aw-dispatch-alist
+    '((?x aw-delete-window "Delete Window")
+      (?m aw-swap-window "Swap Windows")
+      (?M aw-move-window "Move Window")
+      (?c aw-copy-window "Copy Window")
+      (?j aw-switch-buffer-in-window "Select Buffer")
+;;      (?n aw-flip-window)
+;;      (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+      (?c aw-split-window-fair "Split Fair Window")
+      (?v aw-split-window-vert "Split Vert Window")
+      (?b aw-split-window-horz "Split Horz Window")
+      (?o delete-other-windows "Delete Other Windows")
+      (?? aw-show-dispatch-help))
+    "List of actions for `aw-dispatch-default'.")
 (use-package ace-window
   :bind (("M-o" . 'ace-window)))
-;; (defvar aw-dispatch-alist
-;;   '((?x aw-delete-window "Delete Window")
-;; 	(?m aw-swap-window "Swap Windows")
-;; 	(?M aw-move-window "Move Window")
-;; 	(?c aw-copy-window "Copy Window")
-;; 	(?j aw-switch-buffer-in-window "Select Buffer")
-;; 	(?n aw-flip-window)
-;; 	(?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-;; 	(?c aw-split-window-fair "Split Fair Window")
-;; 	(?v aw-split-window-vert "Split Vert Window")
-;; 	(?b aw-split-window-horz "Split Horz Window")
-;; 	(?o delete-other-windows "Delete Other Windows")
-;; 	(?? aw-show-dispatch-help))
-;;   "List of actions for `aw-dispatch-default'.")
+
 
 ;; dired 显示高亮增强。
 (use-package diredfl
