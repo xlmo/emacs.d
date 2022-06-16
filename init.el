@@ -25,6 +25,7 @@
     (require 'init-elpa) ;; 包管理
     (require 'init-func)
     (require 'init-compat)
+    (require 'init-org)
     (require 'init-session)
 ;    (require 'init-dashboard)
     )
@@ -40,7 +41,6 @@
        (require 'init-calendar)
        (require 'init-lsp)
        (require 'init-pyim)
-       (require 'init-org)
        (require 'init-custom-key)
        (require 'init-ui)
        (require 'init-demo)

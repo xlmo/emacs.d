@@ -185,15 +185,33 @@
     (setq undo-tree-visualizer-diff t)))
 
 (use-package posframe)
+
 ;; 窗口移动
-(use-package windmove
-  :ensure nil
-  :bind
-  (("<f2> <right>" . windmove-right)
-   ("<f2> <left>" . windmove-left)
-   ("<f2> <up>" . windmove-up)
-   ("<f2> <down>" . windmove-down)
-   ))
+;; (use-package windmove
+;;   :ensure nil
+;;   :bind
+;;   (("<f2> <right>" . windmove-right)
+;;    ("<f2> <left>" . windmove-left)
+;;    ("<f2> <up>" . windmove-up)
+;;    ("<f2> <down>" . windmove-down)
+;;    ))
+;; 窗口跳转操作
+(use-package ace-window
+  :bind (("M-o" . 'ace-window)))
+;; (defvar aw-dispatch-alist
+;;   '((?x aw-delete-window "Delete Window")
+;; 	(?m aw-swap-window "Swap Windows")
+;; 	(?M aw-move-window "Move Window")
+;; 	(?c aw-copy-window "Copy Window")
+;; 	(?j aw-switch-buffer-in-window "Select Buffer")
+;; 	(?n aw-flip-window)
+;; 	(?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+;; 	(?c aw-split-window-fair "Split Fair Window")
+;; 	(?v aw-split-window-vert "Split Vert Window")
+;; 	(?b aw-split-window-horz "Split Horz Window")
+;; 	(?o delete-other-windows "Delete Other Windows")
+;; 	(?? aw-show-dispatch-help))
+;;   "List of actions for `aw-dispatch-default'.")
 
 ;; dired 显示高亮增强。
 (use-package diredfl
