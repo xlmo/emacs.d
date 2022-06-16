@@ -232,9 +232,13 @@
       (?o delete-other-windows "Delete Other Windows")
       (?? aw-show-dispatch-help))
     "List of actions for `aw-dispatch-default'.")
-(use-package ace-window
-  :bind (("M-o" . 'ace-window)))
 
+
+(use-package ace-window
+  :config
+  ;; 排除sort-tab
+  (add-to-list 'aw-ignored-buffers "*sort-tab*")
+  :bind (("M-o" . 'ace-window)))
 
 ;; dired 显示高亮增强。
 (use-package diredfl
