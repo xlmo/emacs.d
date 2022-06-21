@@ -41,5 +41,8 @@
 (global-set-key (kbd "C-M-b") 'backward-list)
 
 
+;; 词典翻译
+(global-set-key [f2] 'sdcv-search-pointer+)
+
 
 (provide 'init-custom-key)
