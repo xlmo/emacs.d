@@ -10,7 +10,7 @@
 (setq org-use-fast-todo-selection t)
 ;; 存储着作用于全局的状态序列
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "WAITING(w@/!)" "SOMEDAY(m@/!)" "DOING(i@/!)"  "DONE(dx)")
+      (quote ((sequence "TODO(t)" "WAITING(w@/!)" "SOMEDAY(m@/!)" "DOING(i)"  "DONE(d)")
 ;              (sequence "PROJECT(p)" "|" "DONE(d)" "CANCELLED(c@/!)")
 ;              (sequence "BUG(b)" "|" "FIXED(f)")
 ;              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING")
@@ -48,13 +48,13 @@
 (add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
              '("tp" "Personal Task" entry (file+headline org-task-file "Personal Task")
-               "* TODO %? :私事:\n%U\n\n" :clock-in t :clock-resume t))
+               "* TODO %? :私事:\n%U\n\n"))
 (add-to-list 'org-capture-templates
 	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
-               "* TODO %? :公事:\n%U\n\n" :clock-in t :clock-resume t))
+               "* TODO %? :公事:\n%U\n\n"))
 (add-to-list 'org-capture-templates
 	     '("tt" "Technology Task" entry (file+headline org-task-file "Technology Task")
-               "* TODO %? :技术:\n%U\n\n" :clock-in t :clock-resume t))
+               "* TODO %? :技术:\n%U\n\n"))
 
 ;; 临时捕获
 (add-to-list 'org-capture-templates
