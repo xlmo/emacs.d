@@ -1,5 +1,13 @@
 ;; 综合设置
 
+;; Keep ~/.emacs.d/ clean.
+(use-package no-littering
+  :ensure t
+  :demand t)
+
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
 ;;当你选中一段文字 之后输入一个字符会替换掉你选中部分的文字
 (delete-selection-mode 1)
 ;;关闭自动保存文件
@@ -8,11 +16,11 @@
 (setq make-backup-files nil)
 
 ;; recentf 文件保存路径
-(setq recentf-save-file (expand-file-name "recentf" local-cache-directory))
+;(setq recentf-save-file (expand-file-name "recentf" local-cache-directory))
 ;; bookmarks 文件保存路径
-(setq bookmark-default-file (expand-file-name "bookmarks" local-cache-directory))
+;(setq bookmark-default-file (expand-file-name "bookmarks" local-cache-directory))
 ;; history 文件保存路径
-(setq savehist-file (expand-file-name "history" local-cache-directory))
+;(setq savehist-file (expand-file-name "history" local-cache-directory))
 
 
 ;; 简化yes or no 的回答
@@ -49,8 +57,6 @@
 (setq scroll-preserve-screen-position t)
 
 
-
-
 ;; 编码设置 来源自purcell
 (when (or window-system (sanityinc/locale-is-utf8-p))
   (set-language-environment 'utf-8)
@@ -68,17 +74,6 @@
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
 
-
-
-;; ;;保存窗口布局
-;; (desktop-save-mode t)
-;; ;;启动时加载布局
-;; (setq desktop-dir "~/.emacs.d")
-;; (desktop-read desktop-dir)
-
-;; ;;用M-数字键来切换窗口
-;; (require 'window-numbering)
-;; (window-numbering-mode 1)
 
 ;; ;; eshell path
 ;; (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
@@ -110,13 +105,9 @@
 (setq kept-new-versions 6)
 (setq kept-old-versions 2)
 
-(defvar autosave-dir (expand-file-name local-autosave-directory))
-(if (not (file-exists-p autosave-dir))
-    (make-directory autosave-dir t))
+
 ;; auto-save 访问的文件。
 (setq auto-save-default t)
-(setq auto-save-list-file-prefix autosave-dir)
-(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
 
 (setq browse-kill-ring-quit-action        ;设置退出动作

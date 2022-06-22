@@ -37,12 +37,20 @@
           (holiday-fixed 3 14 "白色情人节")
           (holiday-fixed 4 1 "愚人节")
           (holiday-fixed 5 1 "劳动节")
+          (holiday-fixed 5 2 "劳动节")
+          (holiday-fixed 5 3 "劳动节")
           (holiday-fixed 5 4 "青年节")
           (holiday-float 5 0 2 "母亲节")
           (holiday-fixed 6 1 "儿童节")
           (holiday-float 6 0 3 "父亲节")
           (holiday-fixed 9 10 "教师节")
           (holiday-fixed 10 1 "国庆节")
+          (holiday-fixed 10 2 "国庆节")
+          (holiday-fixed 10 3 "国庆节")
+          (holiday-fixed 10 4 "国庆节")
+          (holiday-fixed 10 5 "国庆节")
+          (holiday-fixed 10 6 "国庆节")
+          (holiday-fixed 10 7 "国庆节")
           (holiday-fixed 10 24 "程序员节")
           (holiday-fixed 12 25 "圣诞节")
           ;; 农历节日
@@ -84,6 +92,10 @@
 (use-package calendar
   :after org-agenda
   :ensure nil
+  :hook (calendar-today-visible . calendar-mark-today)
+  :custom
+  (calendar-chinese-all-holidays-flag t)
+  (calendar-mark-holidays-flag t)
   :config
   (setq calendar-week-start-day 0) ; 一周第一天，0表示星期天, 1表示星期一
   (setq calendar-month-name-array

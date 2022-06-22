@@ -3,11 +3,15 @@
 
 
 (setq org-agenda-include-diary t)
-
+(setq org-agenda-insert-diary-extract-time t)
+(setq org-agenda-inhibit-startup t)
 
 (setq org-agenda-span 'day)
-(setq org-agenda-window-setup 'only-window)
+(setq org-agenda-window-setup 'current-window)
 (setq org-agenda-include-diary nil)
+(setq org-agenda-remove-tags t)
+(setq org-agenda-columns-add-appointments-to-effort-sum t)
+(setq org-agenda-restore-windows-after-quit t)
 
 (setq org-agenda-todo-ignore-scheduled t)
 (setq org-agenda-todo-ignore-deadlines t)

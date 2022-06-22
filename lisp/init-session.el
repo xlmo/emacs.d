@@ -4,8 +4,8 @@
 ;;; Code:
 
 ;; save a list of open files in ~/.emacs.d/.emacs.desktop
-(setq desktop-path (list local-cache-directory)
-      desktop-auto-save-timeout 600)
+;(setq desktop-path (list local-cache-directory))
+(setq desktop-auto-save-timeout 600)
 (desktop-save-mode 1)
 
 (defun sanityinc/time-subtract-millis (b a)
@@ -38,7 +38,8 @@
 
 (use-package session)
 
-(setq session-save-file  (concat local-cache-directory ".session"))
+(setq session-save-file  (no-littering-expand-var-file-name ".session"))
+
 (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
 (setq session-save-file-coding-system 'utf-8)
 

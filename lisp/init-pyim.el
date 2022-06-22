@@ -1,13 +1,14 @@
 ;; 设置词库
 (setq pyim-dicts
-      '((:name "dict_big" :file "~/.emacs.d/data/pyim-bigdict.pyim") ;;大词库
-      (:name "dict_sogoo" :file "~/.emacs.d/data/pyim-sogoudict.pyim"))) ;; 个人搜狗输入法转的词库
+      '((:name "dict_big" :file  "~/.emacs.d/etc/pyim-bigdict.pyim") ;;大词库
+      (:name "dict_sogoo" :file  "~/.emacs.d/etc/pyim-sogoudict.pyim"))) ;; 个人搜狗输入法转的词库
+
 
 (use-package pyim
   :ensure t
   :config
   ;; 设置cache 目录
-  (setq pyim-dcache-directory (concat local-cache-directory "pyim/dcache/"))
+;  (setq pyim-dcache-directory (concat local-cache-directory "pyim/dcache/"))
   ;; 激活 basedict 拼音词库
   (use-package pyim-basedict
     :ensure t

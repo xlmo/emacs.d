@@ -6,6 +6,27 @@
 ;; 默认展开两级
 (setq org-startup-folded 'show2levels)
 
+(setq org-startup-indented t)
+(setq org-startup-indented t)
+(setq org-fontify-todo-headline t)
+(setq org-fontify-done-headline t)
+(setq org-fontify-whole-heading-line t)
+(setq org-fontify-quote-and-verse-blocks t)
+
+(setq org-imenu-depth 4)
+(setq org-clone-delete-id t)
+(setq org-use-sub-superscripts '{})
+(setq org-yank-adjusted-subtrees t)
+(setq org-ctrl-k-protect-subtree 'error)
+(setq org-catch-invisible-edits 'smart)
+(setq org-insert-heading-respect-content t)
+ ;; call C-c C-o explicitly
+(setq org-return-follows-link nil)
+(setq org-enforce-todo-checkbox-dependencies t)
+;;1.当任务还有子任务未完成时，阻止任务从未完成状态到完成状态的改变
+;;2.对基于 headline 的任务而言，若其上一级任务设置了 ":ORDERED:" 属性，则在其前面的同级任务完成前，无法被设置为完成状态
+(setq org-enforce-todo-dependencies t)
+
 ;; ; 使用状态快捷键
 (setq org-use-fast-todo-selection t)
 ;; 存储着作用于全局的状态序列
@@ -38,9 +59,7 @@
 
 ;; (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
-;;1.当任务还有子任务未完成时，阻止任务从未完成状态到完成状态的改变
-;;2.对基于 headline 的任务而言，若其上一级任务设置了 ":ORDERED:" 属性，则在其前面的同级任务完成前，无法被设置为完成状态
-(setq org-enforce-todo-dependencies t)
+
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates nil)

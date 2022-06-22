@@ -85,7 +85,7 @@
 (use-package projectile
   :config
   ;; 把它的缓存挪到 ~/.emacs.d/.cache/ 文件夹下，让 gitignore 好做
-  (setq projectile-cache-file (expand-file-name "projectile.cache" local-cache-directory))
+;  (setq projectile-cache-file (expand-file-name "projectile.cache" local-cache-directory))
   ;; 全局 enable 这个 minor mode
   (projectile-mode 1)
   ;; 定义和它有关的功能的 leader key
@@ -199,7 +199,6 @@
   (progn
     (global-undo-tree-mode)
     (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/.cache/undo")))
     (setq undo-tree-visualizer-diff t)))
 
 (use-package posframe)
