@@ -138,10 +138,39 @@
   (yas-global-mode 1))
 (print yas-snippet-dirs)
 
+;; org markdown 表格对齐
+(use-package valign
+  :ensure t
+  :hook ((markdown-mode org-mode) . valign-mode))
+
 (use-package markdown-mode
   :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown"))
+  :init
+  (advice-add #'markdown--command-map-prompt :override #'ignore)
+  (advice-add #'markdown--style-map-prompt   :override #'ignore)
+  :mode ("README\\(?:\\.md\\)?\\'" . gfm-mode)
+  :hook (markdown-mode . visual-line-mode)
+  :bind (:map markdown-mode-style-map
+         ("r" . markdown-insert-ruby-tag)
+         ("d" . markdown-insert-details))
+  :config
+  (defun markdown-insert-ruby-tag (text ruby)
+    "Insert ruby tag with `TEXT' and `RUBY' quickly."
+    (interactive "sText: \nsRuby: \n")
+    (insert (format "<ruby>%s<rp>(</rp><rt>%s</rt><rp>)</rp></ruby>" text ruby)))
+
+  (defun markdown-insert-details (title)
+    "Insert details tag (collapsible) quickly."
+    (interactive "sTitle: ")
+    (insert (format "<details><summary>%s</summary>\n\n</details>" title)))
+  :custom
+  (markdown-header-scaling t)
+  (markdown-enable-wiki-links t)
+  (markdown-italic-underscore t)
+  (markdown-asymmetric-header t)
+  (markdown-gfm-uppercase-checkbox t)
+  (markdown-fontify-code-blocks-natively t))
+
 
 ;; 增强 emacs help
 (use-package helpful
@@ -249,5 +278,27 @@
 (sort-tab-mode 1)
 (global-set-key (kbd "s-n") 'sort-tab-select-next-tab)
 (global-set-key (kbd "s-p") 'sort-tab-select-prev-tab)
+
+
+
+;; Recently opened files
+(use-package recentf
+  :ensure nil
+  :hook (after-init . recentf-mode)
+  :custom
+  (recentf-max-saved-items 300)
+  (recentf-auto-cleanup 'never)
+  (recentf-exclude '(;; Folders on MacOS start
+                     "^/private/tmp/"
+                     "^/var/folders/"
+                     ;; Folders on MacOS end
+                     "^/tmp/"
+		     "~/.emacs.d/var/"
+		     "~/.emacs.d/etc/"
+                     "/ssh\\(x\\)?:"
+                     "/su\\(do\\)?:"
+                     "^/usr/include/"
+                     "/TAGS\\'"
+                     "COMMIT_EDITMSG\\'")))
 
 (provide 'init-packages)
