@@ -164,9 +164,13 @@
     (concat
      (pcase org-journal-file-type
        (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything")
-       (`weekly "#+TITLE: Weekly Journal\n#+STARTUP: folded")
-       (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: folded")
-       (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded"))))
+       ;; (`weekly "#+TITLE: Weekly Journal\n#+STARTUP: folded")
+       ;; (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: overview")
+       ;; (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded")
+      (`weekly (concat "#+TITLE: Weekly Journal - " (format-time-string "%Y-W%V") "\n#+STARTUP: folded"))
+      (`monthly (concat "#+TITLE: Monthly Journal - " (format-time-string "%Y-%m") "\n#+STARTUP: overview"))
+      (`yearly (concat "#+TITLE: Yearly Journal - " (format-time-string "%Y") "\n#+STARTUP: folded"))
+       )))
   (setq org-journal-file-header 'org-journal-file-header-func)
 
   ;; org-agenda 集成。
