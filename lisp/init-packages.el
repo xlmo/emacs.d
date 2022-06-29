@@ -301,4 +301,14 @@
                      "/TAGS\\'"
                      "COMMIT_EDITMSG\\'")))
 
+
+;; 多光标编辑
+(use-package multiple-cursors
+  :bind (("C-S-c" . mc/edit-lines) ;; 每行一个光标
+         ("C->" . mc/mark-next-like-this-symbol) ;; 全选光标所在单词并在下一个单词增加一个光标。通常用来启动一个流程
+         ("C-M->" . mc/skip-to-next-like-this) ;; 跳过当前单词并跳到下一个单词，和上面在同一个流程里。
+         ("C-<" . mc/mark-previous-like-this-symbol) ;; 同样是开启一个多光标流程，但是是「向上找」而不是向下找。
+         ("C-M-<" . mc/skip-to-previous-like-this) ;; 跳过当前单词并跳到上一个单词，和上面在同一个流程里。
+         ("C-c C->" . mc/mark-all-symbols-like-this))) ;; 直接多选本 buffer 所有这个单词
+
 (provide 'init-packages)
