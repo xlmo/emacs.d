@@ -67,10 +67,10 @@
 (add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
              '("tp" "Personal Task" entry (file+headline org-task-file "Personal Task")
-               "* TODO %? :私事:\n%U\n\n"))
+               "* TODO %? :个人:\n%U\n\n"))
 (add-to-list 'org-capture-templates
 	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
-               "* TODO %? :公事:\n%U\n\n"))
+               "* TODO %? :工作:\n%U\n\n"))
 (add-to-list 'org-capture-templates
 	     '("tt" "Technology Task" entry (file+headline org-task-file "Technology Task")
                "* TODO %? :技术:\n%U\n\n"))
