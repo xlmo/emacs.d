@@ -41,7 +41,7 @@
        (require 'init-agenda)
        (require 'init-calendar)
        (require 'init-dict)
-       ;(require 'init-lsp)
+       (require 'init-lsp)
        (require 'init-pyim)
        (require 'init-ui)
        (require 'init-demo)

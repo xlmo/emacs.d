@@ -1,11 +1,12 @@
 
-;; 各种mode
+
 (use-package php-mode)
 
-;; (add-to-list 'load-path "~/.emacs.d/elisp/go-mode")
-(autoload 'go-mode "go-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-;(use-package go-mode)
+(use-package go-mode
+  :init
+  (autoload 'go-mode "go-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+)
 
 (use-package yaml-mode)
 (use-package web-mode
@@ -15,7 +16,7 @@
   (web-mode-markup-indent-offset 2)
   (web-mode-css-indent-offset 2)
   (web-mode-code-indent-offset 2))
-(print user-emacs-directory)
+
 (use-package js2-mode)
 
 ;; 统一管理弹出窗口
@@ -129,7 +130,8 @@
   (burly-bookmark-prefix "WG:")
   )
 
-(use-package w3m)
+;; 用eww代替
+;;(use-package w3m)
 
 ;; 设置代码片断路径，这里必须先设置，不然会默认添加 ~/.emacs.d/snippets 这个路径并创建目录
 (setq yas-snippet-dirs '("~/.emacs.d/data/snippets"))
@@ -274,10 +276,10 @@
   (diredfl-global-mode))
 
 ;; tab
-(require 'sort-tab)
-(sort-tab-mode 1)
-(global-set-key (kbd "s-n") 'sort-tab-select-next-tab)
-(global-set-key (kbd "s-p") 'sort-tab-select-prev-tab)
+;(require 'sort-tab)
+;(sort-tab-mode 1)
+;(global-set-key (kbd "s-n") 'sort-tab-select-next-tab)
+;(global-set-key (kbd "s-p") 'sort-tab-select-prev-tab)
 
 
 
