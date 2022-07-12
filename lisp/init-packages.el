@@ -3,10 +3,24 @@
 (use-package php-mode)
 
 (use-package go-mode
+  :config
+  (progn
+    (setq gofmt-command "goimports")
+    (add-hook 'before-save-hook 'gofmt-before-save)
+    )
   :init
   (autoload 'go-mode "go-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-)
+  )
+(use-package go-eldoc
+  :config
+  (progn
+    (add-hook 'go-mode-hook 'go-eldoc-setup)
+    ))
+
+(use-package go-guru
+  :defer t
+  :hook (go-mode . go-guru-hl-identifier-mode))
 
 (use-package yaml-mode)
 (use-package web-mode

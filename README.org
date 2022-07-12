@@ -18,6 +18,7 @@
 - 搜索需要用到AG [ggreer/the_silver_searcher: A code-searching tool similar to ack, but faster.](https://github.com/ggreer/the_silver_searcher)
 - org 导出需要用到Pandoc [Pandoc - About pandoc](https://pandoc.org/)
 - w3m
+- clangd
 ** 子模块
 git submodule update --init --recursive
 ** 说明

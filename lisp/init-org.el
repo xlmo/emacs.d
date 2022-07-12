@@ -31,7 +31,7 @@
 (setq org-use-fast-todo-selection t)
 ;; 存储着作用于全局的状态序列
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "WAITING(w@/!)" "SOMEDAY(m@/!)" "DOING(i)"  "DONE(d)")
+      (quote ((sequence "TODO(t)" "WAITING(w@/!)" "SOMEDAY(m@/!)" "SUSPEND(s@/!)" "DOING(i)"  "DONE(d)")
 ;              (sequence "PROJECT(p)" "|" "DONE(d)" "CANCELLED(c@/!)")
 ;              (sequence "BUG(b)" "|" "FIXED(f)")
 ;              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING")
@@ -44,6 +44,7 @@
       (quote (("DOING" :foreground "red" :weight bold)
               ("SOMEDAY" :foreground "green" :weight bold)
               ("WAITING" :foreground "brown" :weight bold)
+              ("SUSPEND" :foreground "gray" :weight bold)
 ;              ("DONE" :foreground "green" :weight bold)
               )))
 ;; (setq org-todo-keyword-faces

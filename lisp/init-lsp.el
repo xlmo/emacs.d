@@ -1,5 +1,18 @@
 ;; lsp
-(use-package eglot)
+
+(use-package eglot
+  :config
+  ;; 给 c-mode, c++-mode 配置使用 clangd-11 作为 LSP 后端
+  ;; 需要主要的是，要根据上面你安装的 clangd 程序的名字填写这个配置
+  ;; 我这里写成 clangd-11 是因为安装的 clangd 程序的名字为 clangd-11
+  (add-to-list 'eglot-server-programs '((c-mode c++-mode) "clangd-14"))
+  ;; 使用 c-mode 是，开启 eglot
+  ;;(add-hook 'c-mode-hook 'eglot-ensure)
+
+  (add-hook 'go-mode-hook 'eglot-ensure)
+  ;; 使用 c++-mode 是，开启 eglot
+  ;;(add-hook 'c++-mode-hook 'eglot-ensure)
+  )
 
 ;; (use-package lsp-mode
 ;;   ;; 延时加载：仅当 (lsp) 函数被调用时再 (require)

@@ -340,4 +340,17 @@
                 (Template . ,(all-the-icons-material "format_align_left" :height 1.0 :v-adjust -0.2)))
               company-box-icons-alist 'company-box-icons-all-the-icons)))))
 
+(use-package company-go
+  :init
+  (progn
+    (setq company-go-show-annotation t)
+    (setq company-tooltip-limit 20)                      ; bigger popup window
+    (add-hook 'go-mode-hook
+              (lambda ()
+                (set (make-local-variable 'company-backends) '(company-go))
+                (company-mode)))
+    )
+  )
+
+
 (provide 'init-company)
