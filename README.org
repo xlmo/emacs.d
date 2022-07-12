@@ -19,6 +19,9 @@
 - org 导出需要用到Pandoc [Pandoc - About pandoc](https://pandoc.org/)
 - w3m
 - clangd
+- libtool-bin
+- cmake
+- libvterm-dev
 ** 子模块
 git submodule update --init --recursive
 ** 说明
