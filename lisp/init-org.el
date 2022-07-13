@@ -289,8 +289,10 @@
             org-inbox-file
             ))
 
-(use-package org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;; head 美化
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; 修改默认省略号
 (setq org-ellipsis "⤵")

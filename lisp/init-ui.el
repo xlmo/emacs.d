@@ -1,9 +1,4 @@
 
-;; https://github.com/manateelazycat/awesome-tray
-;; (require 'awesome-tray)
-;; (awesome-tray-mode 1)
-;; (setq awesome-tray-active-modules '("buffer-name" "location" "awesome-tab" "mode-name" "date"))
-
 ;; doom-modeline
 ;; (use-package doom-modeline
 ;;   :ensure t
@@ -12,14 +7,6 @@
 ;;   (setq doom-modeline-buffer-file-name-style 'file-name)
 ;;   (setq doom-modeline-icon nil)
 ;;   )
-
-
-;; (column-number-mode t)
-;; (display-battery-mode t)
-;; (setq display-time-format "%m-%d %H:%M")
-;; (setq display-time-day-and-date t)
-;; (setq display-time-24hr-format t)
-;; (display-time-mode t)
 
 
 ;; (use-package modus-themes
@@ -38,31 +25,40 @@
 ;;   :bind ("<f12>" . modus-themes-toggle))
 
 ;; ;; modeline
-;; (use-package telephone-line
-;;   :init
-;;   (telephone-line-mode 1))
-
-(use-package doom-themes
-  :ensure t
+(use-package telephone-line
+  :init
+  (telephone-line-mode 1)
   :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-;;  (load-theme 'doom-one-light t)
+  (setq display-time-format "%m-%d %H:%M")
+  (setq display-time-default-load-average nil) ;; 不显示sytem load
+  (display-time-mode t)
+  )
 
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
+(use-package zenburn-theme
+  :config
+  (load-theme 'zenburn))
 
-  
-  (doom-modeline-mode)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
-  (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+;; (use-package doom-themes
+;;   :ensure t
+;;   :config
+;;   ;; Global settings (defaults)
+;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;   (load-theme 'doom-one t)
+;; ;;  (load-theme 'doom-one-light t)
+
+;;   ;; Enable flashing mode-line on errors
+;;   (doom-themes-visual-bell-config)
+;;   ;; Enable custom neotree theme (all-the-icons must be installed!)
+;;   (doom-themes-neotree-config)
+
+
+;;   (doom-modeline-mode)
+;;   ;; or for treemacs users
+;;   (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+;;   (doom-themes-treemacs-config)
+;;   ;; Corrects (and improves) org-mode's native fontification.
+;;   (doom-themes-org-config))
 
 (use-package solaire-mode
   :init
@@ -72,7 +68,7 @@
 ;(lazycat-theme-load)
 ;;(lazycat-theme-load-dark)
 ;;(lazycat-theme-load-light)
-; 切换主题
+
 ;(global-set-key [f12] 'lazycat-theme-toggle)
 ;(use-package solarized-theme
 ;  :init
@@ -128,5 +124,31 @@
 ;; 美化org结构
 ;; (require 'org-bars)
 ;; (add-hook 'org-mode-hook #'org-bars-mode)
+
+;; 「平铺式 WM」
+;; 它把窗口分为「主窗口」和「副窗口」两种，主窗口默认占满左半屏作为你的工作重心，副窗口叠放在右半屏。你可以随时交换主副窗口的位置。
+(use-package edwina
+  :config
+  ;; 让所有 display-buffer 动作都新增一个 window （而不是复用已经打开此 buffer 的 window）
+  (setq display-buffer-base-action '(display-buffer-below-selected))
+  ;; 以下定义会被 (edwina-setup-dwm-keys) 增加 'M-' 修饰。
+  ;; 我自定义了一套按键，因为原版会把我很常用的 M-d 覆盖掉。
+  (setq edwina-dwm-key-alist
+        '(("r" edwina-arrange)
+          ("j" edwina-select-next-window)
+          ("k" edwina-select-previous-window)
+          ("J" edwina-swap-next-window)
+          ("K" edwina-swap-previous-window)
+          ("h" edwina-dec-mfact)    ;; 主窗口缩窄
+          ("l" edwina-inc-mfact)    ;; 主窗口拉宽
+          ("D" edwina-dec-nmaster)  ;; 减少主窗口的数量
+          ("I" edwina-inc-nmaster)  ;; 增加主窗口的数量
+          ("C" edwina-delete-window) ;; 关闭窗口
+          ("RET" edwina-zoom t)     ;; 交换「主窗口」和「副窗口」
+          ("return" edwina-zoom t)
+          ("S-RET" edwina-clone-window t) ;; 复制一个本窗口
+          ("S-return" edwina-clone-window t)))
+  (edwina-setup-dwm-keys)
+  (edwina-mode 1))
 
 (provide 'init-ui)
