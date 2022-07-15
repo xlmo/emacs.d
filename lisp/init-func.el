@@ -155,4 +155,11 @@ there's a region, all lines that region covers will be duplicated."
   (interactive "")
   (helm-ag org-notes-dir))
 
+(defun xlmo/open-temp-file()
+  "打开以当前日期命名的临时文件"
+  (interactive)
+  (find-file (format (concat org-directory  "/temp_note/%s.org") (format-time-string "%Y-%m-%d")))
+  (goto-char (point-max))
+  )
+
 (provide 'init-func)
