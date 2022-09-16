@@ -78,8 +78,10 @@
 ;; ;; eshell path
 ;; (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
 
-;; 显示菜单栏
-(menu-bar-mode 1)
+;; 菜单栏显示 GUI显示 CLI不显示
+(if (display-graphic-p)
+    (menu-bar-mode 1)
+  (menu-bar-mode 0))
 
 ;; dired 大小用KB/MB/GB来显示
 (setq dired-listing-switches "-alh")
