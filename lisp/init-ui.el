@@ -34,9 +34,11 @@
   (display-time-mode t)
   )
 
-(use-package zenburn-theme
-  :config
-  (load-theme 'zenburn))
+;; 终端下使用终端自己的主题
+(when (display-graphic-p)
+  (use-package zenburn-theme
+    :config
+    (load-theme 'zenburn)))
 
 ;; (use-package doom-themes
 ;;   :ensure t
