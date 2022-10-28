@@ -98,10 +98,17 @@
 
 ;; (+load-font)
 
-(use-package all-the-icons
-  :defer t
-  :demand)
-
+;; all-the-icons 和 fire-code-mode 只能在 GUI 模式下使用。
+(when (display-graphic-p)
+  (use-package all-the-icons
+    :defer t
+    :demand)
+  ;; (use-package fira-code-mode
+  ;;   :defer t
+  ;;   :custom
+  ;;   (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
+  ;;   :hook prog-mode)
+  )
 
 
 ;; 设置缩放模式, 避免最大化窗口后右边和下边有空隙

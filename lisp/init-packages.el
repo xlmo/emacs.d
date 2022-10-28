@@ -338,5 +338,30 @@
 ;; 使用 M-x vterm 新建一个 terminal
 ;; 在 terminal 中使用 C-c C-t 进入「选择」模式（类似 Tmux 里的 C-b [ ）
 
+(use-package obsidian
+  :ensure t
+  :demand t
+  :config
+  (obsidian-specify-path obsidian-vault-dir)
+  (global-obsidian-mode t)
+  :custom
+  ;; This directory will be used for `obsidian-capture' if set.
+  (obsidian-inbox-directory "Inbox")
+  :bind (:map obsidian-mode-map
+              ;; 笔记跳转
+              ("C-c o j" . obsidian-jump)
+              ;; 新建笔记
+              ("C-c o c" . obsidian-capture)
+              ;; Replace C-c C-o with Obsidian.el's implementation. It's ok to use another
+key binding.
+              ;; 跳转链接
+              ("C-c o f" . obsidian-follow-link-at-point)
+              ;; Jump to backlinks
+              ;; 跳转到引用
+              ("C-c o b" . obsidian-backlink-jump)
+              ;; If you prefer you can use `obsidian-insert-link'
+or 'obsidian-insert-wikilink'
+              ;; 插入内链
+              ("C-c o l" . obsidian-insert-link)))
 
 (provide 'init-packages)
