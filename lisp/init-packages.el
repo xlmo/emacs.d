@@ -71,7 +71,12 @@
   (helm-mode 1))
 
 ;; 项目内搜索
-(use-package helm-ag)
+(use-package helm-ag
+  :config
+  ;; 修复 windows 下无法搜索中文问题
+  (modify-coding-system-alist 'process "rg" '(utf-8 . chinese-gbk-dos))
+  (custom-set-variables '(helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
+  )
 
 ;; buffer内搜索
 (use-package helm-swoop
@@ -326,18 +331,18 @@
          ("C-<" . mc/mark-previous-like-this-symbol) ;; 同样是开启一个多光标流程，但是是「向上找」而不是向下找。
          ("C-M-<" . mc/skip-to-previous-like-this) ;; 跳过当前单词并跳到上一个单词，和上面在同一个流程里。
          ("C-c C->" . mc/mark-all-symbols-like-this))) ;; 直接多选本 buffer 所有这个单词
-
+(when (eq system-type 'gnu/linux)
 ;; 终端
-(use-package vterm
-  ;; https://github.com/akermu/emacs-libvterm
-  ;; 请务必参照项目 README 作配置，以下不是我的完整配置。
-  ;; 比如，如果你要和 shell 双向互动（对，它可以双向互动），
-  ;; 那么 shell 需要做一点配置以解析 vterm 传递过来的信号
-  :config
-  (setq vterm-kill-buffer-on-exit t)) ;; shell 退出时 kill 掉这个 buffer
-;; 使用 M-x vterm 新建一个 terminal
-;; 在 terminal 中使用 C-c C-t 进入「选择」模式（类似 Tmux 里的 C-b [ ）
-
+  (use-package vterm
+    ;; https://github.com/akermu/emacs-libvterm
+    ;; 请务必参照项目 README 作配置，以下不是我的完整配置。
+    ;; 比如，如果你要和 shell 双向互动（对，它可以双向互动），
+    ;; 那么 shell 需要做一点配置以解析 vterm 传递过来的信号
+    :config
+    (setq vterm-kill-buffer-on-exit t)) ;; shell 退出时 kill 掉这个 buffer
+  ;; 使用 M-x vterm 新建一个 terminal
+  ;; 在 terminal 中使用 C-c C-t 进入「选择」模式（类似 Tmux 里的 C-b [ ）
+)
 (use-package obsidian
   :ensure t
   :demand t
@@ -346,22 +351,9 @@
   (global-obsidian-mode t)
   :custom
   ;; This directory will be used for `obsidian-capture' if set.
-  (obsidian-inbox-directory "Inbox")
-  :bind (:map obsidian-mode-map
-              ;; 笔记跳转
-              ("C-c o j" . obsidian-jump)
-              ;; 新建笔记
-              ("C-c o c" . obsidian-capture)
-              ;; Replace C-c C-o with Obsidian.el's implementation. It's ok to use another
-key binding.
-              ;; 跳转链接
-              ("C-c o f" . obsidian-follow-link-at-point)
-              ;; Jump to backlinks
-              ;; 跳转到引用
-              ("C-c o b" . obsidian-backlink-jump)
-              ;; If you prefer you can use `obsidian-insert-link'
-or 'obsidian-insert-wikilink'
-              ;; 插入内链
-              ("C-c o l" . obsidian-insert-link)))
+  (obsidian-inbox-directory "Inbox"))
+
+(use-package better-defaults
+  :ensure t)
 
 (provide 'init-packages)

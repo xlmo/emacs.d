@@ -28,13 +28,13 @@
 
 ;; 搜索
 ;; ;; 指定目录下搜索
-(global-set-key [f5] 'xlmo/open-temp-file)
+;;(global-set-key [f5] 'xlmo/open-temp-file)
 ;;(global-set-key [f6] 'xlmo/search-work-dir)
 ;;(global-set-key [f7] 'xlmo/search-note-dir)
 (global-set-key [f8] 'helm-do-ag)
 
 ;; 搜索所有buffer
-(global-set-key [f10] 'helm-swoop)
+(global-set-key [f9] 'helm-swoop)
 
 ;; 跳转匹配括号
 (global-set-key (kbd "C-M-f") 'forward-list)
@@ -43,6 +43,18 @@
 
 ;; 词典翻译
 (global-set-key [f2] 'sdcv-search-pointer+)
+
+;; obsidian
+;;笔记跳转
+(global-set-key (kbd "C-c o j") `obsidian-jump)
+;; 新建笔记
+(global-set-key (kbd "C-c o c") `obsidian-capture)
+;; 跳转链接
+(global-set-key (kbd "C-c o f") `obsidian-follow-link-at-point)
+;; 跳转到引用
+(global-set-key (kbd "C-c o b") `obsidian-backlink-jump)
+;; 插入内链
+(global-set-key (kbd "C-c o l") `obsidian-insert-link)
 
 
 (provide 'init-custom-key)

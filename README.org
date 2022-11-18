@@ -12,10 +12,12 @@
 - Symbols 字体: Noto Sans Symbols 和 Noto Sans Symbols2: https://fonts.google.com/noto
 - 花園明朝：HanaMinB：http://fonts.jp/hanazono/
 - Emacs 默认后备字体：Symbola: https://dn-works.com/ufas/
+- Source Code Pro https://github.com/adobe-fonts/source-code-pro
 
 * 其他
 ** 需要软件
 - 搜索需要用到AG [ggreer/the_silver_searcher: A code-searching tool similar to ack, but faster.](https://github.com/ggreer/the_silver_searcher)
+- RG [ripgrep](https://github.com/BurntSushi/ripgrep)
 - org 导出需要用到Pandoc [Pandoc - About pandoc](https://pandoc.org/)
 - w3m
 - clangd

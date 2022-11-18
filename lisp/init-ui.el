@@ -153,5 +153,13 @@
   (edwina-setup-dwm-keys)
   (edwina-mode 1))
 
+;; 设置默认字体
+(set-face-attribute 'default nil :font (font-spec :family "Source Code Pro"
+                          :size 16))
+(if (eq system-type 'windows-nt)
+  (dolist (charset '(kana han cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family "微软雅黑" :size 20)))
+)
 
 (provide 'init-ui)
