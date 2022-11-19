@@ -19,6 +19,9 @@
   ;; (add-to-list 'load-path "~/.emacs.d/elisp/")
   ;; 生成文件存放目录
   (setq local-cache-directory "~/.emacs.d/.cache/")
+  (unless (file-exists-p local-cache-directory)
+    (make-directory local-cache-directory)
+  )
 
   (with-temp-message ""
     (require 'init-accelerate) ;; 加速

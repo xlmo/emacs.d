@@ -63,7 +63,8 @@
 ;; 自动完成框架
 (use-package helm
   ;; 等价于 ((bind-key "M-x" #'helm-M-x)
-  :bind (("C-x C-f" . helm-find-files)
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
          ("C-c h" . helm-recentf))
   :config
   ; 全局启用  Helm minor mode
