@@ -63,8 +63,7 @@
 ;; 自动完成框架
 (use-package helm
   ;; 等价于 ((bind-key "M-x" #'helm-M-x)
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
+  :bind (("C-x C-f" . helm-find-files)
          ("C-c h" . helm-recentf))
   :config
   ; 全局启用  Helm minor mode
@@ -75,6 +74,7 @@
   :config
   ;; 修复 windows 下无法搜索中文问题
   (modify-coding-system-alist 'process "rg" '(utf-8 . chinese-gbk-dos))
+  ;; 使用ripgrep
   (custom-set-variables '(helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
   )
 
@@ -150,7 +150,7 @@
   )
 
 ;; 用eww代替
-;;(use-package w3m)
+;; (use-package w3m)
 
 ;; 设置代码片断路径，这里必须先设置，不然会默认添加 ~/.emacs.d/snippets 这个路径并创建目录
 (setq yas-snippet-dirs '("~/.emacs.d/data/snippets"))
@@ -264,7 +264,7 @@
 ;;    ))
 
 ;; 这个包有内存泄露的问题
-;;(use-package transpose-frame)
+;; (use-package transpose-frame)
 
 ;; 窗口跳转操作
 (defvar aw-dispatch-alist
@@ -342,7 +342,8 @@
     (setq vterm-kill-buffer-on-exit t)) ;; shell 退出时 kill 掉这个 buffer
   ;; 使用 M-x vterm 新建一个 terminal
   ;; 在 terminal 中使用 C-c C-t 进入「选择」模式（类似 Tmux 里的 C-b [ ）
-)
+  )
+
 (use-package obsidian
   :ensure t
   :demand t

@@ -3,6 +3,7 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-carbon-emacs* (eq window-system 'mac))
 (defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
+(defconst *is-windows-emacs* (eq system-type 'windows-nt))
 
 ;;终端下的剪贴板共享
 ;; http://hugoheden.wordpress.com/2009/03/08/copypaste-with-emacs-in-terminal/
@@ -75,10 +76,14 @@
 ;;   (setq gc-cons-percentage 0.5)
 ;;   (run-with-idle-timer 5 t #'garbage-collect)
 
-
-(when (eq system-type 'windows-nt)
-  (setq system-time-locale "C"))
-;; 
+(when *is-windows-emacs*
+  (setq system-time-locale "C")
+  ;; 解决左C和右M组合时右M无效问题
+  ;; 参考 https://emacs-china.org/t/topic/6585/4
+  ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Windows-Keyboard.html
+  (setq w32-recognize-altgr nil)
+  )
+;;
 ;; (setq garbage-collection-messages t)
 
 (provide 'init-compat)
