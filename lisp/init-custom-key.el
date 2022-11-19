@@ -1,8 +1,8 @@
 ;;resize window
-(global-set-key (kbd "C-c l") 'shrink-window-horizontally)
-(global-set-key (kbd "C-c h") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-c k") 'shrink-window)
-(global-set-key (kbd "C-c j") 'enlarge-window)
+;; (global-set-key (kbd "C-c l") 'shrink-window-horizontally)
+;; (global-set-key (kbd "C-c h") 'enlarge-window-horizontally)
+;; (global-set-key (kbd "C-c k") 'shrink-window)
+;; (global-set-key (kbd "C-c j") 'enlarge-window)
 
 
 ;; Font size

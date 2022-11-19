@@ -14,7 +14,7 @@
     (write-region "" nil custom-file)) ;; 创建文件
   (load custom-file)
 
-  ;;路径设置
+  ;; 路径设置
   (add-to-list 'load-path "~/.emacs.d/lisp/")
   ;; (add-to-list 'load-path "~/.emacs.d/elisp/")
   ;; 生成文件存放目录
@@ -22,7 +22,7 @@
 
   (with-temp-message ""
     (require 'init-accelerate) ;; 加速
-    (require 'init-elpa) ;; 包管理
+    (require 'init-elpa)       ;; 包管理
     (require 'init-func)
     (require 'init-compat)
     (require 'init-misc)
@@ -42,7 +42,7 @@
        (require 'init-calendar)
        (require 'init-dict)
        (require 'init-lsp)
-       (require 'init-pyim)
+;      (require 'init-pyim)
        (require 'init-ui)
        (require 'init-demo)
        (require 'init-custom-key)
