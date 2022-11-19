@@ -4,9 +4,9 @@
 ;;; Code:
 
 ;; save a list of open files in ~/.emacs.d/.emacs.desktop
-;(setq desktop-path (list local-cache-directory))
+(setq desktop-path (list local-cache-directory))
 (setq desktop-auto-save-timeout 600)
-(desktop-save-mode 1)
+;;(desktop-save-mode 1)
 
 (defun sanityinc/time-subtract-millis (b a)
   (* 1000.0 (float-time (time-subtract b a))))

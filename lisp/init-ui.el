@@ -1,29 +1,3 @@
-
-;; doom-modeline
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :init (doom-modeline-mode 1)
-;;   :config
-;;   (setq doom-modeline-buffer-file-name-style 'file-name)
-;;   (setq doom-modeline-icon nil)
-;;   )
-
-
-;; (use-package modus-themes
-;;   :ensure
-;;   :init
-;;   ;; Add all your customizations prior to loading the themes
-;;   (setq modus-themes-italic-constructs t
-;;         modus-themes-bold-constructs nil
-;;         modus-themes-region '(bg-only no-extend))
-
-;;   ;; Load the theme files before enabling a theme
-;;   (modus-themes-load-themes)
-;;   :config
-;;   ;; Load the theme of your choice:
-;;   (modus-themes-load-operandi) ;; OR (modus-themes-load-vivendi)
-;;   :bind ("<f12>" . modus-themes-toggle))
-
 ;; ;; modeline
 (use-package telephone-line
   :init
@@ -35,32 +9,32 @@
   )
 
 ;; 终端下使用终端自己的主题
-(when (display-graphic-p)
-  (use-package zenburn-theme
-    :config
-    (load-theme 'zenburn)))
+;; (when (display-graphic-p)
+;;   (use-package zenburn-theme
+;;     :config
+;;     (load-theme 'zenburn)))
 
-;; (use-package doom-themes
-;;   :ensure t
-;;   :config
-;;   ;; Global settings (defaults)
-;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-;;   (load-theme 'doom-one t)
-;; ;;  (load-theme 'doom-one-light t)
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+;;  (load-theme 'doom-one-light t)
+  (if (display-graphic-p)
+      (progn
+        ;; Enable custom neotree theme (all-the-icons must be installed!)
+        (doom-themes-neotree-config)
+        ;; or for treemacs users
+        (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+        (doom-themes-treemacs-config)
+        ))
 
-;;   ;; Enable flashing mode-line on errors
-;;   (doom-themes-visual-bell-config)
-;;   ;; Enable custom neotree theme (all-the-icons must be installed!)
-;;   (doom-themes-neotree-config)
-
-
-;;   (doom-modeline-mode)
-;;   ;; or for treemacs users
-;;   (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
-;;   (doom-themes-treemacs-config)
-;;   ;; Corrects (and improves) org-mode's native fontification.
-;;   (doom-themes-org-config))
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 (use-package solaire-mode
   :init
@@ -71,7 +45,6 @@
 ;;(lazycat-theme-load-dark)
 ;;(lazycat-theme-load-light)
 
-;(global-set-key [f12] 'lazycat-theme-toggle)
 ;(use-package solarized-theme
 ;  :init
 ;;  (load-theme 'solarized-light t) ;; 白天
@@ -152,13 +125,5 @@
   (edwina-setup-dwm-keys)
   (edwina-mode 1))
 
-;; 设置默认字体
-;; (set-face-attribute 'default nil :font (font-spec :family "Source Code Pro"
-;;                           :size 16))
-;; (if (eq system-type 'windows-nt)
-;;   (dolist (charset '(kana han cjk-misc bopomofo))
-;;     (set-fontset-font (frame-parameter nil 'font) charset
-;;                       (font-spec :family "微软雅黑" :size 16)))
-;; )
 
 (provide 'init-ui)
