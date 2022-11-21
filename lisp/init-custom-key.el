@@ -26,13 +26,10 @@
 ;; 关闭当前buffer
 (global-set-key (kbd "s-w") 'kill-current-buffer)
 
-;; 搜索
-;; ;; 指定目录下搜索
-;;(global-set-key [f5] 'xlmo/open-temp-file)
-;;(global-set-key [f6] 'xlmo/search-work-dir)
-;;(global-set-key [f7] 'xlmo/search-note-dir)
+;; 打开当日日志文件
+(global-set-key [f7] 'xlmo/open-dialy-file)
+;; 指定目录下搜索
 (global-set-key [f8] 'helm-do-ag)
-
 ;; 搜索所有buffer
 (global-set-key [f9] 'helm-swoop)
 

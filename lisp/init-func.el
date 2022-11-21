@@ -114,7 +114,7 @@ there's a region, all lines that region covers will be duplicated."
   (+load-emoji-font))
 
 ;; 切换透明背景。
-(defun my/toggle-transparency ()
+(defun xlmo/toggle-transparency ()
   (interactive)
   (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
   (add-to-list 'default-frame-alist '(alpha . (90 . 90))))
@@ -131,13 +131,11 @@ there's a region, all lines that region covers will be duplicated."
       (sanityinc/utf8-locale-p (getenv "LC_CTYPE"))
       (sanityinc/utf8-locale-p (getenv "LANG"))))
 
-
 ;; 暂时无用
 (defun xlmo/refresh-file()
   "重新从磁盘读取文件，更新到缓冲区"
   (interactive)
   (revert-buffer t (not (buffer-modified-p)) t))
-
 
 ;; 搜索指定目录
 (defun xlmo/search-root-dir (&optional)
@@ -145,21 +143,23 @@ there's a region, all lines that region covers will be duplicated."
   (interactive "")
   (helm-ag org-directory))
 
-(defun xlmo/search-work-dir (&optional)
-  "搜索工作目录"
-  (interactive "")
-  (helm-ag (concat org-directory "/work")))
-
-(defun xlmo/search-note-dir (&optional)
-  "搜索note目录"
-  (interactive "")
-  (helm-ag org-notes-dir))
-
-(defun xlmo/open-temp-file()
-  "打开以当前日期命名的临时文件"
+(defun xlmo/open-dialy-file()
+  "打开以当日的日志文件"
   (interactive)
-  (find-file (format (concat org-directory  "/temp_note/%s.org") (format-time-string "%Y-%m-%d")))
-  (goto-char (point-max))
+  (let* ((baseDir (expand-file-name "Diary" obsidian-directory))
+        (folderMonth (expand-file-name (format-time-string "%Y/%m/") baseDir))
+        (folderYear (expand-file-name (format-time-string "%Y/") baseDir))
+        (dayfile (expand-file-name (format-time-string "%Y/%m/%Y-%m-%d.md") baseDir))
+        )
+        (unless (file-exists-p folderYear)
+          (make-directory folderYear)
+          )
+        (unless (file-exists-p folderMonth)
+          (make-directory folderMonth)
+          )
+        (find-file dayfile)
+        (goto-char (point-max))
+        )
   )
 
 ;; WSL 中的复制粘贴
@@ -190,4 +190,5 @@ there's a region, all lines that region covers will be duplicated."
 (define-key global-map (kbd "C-x C-y") 'wsl-paste-from-clipboard)
 (define-key global-map (kbd "C-x M-w") 'wsl-copy-region-to-clipboard)
 (define-key global-map (kbd "C-x C-w") 'wsl-cut-region-to-clipboard)
+
 (provide 'init-func)
