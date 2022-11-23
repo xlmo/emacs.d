@@ -2,8 +2,7 @@
 
 ;; Keep ~/.emacs.d/ clean.
 (use-package no-littering
-  :ensure t
-  :demand t)
+  :ensure t)
 
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
@@ -190,13 +189,6 @@ from tradition chinese to simple chinese" t)
 (setq scroll-step 1
       scroll-conservatively 10000)
 
-
-;; 自动保存 停止敲键盘超过一定秒数后就自动保存
-(require 'auto-save)
-;; (auto-save-enable)
-;; (setq auto-save-slient t)
-;; (setq auto-save-delete-trailing-whitespace t)
-;;(setq auto-save-idle 5)
 
 ;; 启动server
 (add-hook 'after-init-hook

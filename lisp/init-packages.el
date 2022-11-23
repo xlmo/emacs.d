@@ -1,5 +1,3 @@
-
-
 (use-package php-mode)
 
 (use-package go-mode
@@ -10,13 +8,12 @@
     )
   :init
   (autoload 'go-mode "go-mode" nil t)
-  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-  )
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode)))
+
 (use-package go-eldoc
   :config
   (progn
-    (add-hook 'go-mode-hook 'go-eldoc-setup)
-    ))
+    (add-hook 'go-mode-hook 'go-eldoc-setup)))
 
 (use-package go-guru
   :defer t
@@ -58,8 +55,8 @@
 ;; 窗口跳转 用M-数字键来切换窗口
 (use-package window-numbering
   :config
-  (window-numbering-mode 1)
-  )
+  (window-numbering-mode 1))
+
 ;; 自动完成框架
 (use-package helm
   ;; 等价于 ((bind-key "M-x" #'helm-M-x)
@@ -72,19 +69,20 @@
 
 ;; 项目内搜索
 (use-package helm-ag
+  :bind
+  (([f8] . helm-do-ag))                 ;; 指定目录下搜索
   :config
-  ;; 修复 windows 下无法搜索中文问题
+  ;; 并且修复 windows 下无法搜索中文问题
   (modify-coding-system-alist 'process "rg" '(utf-8 . chinese-gbk-dos))
   ;; 使用ripgrep
-  (custom-set-variables '(helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
-  )
+  (custom-set-variables '(helm-ag-base-command "rg --vimgrep --no-heading --smart-case")))
 
 ;; buffer内搜索
 (use-package helm-swoop
   ;; 更多关于它的配置方法: https://github.com/ShingoFukuyama/helm-swoop
   ;; 以下我的配置仅供参考
   :bind
-  (("M-i" . helm-swoop)
+  (([f9] . helm-swoop)                ;搜索所有buffer
    ("M-I" . helm-swoop-back-to-last-point)
    ("C-c M-i" . helm-multi-swoop)
    ("C-x M-i" . helm-multi-swoop-all)
@@ -134,8 +132,7 @@
 ;;显示当前组合键下的全部组合
 (use-package which-key
   :config
-   (which-key-mode)
-   )
+  (which-key-mode))
 
 ;; hydra
 ;;(use-package hydra)
@@ -332,22 +329,30 @@
          ("C-<" . mc/mark-previous-like-this-symbol) ;; 同样是开启一个多光标流程，但是是「向上找」而不是向下找。
          ("C-M-<" . mc/skip-to-previous-like-this) ;; 跳过当前单词并跳到上一个单词，和上面在同一个流程里。
          ("C-c C->" . mc/mark-all-symbols-like-this))) ;; 直接多选本 buffer 所有这个单词
-(when (eq system-type 'gnu/linux)
+
 ;; 终端
-  (use-package vterm
-    ;; https://github.com/akermu/emacs-libvterm
-    ;; 请务必参照项目 README 作配置，以下不是我的完整配置。
-    ;; 比如，如果你要和 shell 双向互动（对，它可以双向互动），
-    ;; 那么 shell 需要做一点配置以解析 vterm 传递过来的信号
-    :config
-    (setq vterm-kill-buffer-on-exit t)) ;; shell 退出时 kill 掉这个 buffer
-  ;; 使用 M-x vterm 新建一个 terminal
-  ;; 在 terminal 中使用 C-c C-t 进入「选择」模式（类似 Tmux 里的 C-b [ ）
-  )
+;; 使用 M-x vterm 新建一个 terminal
+;; 在 terminal 中使用 C-c C-t 进入「选择」模式（类似 Tmux 里的 C-b [ ）
+(use-package vterm
+  :if (eq system-type 'gnu/linux)
+  ;; https://github.com/akermu/emacs-libvterm
+  ;; 请务必参照项目 README 作配置，以下不是我的完整配置。
+  ;; 比如，如果你要和 shell 双向互动（对，它可以双向互动），
+  ;; 那么 shell 需要做一点配置以解析 vterm 传递过来的信号
+  :config
+  (setq vterm-kill-buffer-on-exit t)) ;; shell 退出时 kill 掉这个 buffer
+
+
 
 (use-package obsidian
+  :disabled t
   :ensure t
   :demand t
+  :bind (("C-c o j" . obsidian-jump)
+   	("C-c o c" . obsidian-capture)
+	("C-c o f" . obsidian-follow-link-at-point)
+	("C-c o b" . obsidian-backlink-jump)
+	("C-c o l" . obsidian-insert-link))
   :config
   (obsidian-specify-path obsidian-vault-dir)
   (global-obsidian-mode t)
@@ -357,5 +362,11 @@
 
 (use-package better-defaults
   :ensure t)
+
+;; 自动保存 停止敲键盘超过一定秒数后就自动保存
+;; (use-package auto-save
+;;   :load-path "elisp/auto-save"
+;;   :config
+;;   (auto-save-enable))
 
 (provide 'init-packages)

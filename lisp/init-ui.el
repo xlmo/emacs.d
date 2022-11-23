@@ -1,12 +1,3 @@
-;; ;; modeline
-(use-package telephone-line
-  :init
-  (telephone-line-mode 1)
-  :config
-  (setq display-time-format "%m-%d %H:%M")
-  (setq display-time-default-load-average nil) ;; 不显示sytem load
-  (display-time-mode t)
-  )
 
 ;; 终端下使用终端自己的主题
 ;; (when (display-graphic-p)
@@ -125,5 +116,17 @@
   (edwina-setup-dwm-keys)
   (edwina-mode 1))
 
+;; modeline
+(use-package telephone-line
+  :init
+  (telephone-line-mode 1)
+  :config
+  (setq display-time-format "%m-%d %H:%M")
+  (setq display-time-default-load-average nil) ;; 不显示sytem load
+  (display-time-mode 0)
+  )
+
+;; (require 'awesome-tray)
+;; (awesome-tray-mode 1)
 
 (provide 'init-ui)
