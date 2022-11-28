@@ -65,26 +65,13 @@
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates nil)
 
-(add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
-             '("tp" "Personal Task" entry (file+headline org-task-file "Personal Task")
-               "* TODO %? :个人:\n%U\n\n"))
-(add-to-list 'org-capture-templates
-	     '("tw" "Work Task" entry (file+headline org-task-file "Work Task")
-               "* TODO %? :工作:\n%U\n\n"))
-(add-to-list 'org-capture-templates
-	     '("tt" "Technology Task" entry (file+headline org-task-file "Technology Task")
-               "* TODO %? :技术:\n%U\n\n"))
+	     '("t" "Task" entry (file+headline org-task-file "Task")
+               "* TODO %?\n%U\n\n"))
 
-;; 临时捕获
 (add-to-list 'org-capture-templates
-             '("i" "Inbox" entry (file org-inbox-file)
+             '("n" "Note" entry (file org-inbox-file)
                "* %?\n%U\n\n"))
-
-(add-to-list 'org-capture-templates
-             '("b" "Billing" plain
-               (file+function org-billing-file  find-month-tree)
-               " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
 
 (defun get-year-and-month ()
@@ -132,6 +119,7 @@
 (setq org-journal-prefix-key "C-c j")
 (use-package org-journal
   :demand
+  :disabled
   :commands org-journal-new-entry
   :init
   (defun org-journal-save-entry-and-exit()
@@ -260,9 +248,9 @@
   (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
   )
 
-(add-to-list 'org-capture-templates
-	     '("c" "Captured via org protocol" entry (file+headline org-capture-file "Inbox")
-               "* %T %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
+;; (add-to-list 'org-capture-templates
+;; 	     '("c" "Captured via org protocol" entry (file+headline org-capture-file "Inbox")
+;;                "* %T %(transform-square-brackets-to-round-ones \"%:description\") \n link:%:link \n\n%i\n" :immediate-finish t))
 
 ;; refile
 ;; refile 的位置是 agenda 文件的前三层 headline 。
@@ -284,8 +272,8 @@
 
 (setq org-agenda-files
       (list org-task-file
-            org-journal-dir
-            org-capture-file
+            ;; org-journal-dir             
+            ;; org-capture-file
             org-inbox-file
             ))
 
