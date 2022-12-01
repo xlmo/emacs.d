@@ -67,11 +67,11 @@
 
 (add-to-list 'org-capture-templates
 	     '("t" "Task" entry (file+headline org-task-file "Task")
-               "* TODO %?\n%U\n\n"))
+               "* TODO %?\n\n"))
 
 (add-to-list 'org-capture-templates
              '("n" "Note" entry (file org-inbox-file)
-               "* %?\n%U\n\n"))
+               "* %?\n\n"))
 
 
 (defun get-year-and-month ()
@@ -109,7 +109,7 @@
 ;;         ("dict" . "http://dict.cn/")))
 
 ;; ;记录todo完成时间
-(setq org-log-done 'time)
+;; (setq org-log-done 'time)
 ;; ;记录todo完成备注
 ;; ;(setq org-log-done 'note)
 
@@ -274,7 +274,7 @@
       (list org-task-file
             ;; org-journal-dir             
             ;; org-capture-file
-            org-inbox-file
+;;            org-inbox-file
             ))
 
 ;; head 美化

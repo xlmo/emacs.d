@@ -72,8 +72,9 @@
   :bind
   (([f8] . helm-do-ag))                 ;; 指定目录下搜索
   :config
-  ;; 并且修复 windows 下无法搜索中文问题
-  (modify-coding-system-alist 'process "rg" '(utf-8 . chinese-gbk-dos))
+  (if (eq system-type 'windows-nt)
+      ;; 修复 windows 下无法搜索中文问题
+      (modify-coding-system-alist 'process "rg" '(utf-8 . chinese-gbk-dos)))
   ;; 使用ripgrep
   (custom-set-variables '(helm-ag-base-command "rg --vimgrep --no-heading --smart-case")))
 
