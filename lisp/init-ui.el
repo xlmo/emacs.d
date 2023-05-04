@@ -1,132 +1,216 @@
+;; 界面配置
+;; #+UPDATED_AT:2023-05-04T16:05:45+0800
 
-;; 终端下使用终端自己的主题
-;; (when (display-graphic-p)
-;;   (use-package zenburn-theme
-;;     :config
-;;     (load-theme 'zenburn)))
+;; 禁用一些GUI特性
+(setq use-dialog-box nil)               ; 鼠标操作不使用对话框
+(setq inhibit-default-init t)           ; 不加载 `default' 库
+(setq inhibit-startup-screen t)         ; 不加载启动画面
+(setq inhibit-startup-message t)        ; 不加载启动消息
+(setq inhibit-startup-buffer-menu t)    ; 不显示缓冲区列表
 
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-;;  (load-theme 'doom-one-light t)
-  (if (display-graphic-p)
-      (progn
-        ;; Enable custom neotree theme (all-the-icons must be installed!)
-        (doom-themes-neotree-config)
-        ;; or for treemacs users
-        (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-        (doom-themes-treemacs-config)
-        ))
+;; 草稿缓冲区默认文字设置
+(setq initial-scratch-message (concat ";; Happy hacking, "
+                                      (capitalize user-login-name) " - Emacs ♥ you!\n\n"))
 
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+;; 设置缓冲区的文字方向为从左到右
+(setq bidi-paragraph-direction 'left-to-right)
 
-(use-package solaire-mode
-  :init
-  (solaire-global-mode +1))
-
-;(require 'lazycat-theme)
-;(lazycat-theme-load)
-;;(lazycat-theme-load-dark)
-;;(lazycat-theme-load-light)
-
-;(use-package solarized-theme
-;  :init
-;;  (load-theme 'solarized-light t) ;; 白天
-;  (load-theme 'solarized-dark t)  ;; 夜间
-;  )
+;; 设置自动折行宽度为80个字符，默认值为70
+(setq-default fill-column 80)
 
 
-;; 参考: https://github.com/DogLooksGood/dogEmacs/blob/master/elisp/init-font.el
-;; 缺省字体（英文，如显示代码）。
-(setq +font-family "Fira Code Retina")
-(setq +modeline-font-family "Fira Code Retina")
-;; 其它均使用 Sarasa Mono SC 字体。
-(setq +fixed-pitch-family "Sarasa Mono SC")
-(setq +variable-pitch-family "Sarasa Mono SC")
-(setq +font-unicode-family "Sarasa Mono SC")
-(setq +font-size 10)
+;; 设置大文件阈值为100MB，默认10MB
+(setq large-file-warning-threshold 100000000)
 
-(add-hook 'after-make-frame-functions
-          ( lambda (f)
-            (+load-face-font f)
-            (+load-ext-font)
-            (+load-emoji-font)))
+;; 以16进制显示字节数
+(setq display-raw-bytes-as-hex t)
+;; 有输入时禁止 `fontification' 相关的函数钩子，能让滚动更顺滑
+(setq redisplay-skip-fontification-on-input t)
 
-(+load-font)
+;; 禁止响铃
+(setq ring-bell-function 'ignore)
 
-;; all-the-icons 和 fire-code-mode 只能在 GUI 模式下使用。
+;; 禁止闪烁光标
+(blink-cursor-mode -1)
+
+;; 在光标处而非鼠标所在位置粘贴
+(setq mouse-yank-at-point t)
+
+
+;; 鼠标滚动设置
+(setq scroll-step 2)
+(setq scroll-margin 2)
+(setq hscroll-step 2)
+(setq hscroll-margin 2)
+(setq scroll-conservatively 101)
+(setq scroll-up-aggressively 0.01)
+(setq scroll-down-aggressively 0.01)
+(setq scroll-preserve-screen-position 'always)
+
+;; 对于高的行禁止自动垂直滚动
+(setq auto-window-vscroll nil)
+
+;; 设置新分屏打开的位置的阈值
+(setq split-width-threshold (assoc-default 'width default-frame-alist))
+(setq split-height-threshold nil)
+
+;; TAB键设置，在Emacs里不使用TAB键，所有的TAB默认为4个空格
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+;; yes或no提示设置，通过下面这个函数设置当缓冲区名字匹配到预设的字符串时自动回答yes
+(setq original-y-or-n-p 'y-or-n-p)
+
+;; 设置位置记录长度为6，默认为16
+;; 可以使用 `counsel-mark-ring' or `consult-mark' (C-x j) 来访问光标位置记录
+;; 使用 C-x C-SPC 执行 `pop-global-mark' 直接跳转到上一个全局位置处
+;; 使用 C-u C-SPC 跳转到本地位置处
+(setq mark-ring-max 6)
+(setq global-mark-ring-max 6)
+
+
+;; 在命令行里支持鼠标
+(xterm-mouse-mode 1)
+
+;; 退出Emacs时进行确认
+(setq confirm-kill-emacs 'y-or-n-p)
+
+;; 在模式栏上显示当前光标的列号
+(column-number-mode t)
+
+
+
+;; 配置所有的编码为UTF-8，参考：
+;; https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-language-environment 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-file-name-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
 (when (display-graphic-p)
-  (use-package all-the-icons
-    :defer t
-    :demand)
-  ;; (use-package fira-code-mode
-  ;;   :defer t
-  ;;   :custom
-  ;;   (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
-  ;;   :hook prog-mode)
-  )
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
 
-;; 设置缩放模式, 避免最大化窗口后右边和下边有空隙
-(setq frame-inhibit-implied-resize t)
-(setq frame-resize-pixelwise t)
+;; 主题包
+(use-package ef-themes
+  :ensure t
+  :bind ("C-c t" . ef-themes-toggle)
+  :init
+  ;; set two specific themes and switch between them
+  (setq ef-themes-to-toggle '(ef-summer ef-winter))
+  ;; set org headings and function syntax
+  (setq ef-themes-headings
+        '((0 . (bold 1))
+          (1 . (bold 1))
+          (2 . (rainbow bold 1))
+          (3 . (rainbow bold 1))
+          (4 . (rainbow bold 1))
+          (t . (rainbow bold 1))))
+  (setq ef-themes-region '(intense no-extend neutral))
+  ;; Disable all other themes to avoid awkward blending:
+  (mapc #'disable-theme custom-enabled-themes)
 
+  ;; Load the theme of choice:
+  ;; The themes we provide are recorded in the `ef-themes-dark-themes',
+  ;; `ef-themes-light-themes'.
 
-;; 在 frame 底部显示窗口。
-(setq display-buffer-alist
-      `((,(rx bos (or "*Apropos*" "*Help*" "*helpful" "*info*" "*Summary*" "*lsp-help*" "*vterm") (0+ not-newline))
-         (display-buffer-reuse-mode-window display-buffer-below-selected)
-         (window-height . 0.43)
-         (mode apropos-mode help-mode helpful-mode Info-mode Man-mode))))
+  ;; 如果你不喜欢随机主题，也可以直接固定选择一个主题，如下：
+  ;; (ef-themes-select 'ef-summer)
 
-;; 美化org结构
-;; (require 'org-bars)
-;; (add-hook 'org-mode-hook #'org-bars-mode)
+  ;; 随机挑选一款主题，如果是命令行打开Emacs，则随机挑选一款黑色主题
+  (if (display-graphic-p)
+      (ef-themes-load-random)
+    (ef-themes-load-random 'dark))
 
-;; 「平铺式 WM」
-;; 它把窗口分为「主窗口」和「副窗口」两种，主窗口默认占满左半屏作为你的工作重心，副窗口叠放在右半屏。你可以随时交换主副窗口的位置。
-(use-package edwina
   :config
-  ;; 让所有 display-buffer 动作都新增一个 window （而不是复用已经打开此 buffer 的 window）
-  (setq display-buffer-base-action '(display-buffer-below-selected))
-  ;; 以下定义会被 (edwina-setup-dwm-keys) 增加 'M-' 修饰。
-  ;; 我自定义了一套按键，因为原版会把我很常用的 M-d 覆盖掉。
-  (setq edwina-dwm-key-alist
-        '(("r" edwina-arrange)
-          ("j" edwina-select-next-window)
-          ("k" edwina-select-previous-window)
-          ("J" edwina-swap-next-window)
-          ("K" edwina-swap-previous-window)
-          ("h" edwina-dec-mfact)    ;; 主窗口缩窄
-          ("l" edwina-inc-mfact)    ;; 主窗口拉宽
-          ("D" edwina-dec-nmaster)  ;; 减少主窗口的数量
-          ("I" edwina-inc-nmaster)  ;; 增加主窗口的数量
-          ("C" edwina-delete-window) ;; 关闭窗口
-          ("RET" edwina-zoom t)     ;; 交换「主窗口」和「副窗口」
-          ("return" edwina-zoom t)
-          ("S-RET" edwina-clone-window t) ;; 复制一个本窗口
-          ("S-return" edwina-clone-window t)))
-  (edwina-setup-dwm-keys)
-  (edwina-mode 1))
+  ;; auto change theme, aligning with system themes.
+  (defun my/apply-theme (appearance)
+    "Load theme, taking current system APPEARANCE into consideration."
+    (mapc #'disable-theme custom-enabled-themes)
+    (pcase appearance
+      ('light (if (display-graphic-p) (ef-themes-load-random 'light) (ef-themes-load-random 'dark)))
+      ('dark (ef-themes-load-random 'dark))))
+
+  (if (eq system-type 'darwin)
+      ;; only for emacs-plus
+      (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
+    (ef-themes-select 'ef-summer)
+    )
+  )
+;; doom用的图标
+(use-package nerd-icons
+  :ensure t)
 
 ;; modeline
-(use-package telephone-line
-  :init
-  (telephone-line-mode 1)
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
   :config
-  (setq display-time-format "%m-%d %H:%M")
-  (setq display-time-default-load-average nil) ;; 不显示sytem load
-  (display-time-mode 0)
+  (setq doom-modeline-enable-word-count t)
+  (setq doom-modeline-time t)
+  :custom
+  (doom-modeline-irc nil)
+  (doom-modeline-mu4e nil)
+  (doom-modeline-gnus nil)
+  (doom-modeline-icon nil)
+  (doom-modeline-github nil)
+  (doom-modeline-enable-word-count t)
+  (doom-modeline-buffer-file-name-style 'truncate-upto-root) ; : auto
+  (doom-modeline-persp-name nil)
+  (doom-modeline-unicode-fallback t)
+  (doom-modeline-enable-word-count nil))
+
+;; 图标设置
+(use-package all-the-icons
+  :ensure t
+  :when (display-graphic-p)
+  :commands all-the-icons-install-fonts
   )
 
-;; (require 'awesome-tray)
-;; (awesome-tray-mode 1)
+;; 高亮当前行
+(global-hl-line-mode)
+;; 匹配括号
+(show-paren-mode)
+
+;; buffer menu替代
+(use-package ibuffer
+  :ensure nil
+  :bind ("C-x C-b" . ibuffer)
+  :init (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold)))
+  :config
+  ;; Display icons for buffers
+  (use-package nerd-icons-ibuffer
+    :ensure t
+    :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
+  (with-eval-after-load 'counsel
+    (with-no-warnings
+      (defun my-ibuffer-find-file ()
+        (interactive)
+        (let ((default-directory (let ((buf (ibuffer-current-buffer)))
+                                   (if (buffer-live-p buf)
+                                       (with-current-buffer buf
+                                         default-directory)
+                                     default-directory))))
+          (counsel-find-file default-directory)))
+      (advice-add #'ibuffer-find-file :override #'my-ibuffer-find-file))))
+
+;; Group ibuffer's list by project
+(use-package ibuffer-project
+  :hook (ibuffer . (lambda ()
+                     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
+                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
+                       (ibuffer-do-sort-by-project-file-relative))))
+  :init (setq ibuffer-project-use-cache t)
+  :config
+  (add-to-list 'ibuffer-project-root-functions '(file-remote-p . "Remote"))
+  (add-to-list 'ibuffer-project-root-functions '("\\*.+\\*" . "Default")))
+
 
 (provide 'init-ui)
