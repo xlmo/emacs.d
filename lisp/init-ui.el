@@ -1,99 +1,74 @@
 ;; 界面配置
-;; #+UPDATED_AT:2023-05-04T23:05:20+0800
+;; #+UPDATED_AT:2023-05-05T17:05:47+0800
 
-;; 禁用一些GUI特性
-(setq use-dialog-box nil)               ; 鼠标操作不使用对话框
-(setq inhibit-default-init t)           ; 不加载 `default' 库
-(setq inhibit-startup-screen t)         ; 不加载启动画面
-(setq inhibit-startup-message t)        ; 不加载启动消息
-(setq inhibit-startup-buffer-menu t)    ; 不显示缓冲区列表
 
-;; 草稿缓冲区默认文字设置
-(setq initial-scratch-message (concat ";; Happy hacking, "
-                                      (capitalize user-login-name) " - Emacs ♥ you!\n\n"))
+;; Optimization
+(setq-default cursor-in-non-selected-windows nil)
 
-;; 设置缓冲区的文字方向为从左到右
-(setq bidi-paragraph-direction 'left-to-right)
+;; Suppress GUI features
+(setq use-file-dialog nil
+      use-dialog-box nil  ;; 鼠标操作不使用对话框
+      inhibit-default-init t ;; 不加载 `default' 库
+      inhibit-startup-screen t  ;; 不加载启动画面
+      inhibit-startup-message t ;; 不加载启动消息
+      inhibit-startup-buffer-menu t ;; 不显示缓冲区列表
+      idle-update-delay 1.0
+      highlight-nonselected-windows nil
+      fast-but-imprecise-scrolling t
+      frame-inhibit-implied-resize t
+      frame-resize-pixelwise t
+      inhibit-startup-echo-area-message user-login-name
+      initial-scratch-message (concat ";; Happy hacking, "
+                                      (capitalize user-login-name) " - Emacs ♥ you!\n\n") ;; 草稿缓冲区默认文字设置
+      bidi-paragraph-direction 'left-to-right ;; 设置缓冲区的文字方向为从左到右
+      large-file-warning-threshold 100000000 ;; 设置大文件阈值为100MB，默认10MB
+      display-raw-bytes-as-hex t ;; 以16进制显示字节数
+      redisplay-skip-fontification-on-input t ;; 有输入时禁止 `fontification' 相关的函数钩子，能让滚动更顺滑
+      ring-bell-function 'ignore ;; 禁止响铃
+      mouse-yank-at-point t ;; 在光标处而非鼠标所在位置粘贴
+      auto-window-vscroll nil ;; 对于高的行禁止自动垂直滚动
+      split-width-threshold (assoc-default 'width default-frame-alist) ;; 设置新分屏打开的位置的阈值
+      split-height-threshold nil
+      scroll-step 2 ;; 鼠标滚动设置
+      scroll-margin 2
+      hscroll-step 2
+      hscroll-margin 2
+      scroll-conservatively 101
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01
+      scroll-preserve-screen-position 'always
+      original-y-or-n-p 'y-or-n-p ;; yes或no提示设置，通过下面这个函数设置当缓冲区名字匹配到预设的字符串时自动回答yes
+      confirm-kill-emacs 'y-or-n-p ;; 退出Emacs时进行确认
+      ;; 设置位置记录长度为6，默认为16
+      ;; 可以使用 `counsel-mark-ring' or `consult-mark' (C-x j) 来访问光标位置记录
+      ;; 使用 C-x C-SPC 执行 `pop-global-mark' 直接跳转到上一个全局位置处
+      ;; 使用 C-u C-SPC 跳转到本地位置处
+      mark-ring-max 6
+      global-mark-ring-max 6
+      frame-title-format '("Emacs - %b") ;; 设置标题
+      icon-title-format frame-title-format
+      initial-scratch-message nil)
+
+(unless (daemonp)
+  (advice-add #'display-startup-echo-area-message :override #'ignore))
+
 
 ;; 设置自动折行宽度为80个字符，默认值为70
 (setq-default fill-column 80)
 
-
-;; 设置大文件阈值为100MB，默认10MB
-(setq large-file-warning-threshold 100000000)
-
-;; 以16进制显示字节数
-(setq display-raw-bytes-as-hex t)
-;; 有输入时禁止 `fontification' 相关的函数钩子，能让滚动更顺滑
-(setq redisplay-skip-fontification-on-input t)
-
-;; 禁止响铃
-(setq ring-bell-function 'ignore)
-
 ;; 禁止闪烁光标
 (blink-cursor-mode -1)
-
-;; 在光标处而非鼠标所在位置粘贴
-(setq mouse-yank-at-point t)
-
-
-;; 鼠标滚动设置
-(setq scroll-step 2)
-(setq scroll-margin 2)
-(setq hscroll-step 2)
-(setq hscroll-margin 2)
-(setq scroll-conservatively 101)
-(setq scroll-up-aggressively 0.01)
-(setq scroll-down-aggressively 0.01)
-(setq scroll-preserve-screen-position 'always)
-
-;; 对于高的行禁止自动垂直滚动
-(setq auto-window-vscroll nil)
-
-;; 设置新分屏打开的位置的阈值
-(setq split-width-threshold (assoc-default 'width default-frame-alist))
-(setq split-height-threshold nil)
 
 ;; TAB键设置，在Emacs里不使用TAB键，所有的TAB默认为4个空格
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-;; yes或no提示设置，通过下面这个函数设置当缓冲区名字匹配到预设的字符串时自动回答yes
-(setq original-y-or-n-p 'y-or-n-p)
-
-;; 设置位置记录长度为6，默认为16
-;; 可以使用 `counsel-mark-ring' or `consult-mark' (C-x j) 来访问光标位置记录
-;; 使用 C-x C-SPC 执行 `pop-global-mark' 直接跳转到上一个全局位置处
-;; 使用 C-u C-SPC 跳转到本地位置处
-(setq mark-ring-max 6)
-(setq global-mark-ring-max 6)
-
 
 ;; 在命令行里支持鼠标
 (xterm-mouse-mode 1)
 
-;; 退出Emacs时进行确认
-(setq confirm-kill-emacs 'y-or-n-p)
-
 ;; 在模式栏上显示当前光标的列号
 (column-number-mode t)
-
-;; 配置所有的编码为UTF-8，参考：
-;; https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-language-environment 'utf-8)
-(set-clipboard-coding-system 'utf-8)
-(set-file-name-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-(modify-coding-system-alist 'process "*" 'utf-8)
-(when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
-
 
 ;; 主题包
 (use-package ef-themes
@@ -138,40 +113,50 @@
     ;;(ef-themes-select 'ef-summer)
     )
   )
-  ;; doom用的图标
-  (use-package nerd-icons
-    :ensure t)
+;; doom用的图标
+(use-package nerd-icons
+  :ensure t)
 
-  ;; modeline
-  (use-package doom-modeline
-    :ensure t
-    :hook (after-init . doom-modeline-mode)
-    :config
-    (setq doom-modeline-enable-word-count t)
-    (setq doom-modeline-time t)
-    :custom
-    (doom-modeline-irc nil)
-    (doom-modeline-mu4e nil)
-    (doom-modeline-gnus nil)
-    (doom-modeline-icon nil)
-    (doom-modeline-github nil)
-    (doom-modeline-enable-word-count t)
-    (doom-modeline-buffer-file-name-style 'truncate-upto-root) ; : auto
-    (doom-modeline-persp-name nil)
-    (doom-modeline-unicode-fallback t)
-    (doom-modeline-enable-word-count nil))
+;; modeline
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
+  :init
+  (setq doom-modeline-icon t
+        doom-modeline-window-width-limit 110
+        doom-modeline-buffer-file-name-style 'auto
+        doom-modeline-time-icon t
+        doom-modeline-time t
+        doom-modeline-buffer-name t
+        doom-modeline-enable-word-count t
+        doom-modeline-workspace-name t
+        doom-modeline-minor-modes t)
+  )
 
-  ;; 图标设置
-  (use-package all-the-icons
-    :ensure t
-    :when (display-graphic-p)
-    :commands all-the-icons-install-fonts
-    )
 
-  ;; 高亮当前行
-  (global-hl-line-mode)
-  ;; 匹配括号
-  (show-paren-mode)
+(use-package hide-mode-line
+  :hook (((completion-list-mode
+           completion-in-region-mode
+           eshell-mode shell-mode
+           term-mode vterm-mode
+           treemacs-mode
+           lsp-ui-imenu-mode
+           pdf-annot-list-mode) . hide-mode-line-mode)))
+
+;; A minor-mode menu for mode-line
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
+
+;; 图标设置
+(use-package all-the-icons
+  :ensure t
+  :when (display-graphic-p)
+  :commands all-the-icons-install-fonts
+  )
+
+;; 高亮当前行
+(global-hl-line-mode)
+;; 匹配括号
+(show-paren-mode)
 
 ;; buffer menu替代
 (use-package ibuffer

@@ -1,8 +1,9 @@
 ;; 自动补全
-;; #+UPDATED_AT:2023-05-04T21:05:19+0800
+;; #+UPDATED_AT:2023-05-05T17:05:34+0800
 
-
-(use-package yasnippet)
+;; (use-package yasnippet-snippets
+;;   :ensure t
+;;   :after yasnippet)
 
 (use-package company
   :diminish
@@ -13,7 +14,7 @@
          ("<backtab>" . company-yasnippet)
          :map company-active-map
          ("<backtab>" . my-company-yasnippet))
-  :hook (after-init . global-company-mode)
+  ;; :hook (after-init . global-company-mode) ; 默认不开启
   :init
   (setq company-tooltip-align-annotations t
         company-tooltip-limit 12
@@ -132,11 +133,11 @@
   (use-package company-box
     :diminish
     :bind (:map company-active-map
-           ([remap company-show-doc-buffer] . company-box-doc-manually))
+                ([remap company-show-doc-buffer] . company-box-doc-manually))
     :hook (company-mode . company-box-mode)
     :init (setq ;;company-box-enable-icon centaur-icon
-                company-box-backends-colors nil
-                company-box-doc-delay 0.1)
+           company-box-backends-colors nil
+           company-box-doc-delay 0.1)
     :config
     (with-no-warnings
       ;; Prettify icons
@@ -303,34 +304,34 @@
       (advice-add #'company-box-doc--set-frame-position :override #'my-company-box-doc--set-frame-position)
       ;; 添加图标
       (defvar company-box-icons-nerd
-          `((Unknown       . ,(nerd-icons-codicon "nf-cod-symbol_namespace"))
-            (Text          . ,(nerd-icons-codicon "nf-cod-symbol_string"))
-            (Method        . ,(nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-purple))
-            (Function      . ,(nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-purple))
-            (Constructor   . ,(nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-lpurple))
-            (Field         . ,(nerd-icons-codicon "nf-cod-symbol_field" :face 'nerd-icons-lblue))
-            (Variable      . ,(nerd-icons-codicon "nf-cod-symbol_variable" :face 'nerd-icons-lblue))
-            (Class         . ,(nerd-icons-codicon "nf-cod-symbol_class" :face 'nerd-icons-orange))
-            (Interface     . ,(nerd-icons-codicon "nf-cod-symbol_interface" :face 'nerd-icons-lblue))
-            (Module        . ,(nerd-icons-codicon "nf-cod-symbol_namespace" :face 'nerd-icons-lblue))
-            (Property      . ,(nerd-icons-codicon "nf-cod-symbol_property"))
-            (Unit          . ,(nerd-icons-codicon "nf-cod-symbol_key"))
-            (Value         . ,(nerd-icons-codicon "nf-cod-symbol_numeric" :face 'nerd-icons-lblue))
-            (Enum          . ,(nerd-icons-codicon "nf-cod-symbol_enum" :face 'nerd-icons-orange))
-            (Keyword       . ,(nerd-icons-codicon "nf-cod-symbol_keyword"))
-            (Snippet       . ,(nerd-icons-codicon "nf-cod-symbol_snippet"))
-            (Color         . ,(nerd-icons-codicon "nf-cod-symbol_color"))
-            (File          . ,(nerd-icons-codicon "nf-cod-symbol_file"))
-            (Reference     . ,(nerd-icons-codicon "nf-cod-symbol_misc"))
-            (Folder        . ,(nerd-icons-codicon "nf-cod-folder"))
-            (EnumMember    . ,(nerd-icons-codicon "nf-cod-symbol_enum_member" :face 'nerd-icons-lblue))
-            (Constant      . ,(nerd-icons-codicon "nf-cod-symbol_constant"))
-            (Struct        . ,(nerd-icons-codicon "nf-cod-symbol_structure" :face 'nerd-icons-orange))
-            (Event         . ,(nerd-icons-codicon "nf-cod-symbol_event" :face 'nerd-icons-orange))
-            (Operator      . ,(nerd-icons-codicon "nf-cod-symbol_operator"))
-            (TypeParameter . ,(nerd-icons-codicon "nf-cod-symbol_class"))
-            (Template      . ,(nerd-icons-codicon "nf-cod-symbol_snippet"))))
-        (setq company-box-icons-alist 'company-box-icons-nerd)
+        `((Unknown       . ,(nerd-icons-codicon "nf-cod-symbol_namespace"))
+          (Text          . ,(nerd-icons-codicon "nf-cod-symbol_string"))
+          (Method        . ,(nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-purple))
+          (Function      . ,(nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-purple))
+          (Constructor   . ,(nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-lpurple))
+          (Field         . ,(nerd-icons-codicon "nf-cod-symbol_field" :face 'nerd-icons-lblue))
+          (Variable      . ,(nerd-icons-codicon "nf-cod-symbol_variable" :face 'nerd-icons-lblue))
+          (Class         . ,(nerd-icons-codicon "nf-cod-symbol_class" :face 'nerd-icons-orange))
+          (Interface     . ,(nerd-icons-codicon "nf-cod-symbol_interface" :face 'nerd-icons-lblue))
+          (Module        . ,(nerd-icons-codicon "nf-cod-symbol_namespace" :face 'nerd-icons-lblue))
+          (Property      . ,(nerd-icons-codicon "nf-cod-symbol_property"))
+          (Unit          . ,(nerd-icons-codicon "nf-cod-symbol_key"))
+          (Value         . ,(nerd-icons-codicon "nf-cod-symbol_numeric" :face 'nerd-icons-lblue))
+          (Enum          . ,(nerd-icons-codicon "nf-cod-symbol_enum" :face 'nerd-icons-orange))
+          (Keyword       . ,(nerd-icons-codicon "nf-cod-symbol_keyword"))
+          (Snippet       . ,(nerd-icons-codicon "nf-cod-symbol_snippet"))
+          (Color         . ,(nerd-icons-codicon "nf-cod-symbol_color"))
+          (File          . ,(nerd-icons-codicon "nf-cod-symbol_file"))
+          (Reference     . ,(nerd-icons-codicon "nf-cod-symbol_misc"))
+          (Folder        . ,(nerd-icons-codicon "nf-cod-folder"))
+          (EnumMember    . ,(nerd-icons-codicon "nf-cod-symbol_enum_member" :face 'nerd-icons-lblue))
+          (Constant      . ,(nerd-icons-codicon "nf-cod-symbol_constant"))
+          (Struct        . ,(nerd-icons-codicon "nf-cod-symbol_structure" :face 'nerd-icons-orange))
+          (Event         . ,(nerd-icons-codicon "nf-cod-symbol_event" :face 'nerd-icons-orange))
+          (Operator      . ,(nerd-icons-codicon "nf-cod-symbol_operator"))
+          (TypeParameter . ,(nerd-icons-codicon "nf-cod-symbol_class"))
+          (Template      . ,(nerd-icons-codicon "nf-cod-symbol_snippet"))))
+      (setq company-box-icons-alist 'company-box-icons-nerd)
       )))
 
 (provide 'init-company)

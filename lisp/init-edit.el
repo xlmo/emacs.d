@@ -1,5 +1,5 @@
 ;; 编辑相关配置
-;; #+UPDATED_AT:2023-05-04T22:05:21+0800
+;; #+UPDATED_AT:2023-05-05T17:05:33+0800
 
 ;; Emacs默认选择文本后直接输入，是不会直接删除所选择的文本进行替换的。通过内置的 delsel 插件来实现这个行为
 (use-package delsel
@@ -133,11 +133,11 @@
           (apply fn args)))))))
 
 ;; 按一次 C-a 时移动到代码文字开头，再按一次则是移动到整行的行首，如此反复
-(use-package mwim
-  :ensure t
-  :bind
-  ("C-a" . mwim-beginning-of-code-or-line)
-  ("C-e" . mwim-end-of-code-or-line))
+;; (use-package mwim
+;;   :ensure t
+;;   :bind
+;;   ("C-a" . mwim-beginning-of-code-or-line)
+;;   ("C-e" . mwim-end-of-code-or-line))
 
 ;; Minor mode to aggressively keep your code always indented
 (use-package aggressive-indent
@@ -155,10 +155,53 @@
 
   ;; Disable in some commands
   (add-to-list 'aggressive-indent-protected-commands #'delete-trailing-whitespace t)
-;; Be slightly less aggressive in C/C++/C#/Java/Go/Swift
+  ;; Be slightly less aggressive in C/C++/C#/Java/Go/Swift
   (add-to-list 'aggressive-indent-dont-indent-if
                '(and (derived-mode-p 'php-mode 'c-mode 'c++-mode 'csharp-mode
                                      'java-mode 'go-mode 'swift-mode)
                      (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
                                          (thing-at-point 'line))))))
+
+;;无需鼠标的快速光标跳转
+(use-package avy
+  :ensure t
+  :bind
+  (("C-j g" . avy-goto-char-timer)))
+
+
+;; 多行光标
+(use-package multiple-cursors
+  :bind (("C-c m" . multiple-cursors-hydra/body)
+         ("C-S-c C-S-c"   . mc/edit-lines)
+         ("C->"           . mc/mark-next-like-this)
+         ("C-<"           . mc/mark-previous-like-this)
+         ("C-c C-<"       . mc/mark-all-like-this)
+         ("C-M->"         . mc/skip-to-next-like-this)
+         ("C-M-<"         . mc/skip-to-previous-like-this)
+         ("s-<mouse-1>"   . mc/add-cursor-on-click)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)
+         :map mc/keymap
+         ("C-|" . mc/vertical-align-with-space))
+  :pretty-hydra
+  ((:title (pretty-hydra-title "Multiple Cursors" 'mdicon "nf-md-border_all")
+           :color amaranth :quit-key ("q" "C-g"))
+   ("Up"
+    (("p" mc/mark-previous-like-this "prev")
+     ("P" mc/skip-to-previous-like-this "skip")
+     ("M-p" mc/unmark-previous-like-this "unmark")
+     ("|" mc/vertical-align "align with input CHAR"))
+    "Down"
+    (("n" mc/mark-next-like-this "next")
+     ("N" mc/skip-to-next-like-this "skip")
+     ("M-n" mc/unmark-next-like-this "unmark"))
+    "Misc"
+    (("l" mc/edit-lines "edit lines" :exit t)
+     ("a" mc/mark-all-like-this "mark all" :exit t)
+     ("s" mc/mark-all-in-region-regexp "search" :exit t)
+     ("<mouse-1>" mc/add-cursor-on-click "click"))
+    "% 2(mc/num-cursors) cursor%s(if (> (mc/num-cursors) 1) \"s\" \"\")"
+    (("0" mc/insert-numbers "insert numbers" :exit t)
+     ("A" mc/insert-letters "insert letters" :exit t)))))
+
+
 (provide 'init-edit)

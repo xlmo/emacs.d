@@ -1,64 +1,57 @@
 ;; 一些工具和配置
-;; #+UPDATED_AT:2023-05-04T22:05:26+0800
+;; #+UPDATED_AT:2023-05-05T16:05:22+0800
 
 ;; Fast search tool `ripgrep'
 (use-package rg
   :hook (after-init . rg-enable-default-bindings)
   :bind (:map rg-global-map
-         ("c" . rg-dwim-current-dir)
-         ("f" . rg-dwim-current-file)
-         ("m" . rg-menu))
+              ("c" . rg-dwim-current-dir)
+              ("f" . rg-dwim-current-file)
+              ("m" . rg-menu))
   :init (setq rg-group-result t
               rg-show-columns t)
   :config
   (cl-pushnew '("tmpl" . "*.tmpl") rg-custom-type-aliases))
 
 
-(use-package counsel
-  :ensure t
-  :init
-  (ivy-mode 1)
-  (counsel-mode 1)
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  :bind(
-        ("C-s" . swiper-isearch)
-        ("C-x C-f" . counsel-find-file)
-        ("M-x" . counsel-M-x)
-        ("C-x b" . ivy-switch-buffer)
-        ("C-c g" . counsel-rg)))
 
-;; 将M-x操作时最常用的显示在前面
-(use-package amx
-  :ensure t
-  :init (amx-mode))
+
+;; 为 Emacs minibuffer 中的选项添加注解
+(use-package marginalia
+  ;; Either bind `marginalia-cycle' globally or only in the minibuffer
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :init
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode))
 
 ;; 中文日历
 (use-package cal-china-x
-    :after calendar
-    :autoload cal-china-x-setup
-    :init (cal-china-x-setup)
-    :config
-    ;; Holidays
-    (setq calendar-mark-holidays-flag t
-          cal-china-x-important-holidays cal-china-x-chinese-holidays
-          cal-china-x-general-holidays '((holiday-lunar 1 15 "元宵节")
-                                         (holiday-lunar 7 7 "七夕节")
-                                         (holiday-fixed 3 8 "妇女节")
-                                         (holiday-fixed 3 12 "植树节")
-                                         (holiday-fixed 5 4 "青年节")
-                                         (holiday-fixed 6 1 "儿童节")
-                                         (holiday-fixed 9 10 "教师节"))
-          holiday-other-holidays '((holiday-fixed 2 14 "情人节")
-                                   (holiday-fixed 4 1 "愚人节")
-                                   (holiday-fixed 12 25 "圣诞节")
-                                   (holiday-float 5 0 2 "母亲节")
-                                   (holiday-float 6 0 3 "父亲节")
-                                   (holiday-float 11 4 4 "感恩节"))
-          calendar-holidays (append cal-china-x-important-holidays
-                                    cal-china-x-general-holidays
-                                    holiday-other-holidays)))
+  :after calendar
+  :autoload cal-china-x-setup
+  :init (cal-china-x-setup)
+  :config
+  ;; Holidays
+  (setq calendar-mark-holidays-flag t
+        cal-china-x-important-holidays cal-china-x-chinese-holidays
+        cal-china-x-general-holidays '((holiday-lunar 1 15 "元宵节")
+                                       (holiday-lunar 7 7 "七夕节")
+                                       (holiday-fixed 3 8 "妇女节")
+                                       (holiday-fixed 3 12 "植树节")
+                                       (holiday-fixed 5 4 "青年节")
+                                       (holiday-fixed 6 1 "儿童节")
+                                       (holiday-fixed 9 10 "教师节"))
+        holiday-other-holidays '((holiday-fixed 2 14 "情人节")
+                                 (holiday-fixed 4 1 "愚人节")
+                                 (holiday-fixed 12 25 "圣诞节")
+                                 (holiday-float 5 0 2 "母亲节")
+                                 (holiday-float 6 0 3 "父亲节")
+                                 (holiday-float 11 4 4 "感恩节"))
+        calendar-holidays (append cal-china-x-important-holidays
+                                  cal-china-x-general-holidays
+                                  holiday-other-holidays)))
 
 ;; 目录文件操作
 (use-package dired
@@ -139,7 +132,7 @@
   :ensure nil
   :defines eshell-prompt-function
   :bind (:map eshell-mode-map
-         ([remap recenter-top-bottom] . eshell/clear))
+              ([remap recenter-top-bottom] . eshell/clear))
   :config
   (with-no-warnings
     (defun eshell/clear ()
@@ -222,5 +215,18 @@
   ;; `cd' to frequent directory in `eshell'
   (use-package eshell-z
     :hook (eshell-mode . (lambda () (require 'eshell-z)))))
+
+;; 项目
+(use-package projectile
+  :ensure t
+  :bind (("C-c p" . projectile-command-map))
+  :config
+  (setq projectile-mode-line "Projectile")
+  (setq projectile-track-known-projects-automatically nil))
+
+(use-package counsel-projectile
+  :ensure t
+  :after (projectile)
+  :init (counsel-projectile-mode))
 
 (provide 'init-misc)

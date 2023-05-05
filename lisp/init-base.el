@@ -1,9 +1,13 @@
 ;; 基本配置
-;; #+UPDATED_AT:2023-05-04T23:05:19+0800
+;; #+UPDATED_AT:2023-05-05T17:05:29+0800
 
 ;; 配置目录保持简洁
 (use-package no-littering
   :ensure t)
+
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (fset 'yes-or-no-p 'y-or-n-p))
 
 ;; 拷贝粘贴设置
 (setq select-enable-primary nil)        ; 选择文字时不拷贝
@@ -15,25 +19,43 @@
 ;; 在剪贴板里不存储重复内容
 (setq kill-do-not-save-duplicates t)
 
-
 ;; 设置 emacs-lisp 的限制
 (setq max-lisp-eval-depth 10000)        ; 默认值为 800
 (setq max-specpdl-size 10000)           ; 默认值为 1600
-
 
 ;; 启用 `list-timers', `list-threads' 这两个命令
 (put 'list-timers 'disabled nil)
 (put 'list-threads 'disabled nil)
 
-
-
 ;;自动清除行位空格
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
-
 (setq make-backup-files nil)                                  ; 不自动备份
 (setq auto-save-default nil)                                  ; 不使用Emacs自带的自动保存
+
+;; 配置所有的编码为UTF-8，参考：
+;; https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/
+(setq locale-coding-system 'utf-8)
+;; Set UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+(prefer-coding-system 'utf-8)
+(setq system-time-locale "C")
+(unless sys/win32p
+  (set-selection-coding-system 'utf-8))
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-language-environment 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-file-name-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
+(when (display-graphic-p)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
 ;; 解除不常用的快捷键定义
 (global-set-key (kbd "C-z") nil)
@@ -42,7 +64,7 @@
 (global-set-key (kbd "M-m") nil)
 (global-set-key (kbd "C-x C-z") nil)
 (global-set-key [mouse-2] nil)
-
+(global-set-key (kbd "C-j") nil)
 
 ;; 帮助增强
 (use-package helpful
@@ -57,6 +79,7 @@
          ("C-h F" . describe-face)
          ([remap describe-key] . helpful-key))
   )
+
 ;; 提示快捷键
 (use-package which-key
   :ensure t
@@ -86,7 +109,6 @@
                                               regexp-search-ring
                                               extended-command-history)
               savehist-autosave-interval 300))
-
 
 (use-package hydra
   :hook (emacs-lisp-mode . hydra-add-imenu))

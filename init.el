@@ -1,16 +1,16 @@
 ;; 配置文件
-;; #+UPDATED_AT:2023-05-04T23:05:35+0800
+;; #+UPDATED_AT:2023-05-05T17:05:14+0800
 
 ;;package 设置
 (require 'package)
 ;; (setq package-archives
-;;     '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-;;       ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-;;       ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+;;         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+;;         ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
 (setq package-archives '(("gnu"    . "http://mirrors.bfsu.edu.cn/elpa/gnu/")
-             ("nongnu" . "http://mirrors.bfsu.edu.cn/elpa/nongnu/")
-             ("melpa"  . "http://mirrors.bfsu.edu.cn/elpa/melpa/")))
+                         ("nongnu" . "http://mirrors.bfsu.edu.cn/elpa/nongnu/")
+                         ("melpa"  . "http://mirrors.bfsu.edu.cn/elpa/melpa/")))
 
 ;; 如果use-package没安装
 (unless (package-installed-p 'use-package)
@@ -40,10 +40,12 @@
   (require 'init-func)
   (require 'init-base)
   (require 'init-edit)
-  (require 'init-ui)
   (require 'init-window)
+  (require 'init-ui)
   (require 'init-company)
+  (require 'init-ivy)
   (require 'init-misc)
+  (require 'init-develop)
   (require 'init-org)
   )
 
