@@ -1,5 +1,5 @@
 ;; 界面配置
-;; #+UPDATED_AT:2023-05-04T16:05:45+0800
+;; #+UPDATED_AT:2023-05-04T23:05:20+0800
 
 ;; 禁用一些GUI特性
 (setq use-dialog-box nil)               ; 鼠标操作不使用对话框
@@ -78,8 +78,6 @@
 ;; 在模式栏上显示当前光标的列号
 (column-number-mode t)
 
-
-
 ;; 配置所有的编码为UTF-8，参考：
 ;; https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/
 (setq locale-coding-system 'utf-8)
@@ -103,7 +101,7 @@
   :bind ("C-c t" . ef-themes-toggle)
   :init
   ;; set two specific themes and switch between them
-  (setq ef-themes-to-toggle '(ef-summer ef-winter))
+  (setq ef-themes-to-toggle '(ef-light ef-winter))
   ;; set org headings and function syntax
   (setq ef-themes-headings
         '((0 . (bold 1))
@@ -120,12 +118,9 @@
   ;; The themes we provide are recorded in the `ef-themes-dark-themes',
   ;; `ef-themes-light-themes'.
 
-  ;; 如果你不喜欢随机主题，也可以直接固定选择一个主题，如下：
-  ;; (ef-themes-select 'ef-summer)
-
   ;; 随机挑选一款主题，如果是命令行打开Emacs，则随机挑选一款黑色主题
   (if (display-graphic-p)
-      (ef-themes-load-random)
+      (ef-themes-select 'ef-light) ;; (ef-themes-load-random)
     (ef-themes-load-random 'dark))
 
   :config
@@ -140,43 +135,43 @@
   (if (eq system-type 'darwin)
       ;; only for emacs-plus
       (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
-    (ef-themes-select 'ef-summer)
+    ;;(ef-themes-select 'ef-summer)
     )
   )
-;; doom用的图标
-(use-package nerd-icons
-  :ensure t)
+  ;; doom用的图标
+  (use-package nerd-icons
+    :ensure t)
 
-;; modeline
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-enable-word-count t)
-  (setq doom-modeline-time t)
-  :custom
-  (doom-modeline-irc nil)
-  (doom-modeline-mu4e nil)
-  (doom-modeline-gnus nil)
-  (doom-modeline-icon nil)
-  (doom-modeline-github nil)
-  (doom-modeline-enable-word-count t)
-  (doom-modeline-buffer-file-name-style 'truncate-upto-root) ; : auto
-  (doom-modeline-persp-name nil)
-  (doom-modeline-unicode-fallback t)
-  (doom-modeline-enable-word-count nil))
+  ;; modeline
+  (use-package doom-modeline
+    :ensure t
+    :hook (after-init . doom-modeline-mode)
+    :config
+    (setq doom-modeline-enable-word-count t)
+    (setq doom-modeline-time t)
+    :custom
+    (doom-modeline-irc nil)
+    (doom-modeline-mu4e nil)
+    (doom-modeline-gnus nil)
+    (doom-modeline-icon nil)
+    (doom-modeline-github nil)
+    (doom-modeline-enable-word-count t)
+    (doom-modeline-buffer-file-name-style 'truncate-upto-root) ; : auto
+    (doom-modeline-persp-name nil)
+    (doom-modeline-unicode-fallback t)
+    (doom-modeline-enable-word-count nil))
 
-;; 图标设置
-(use-package all-the-icons
-  :ensure t
-  :when (display-graphic-p)
-  :commands all-the-icons-install-fonts
-  )
+  ;; 图标设置
+  (use-package all-the-icons
+    :ensure t
+    :when (display-graphic-p)
+    :commands all-the-icons-install-fonts
+    )
 
-;; 高亮当前行
-(global-hl-line-mode)
-;; 匹配括号
-(show-paren-mode)
+  ;; 高亮当前行
+  (global-hl-line-mode)
+  ;; 匹配括号
+  (show-paren-mode)
 
 ;; buffer menu替代
 (use-package ibuffer

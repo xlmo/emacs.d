@@ -1,5 +1,5 @@
 ;; 编辑相关配置
-;; #+UPDATED_AT:2023-05-04T18:05:14+0800
+;; #+UPDATED_AT:2023-05-04T22:05:21+0800
 
 ;; Emacs默认选择文本后直接输入，是不会直接删除所选择的文本进行替换的。通过内置的 delsel 插件来实现这个行为
 (use-package delsel
@@ -139,4 +139,26 @@
   ("C-a" . mwim-beginning-of-code-or-line)
   ("C-e" . mwim-end-of-code-or-line))
 
+;; Minor mode to aggressively keep your code always indented
+(use-package aggressive-indent
+  :diminish
+  :hook ((after-init . global-aggressive-indent-mode)
+         ;; NOTE: Disable in large files due to the performance issues
+         ;; https://github.com/Malabarba/aggressive-indent-mode/issues/73
+         (find-file . (lambda ()
+                        (when (too-long-file-p)
+                          (aggressive-indent-mode -1)))))
+  :config
+  ;; Disable in some modes
+  (dolist (mode '(gitconfig-mode asm-mode web-mode html-mode css-mode go-mode scala-mode prolog-inferior-mode))
+    (push mode aggressive-indent-excluded-modes))
+
+  ;; Disable in some commands
+  (add-to-list 'aggressive-indent-protected-commands #'delete-trailing-whitespace t)
+;; Be slightly less aggressive in C/C++/C#/Java/Go/Swift
+  (add-to-list 'aggressive-indent-dont-indent-if
+               '(and (derived-mode-p 'php-mode 'c-mode 'c++-mode 'csharp-mode
+                                     'java-mode 'go-mode 'swift-mode)
+                     (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
+                                         (thing-at-point 'line))))))
 (provide 'init-edit)
