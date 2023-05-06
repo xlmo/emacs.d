@@ -1,5 +1,10 @@
 ;; 定义函数
-;; #+UPDATED_AT:2023-05-06T10:05:45+0800
+;; #+UPDATED_AT:2023-05-06T17:05:33+0800
+
+;; Font
+(defun font-installed-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
 
 (defun too-long-file-p ()
   "Check whether the file is too long."
@@ -117,15 +122,11 @@
   )
 
 
-;; 生成uuid
-(use-package uuidgen
-  :ensure t)
-
 (defun xlmo/open-trouble-log ()
   "新建问题排查记录"
   (interactive)
   (let* (
-         (workDir (expand-file-name "Org/Troubleshooting" xlmo-obsidian-dir))
+         (workDir (expand-file-name "Org/Troubleshooting" xlmo-note-dir))
          (date (format-time-string "%Y%m%d" (current-time)))
          (title (concat "问题排查 - " date ".org"))
          )
@@ -142,7 +143,7 @@
     (replace-match (format-time-string "%Y-%m-%d %a" (current-time)) nil t)
     (goto-char 0)
     (while(search-forward "@PID@" nil t)
-      (replace-match (concat "PID_" (uuidgen-4)) nil t))
+      (replace-match (concat "PID_" (format-time-string "%Y%m%d%H%M%S")) nil t))
     )
   )
 

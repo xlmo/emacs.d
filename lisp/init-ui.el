@@ -1,5 +1,5 @@
 ;; 界面配置
-;; #+UPDATED_AT:2023-05-06T11:05:12+0800
+;; #+UPDATED_AT:2023-05-06T17:05:43+0800
 
 
 ;; Optimization
@@ -19,7 +19,7 @@
       frame-resize-pixelwise t
       inhibit-startup-echo-area-message user-login-name
       initial-scratch-message (concat ";; Happy hacking, "
-                      (capitalize user-login-name) " - Emacs ♥ you!\n\n") ;; 草稿缓冲区默认文字设置
+				      (capitalize user-login-name) " - Emacs ♥ you!\n\n") ;; 草稿缓冲区默认文字设置
       bidi-paragraph-direction 'left-to-right ;; 设置缓冲区的文字方向为从左到右
       large-file-warning-threshold 100000000 ;; 设置大文件阈值为100MB，默认10MB
       display-raw-bytes-as-hex t ;; 以16进制显示字节数
@@ -70,6 +70,60 @@
 ;; 在模式栏上显示当前光标的列号
 (column-number-mode t)
 
+;; Fonts
+(defun custom-setup-fonts ()
+  "Setup fonts."
+  (when (display-graphic-p)
+    ;; Set default font
+    (cl-loop for font in '("Cascadia Code" "Fira Code" "Jetbrains Mono"
+			   "SF Mono" "Hack" "Source Code Pro" "Menlo"
+			   "Monaco" "DejaVu Sans Mono" "Consolas")
+	     when (font-installed-p font)
+	     return (set-face-attribute 'default nil
+					:family font
+					:height (cond (sys/macp 130)
+						      (sys/win32p 110)
+						      (t 100))))
+
+    ;; Set mode-line font
+    ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
+    ;;          when (font-installed-p font)
+    ;;          return (progn
+    ;;                   (set-face-attribute 'mode-line nil :family font :height 120)
+    ;;                   (when (facep 'mode-line-active)
+    ;;                     (set-face-attribute 'mode-line-active nil :family font :height 120))
+    ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
+
+    ;; Specify font for all unicode characters
+    (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
+	     when (font-installed-p font)
+	     return (if (< emacs-major-version 27)
+			(set-fontset-font "fontset-default" 'unicode font nil 'prepend)
+		      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
+
+    ;; Emoji
+    (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
+	     when (font-installed-p font)
+	     return (cond
+		     ((< emacs-major-version 27)
+		      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
+		     ((< emacs-major-version 28)
+		      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
+		     (t
+		      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+
+    ;; Specify font for Chinese characters
+    (cl-loop for font in '("WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+	     when (font-installed-p font)
+	     return (progn
+		      (setq face-font-rescale-alist `((,font . 1.3)))
+		      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
+
+(custom-setup-fonts)
+(add-hook 'window-setup-hook #'custom-setup-fonts)
+(add-hook 'server-after-make-frame-hook #'custom-setup-fonts)
+
+
 ;; 主题包
 (use-package ef-themes
   :ensure t
@@ -79,12 +133,12 @@
   (setq ef-themes-to-toggle '(ef-light ef-winter))
   ;; set org headings and function syntax
   (setq ef-themes-headings
-    '((0 . (bold 1))
-      (1 . (bold 1))
-      (2 . (rainbow bold 1))
-      (3 . (rainbow bold 1))
-      (4 . (rainbow bold 1))
-      (t . (rainbow bold 1))))
+	'((0 . (bold 1))
+	  (1 . (bold 1))
+	  (2 . (rainbow bold 1))
+	  (3 . (rainbow bold 1))
+	  (4 . (rainbow bold 1))
+	  (t . (rainbow bold 1))))
   (setq ef-themes-region '(intense no-extend neutral))
   ;; Disable all other themes to avoid awkward blending:
   (mapc #'disable-theme custom-enabled-themes)
@@ -173,22 +227,22 @@
   (with-eval-after-load 'counsel
     (with-no-warnings
       (defun my-ibuffer-find-file ()
-        (interactive)
-        (let ((default-directory (let ((buf (ibuffer-current-buffer)))
-                                   (if (buffer-live-p buf)
-                                       (with-current-buffer buf
-                                         default-directory)
-                                     default-directory))))
-          (counsel-find-file default-directory)))
+	(interactive)
+	(let ((default-directory (let ((buf (ibuffer-current-buffer)))
+				   (if (buffer-live-p buf)
+				       (with-current-buffer buf
+					 default-directory)
+				     default-directory))))
+	  (counsel-find-file default-directory)))
       (advice-add #'ibuffer-find-file :override #'my-ibuffer-find-file)))
   )
 
 ;; Group ibuffer's list by project
 (use-package ibuffer-project
   :hook (ibuffer . (lambda ()
-                     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
-                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
-                       (ibuffer-do-sort-by-project-file-relative))))
+		     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
+		     (unless (eq ibuffer-sorting-mode 'project-file-relative)
+		       (ibuffer-do-sort-by-project-file-relative))))
   :init (setq ibuffer-project-use-cache t)
   :config
   (add-to-list 'ibuffer-project-root-functions '(file-remote-p . "Remote"))
