@@ -1,5 +1,5 @@
 ;; ivy
-;; #+UPDATED_AT:2023-05-06T10:05:47+0800
+;; #+UPDATED_AT:2023-05-06T11:05:21+0800
 
 ;; (use-package counsel
 ;;   :ensure t

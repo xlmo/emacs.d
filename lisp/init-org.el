@@ -1,5 +1,5 @@
 ;; org
-;; #+UPDATED_AT:2023-05-05T16:05:31+0800
+;; #+UPDATED_AT:2023-05-06T11:05:03+0800
 
 (use-package org
   :ensure nil
@@ -56,7 +56,7 @@
                        "Beautify org symbols."
                        (prettify-symbols-mode 1)))
          (org-indent-mode . (lambda()
-                              (diminish 'org-indent-mode)
+                           ;;   (diminish 'org-indent-mode)
                               ;; HACK: Prevent text moving around while using brackets
                               ;; @see https://github.com/seagle0128/.emacs.d/issues/88
                               (make-variable-buffer-local 'show-paren-mode)
