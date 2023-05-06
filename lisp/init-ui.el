@@ -1,5 +1,5 @@
 ;; 界面配置
-;; #+UPDATED_AT:2023-05-05T17:05:47+0800
+;; #+UPDATED_AT:2023-05-05T23:05:40+0800
 
 
 ;; Optimization
@@ -19,7 +19,7 @@
       frame-resize-pixelwise t
       inhibit-startup-echo-area-message user-login-name
       initial-scratch-message (concat ";; Happy hacking, "
-                                      (capitalize user-login-name) " - Emacs ♥ you!\n\n") ;; 草稿缓冲区默认文字设置
+				      (capitalize user-login-name) " - Emacs ♥ you!\n\n") ;; 草稿缓冲区默认文字设置
       bidi-paragraph-direction 'left-to-right ;; 设置缓冲区的文字方向为从左到右
       large-file-warning-threshold 100000000 ;; 设置大文件阈值为100MB，默认10MB
       display-raw-bytes-as-hex t ;; 以16进制显示字节数
@@ -79,12 +79,12 @@
   (setq ef-themes-to-toggle '(ef-light ef-winter))
   ;; set org headings and function syntax
   (setq ef-themes-headings
-        '((0 . (bold 1))
-          (1 . (bold 1))
-          (2 . (rainbow bold 1))
-          (3 . (rainbow bold 1))
-          (4 . (rainbow bold 1))
-          (t . (rainbow bold 1))))
+	'((0 . (bold 1))
+	  (1 . (bold 1))
+	  (2 . (rainbow bold 1))
+	  (3 . (rainbow bold 1))
+	  (4 . (rainbow bold 1))
+	  (t . (rainbow bold 1))))
   (setq ef-themes-region '(intense no-extend neutral))
   ;; Disable all other themes to avoid awkward blending:
   (mapc #'disable-theme custom-enabled-themes)
@@ -117,30 +117,31 @@
 (use-package nerd-icons
   :ensure t)
 
+
 ;; modeline
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :init
   (setq doom-modeline-icon t
-        doom-modeline-window-width-limit 110
-        doom-modeline-buffer-file-name-style 'auto
-        doom-modeline-time-icon t
-        doom-modeline-time t
-        doom-modeline-buffer-name t
-        doom-modeline-enable-word-count t
-        doom-modeline-workspace-name t
-        doom-modeline-minor-modes t)
+	doom-modeline-window-width-limit 110
+	doom-modeline-buffer-file-name-style 'auto
+	doom-modeline-time-icon t
+	doom-modeline-time t
+	doom-modeline-buffer-name t
+	doom-modeline-enable-word-count t
+	doom-modeline-workspace-name t
+	doom-modeline-minor-modes t)
   )
 
 
 (use-package hide-mode-line
   :hook (((completion-list-mode
-           completion-in-region-mode
-           eshell-mode shell-mode
-           term-mode vterm-mode
-           treemacs-mode
-           lsp-ui-imenu-mode
-           pdf-annot-list-mode) . hide-mode-line-mode)))
+	   completion-in-region-mode
+	   eshell-mode shell-mode
+	   term-mode vterm-mode
+	   treemacs-mode
+	   lsp-ui-imenu-mode
+	   pdf-annot-list-mode) . hide-mode-line-mode)))
 
 ;; A minor-mode menu for mode-line
 (use-package minions
@@ -172,21 +173,21 @@
   (with-eval-after-load 'counsel
     (with-no-warnings
       (defun my-ibuffer-find-file ()
-        (interactive)
-        (let ((default-directory (let ((buf (ibuffer-current-buffer)))
-                                   (if (buffer-live-p buf)
-                                       (with-current-buffer buf
-                                         default-directory)
-                                     default-directory))))
-          (counsel-find-file default-directory)))
+	(interactive)
+	(let ((default-directory (let ((buf (ibuffer-current-buffer)))
+				   (if (buffer-live-p buf)
+				       (with-current-buffer buf
+					 default-directory)
+				     default-directory))))
+	  (counsel-find-file default-directory)))
       (advice-add #'ibuffer-find-file :override #'my-ibuffer-find-file))))
 
 ;; Group ibuffer's list by project
 (use-package ibuffer-project
   :hook (ibuffer . (lambda ()
-                     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
-                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
-                       (ibuffer-do-sort-by-project-file-relative))))
+		     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
+		     (unless (eq ibuffer-sorting-mode 'project-file-relative)
+		       (ibuffer-do-sort-by-project-file-relative))))
   :init (setq ibuffer-project-use-cache t)
   :config
   (add-to-list 'ibuffer-project-root-functions '(file-remote-p . "Remote"))

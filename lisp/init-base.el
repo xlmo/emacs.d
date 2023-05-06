@@ -1,5 +1,5 @@
 ;; 基本配置
-;; #+UPDATED_AT:2023-05-05T17:05:29+0800
+;; #+UPDATED_AT:2023-05-05T21:05:55+0800
 
 ;; 配置目录保持简洁
 (use-package no-littering
@@ -33,6 +33,13 @@
 
 (setq make-backup-files nil)                                  ; 不自动备份
 (setq auto-save-default nil)                                  ; 不使用Emacs自带的自动保存
+
+;; Menu/Tool/Scroll bars
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(when (featurep 'ns)
+  (push '(ns-transparent-titlebar . t) default-frame-alist))
 
 ;; 配置所有的编码为UTF-8，参考：
 ;; https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/

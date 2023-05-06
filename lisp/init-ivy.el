@@ -1,5 +1,5 @@
 ;; ivy
-;; #+UPDATED_AT:2023-05-05T17:05:34+0800
+;; #+UPDATED_AT:2023-05-06T10:05:47+0800
 
 ;; (use-package counsel
 ;;   :ensure t
@@ -103,7 +103,6 @@
          (ivy-mode . counsel-mode))
   :init
   (setq enable-recursive-minibuffers t) ; Allow commands in minibuffers
-
   (setq ivy-height 12
         ivy-use-selectable-prompt t
         ivy-use-virtual-buffers t    ; Enable bookmarks and recentf
@@ -153,6 +152,8 @@
           "gls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 gls -d --group-directories-first"))
   :config
   (with-no-warnings
+    ;; counsel-rg搜索时最小字符数
+    (add-to-list 'ivy-more-chars-alist '(counsel-rg . 2))
     ;; persist views
     (with-eval-after-load 'savehist
       (add-to-list 'savehist-additional-variables 'ivy-views))

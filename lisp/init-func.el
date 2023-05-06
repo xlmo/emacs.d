@@ -1,5 +1,5 @@
 ;; 定义函数
-;; #+UPDATED_AT:2023-05-05T16:05:38+0800
+;; #+UPDATED_AT:2023-05-06T10:05:45+0800
 
 (defun too-long-file-p ()
   "Check whether the file is too long."
@@ -20,9 +20,7 @@
 
 ;; 重复当前行
 (defun xlmo/duplicate-current-line-or-region (arg)
-  "Duplicates the current line or region ARG times.
-If there's no region, the current line will be duplicated. However, if
-there's a region, all lines that region covers will be duplicated."
+  "重复当前行或区域"
   (interactive "p")
   (let (beg end (origin (point)))
     (if (and mark-active (> (point) (mark)))
@@ -73,20 +71,18 @@ there's a region, all lines that region covers will be duplicated."
                     '(26 0 50 1)))
                  (< arg 0))
             (forward-line -1)))
-        p     (forward-line -1))
+        (forward-line -1))
       (move-to-column column t)))))
 
 ;;;###autoload
 (defun xlmo/move-text-down (arg)
-  "Move region (transient-mark-mode active) or current line
-  arg lines down."
+  "整行下移"
   (interactive "*p")
   (xlmo/move-text-internal arg))
 
 ;;;###autoload
 (defun xlmo/move-text-up (arg)
-  "Move region (transient-mark-mode active) or current line
-  arg lines up."
+  "整行上移."
   (interactive "*p")
   (xlmo/move-text-internal (- arg)))
 
@@ -100,10 +96,30 @@ there's a region, all lines that region covers will be duplicated."
   (interactive)
   (find-file (expand-file-name "Org/project-todo.org" xlmo-note-dir)))
 
+
+(defun xlmo/new-diary-file()
+  "打开当日的日志文件"
+  (interactive)
+  (let* ((baseDir (expand-file-name "Diary" xlmo-note-dir))
+         (folderMonth (expand-file-name (format-time-string "%Y/%m/") baseDir))
+         (folderYear (expand-file-name (format-time-string "%Y/") baseDir))
+         (dayfile (expand-file-name (format-time-string "%Y/%m/%Y-%m-%d.md") baseDir))
+         )
+    (unless (file-exists-p folderYear)
+      (make-directory folderYear)
+      )
+    (unless (file-exists-p folderMonth)
+      (make-directory folderMonth)
+      )
+    (find-file dayfile)
+    (goto-char (point-max))
+    )
+  )
+
+
 ;; 生成uuid
 (use-package uuidgen
-  :ensure t
-  )
+  :ensure t)
 
 (defun xlmo/open-trouble-log ()
   "新建问题排查记录"
@@ -131,10 +147,10 @@ there's a region, all lines that region covers will be duplicated."
   )
 
 ;; Key Binding
-(global-set-key (kbd "M-p") 'xlmo/move-text-up) ;; 上移行 default:(symbol-overlay-jump-prev)
-(global-set-key (kbd "M-n") 'xlmo/move-text-down) ;; 下移航 default:(symbol-overlay-jump-next)
-(global-set-key (kbd "C-c d") 'xlmo/duplicate-current-line-or-region) ;; 重复当前行
+(global-set-key (kbd "M-n") 'xlmo/move-text-down)
+(global-set-key (kbd "M-p") 'xlmo/move-text-up)
 (global-set-key (kbd "<f5>") 'xlmo/refresh-file)
+(global-set-key (kbd "C-c d") 'xlmo/duplicate-current-line-or-region)
 
 
 

@@ -1,5 +1,5 @@
 ;; 自动补全
-;; #+UPDATED_AT:2023-05-05T17:05:34+0800
+;; #+UPDATED_AT:2023-05-06T10:05:15+0800
 
 ;; (use-package yasnippet-snippets
 ;;   :ensure t
@@ -14,7 +14,6 @@
          ("<backtab>" . company-yasnippet)
          :map company-active-map
          ("<backtab>" . my-company-yasnippet))
-  ;; :hook (after-init . global-company-mode) ; 默认不开启
   :init
   (setq company-tooltip-align-annotations t
         company-tooltip-limit 12
@@ -135,9 +134,9 @@
     :bind (:map company-active-map
                 ([remap company-show-doc-buffer] . company-box-doc-manually))
     :hook (company-mode . company-box-mode)
-    :init (setq ;;company-box-enable-icon centaur-icon
-           company-box-backends-colors nil
-           company-box-doc-delay 0.1)
+    :init (setq  company-box-backends-colors nil
+                 company-box-doc-delay 0.1
+                 x-gtk-resize-child-frames 'resize-mode) ;; 解决候选框太窄的问题
     :config
     (with-no-warnings
       ;; Prettify icons
@@ -150,7 +149,7 @@
                   ((boundp sym) 'Variable)
                   ((symbolp sym) 'Text)
                   (t . nil)))))
-      (advice-add #'company-box-icons--elisp :override #'my-company-box-icons--elisp)
+      ;;      (advice-add #'company-box-icons--elisp :override #'my-company-box-icons--elisp)
 
       ;; Display borders and optimize performance
       (defun my-company-box--display (string on-update)
@@ -173,7 +172,7 @@
             (set-face-background 'child-frame-border border-color frame)))
         (with-current-buffer (company-box--get-buffer)
           (company-box--maybe-move-number (or company-box--last-start 1))))
-      (advice-add #'company-box--display :override #'my-company-box--display)
+      ;;   (advice-add #'company-box--display :override #'my-company-box--display)
 
       (setq company-box-doc-frame-parameters '((vertical-scroll-bars . nil)
                                                (horizontal-scroll-bars . nil)
@@ -221,7 +220,7 @@
                     show-trailing-whitespace nil
                     cursor-in-non-selected-windows nil)
               (current-buffer)))))
-      (advice-add #'company-box-doc--make-buffer :override #'my-company-box-doc--make-buffer)
+      ;;    (advice-add #'company-box-doc--make-buffer :override #'my-company-box-doc--make-buffer)
 
       ;; Display the border and fix the markdown header properties
       (defun my-company-box-doc--show (selection frame)
@@ -261,7 +260,7 @@
 
               (unless (frame-visible-p frame)
                 (make-frame-visible frame))))))
-      (advice-add #'company-box-doc--show :override #'my-company-box-doc--show)
+      ;;     (advice-add #'company-box-doc--show :override #'my-company-box-doc--show)
 
       (defun my-company-box-doc--set-frame-position (frame)
         (-let* ((frame-resize-pixelwise t)
@@ -301,7 +300,7 @@
                          (t y))))
           (set-frame-position frame (max x 0) (max y 0))
           (set-frame-size frame text-width text-height t)))
-      (advice-add #'company-box-doc--set-frame-position :override #'my-company-box-doc--set-frame-position)
+      ;;      (advice-add #'company-box-doc--set-frame-position :override #'my-company-box-doc--set-frame-position)
       ;; 添加图标
       (defvar company-box-icons-nerd
         `((Unknown       . ,(nerd-icons-codicon "nf-cod-symbol_namespace"))
@@ -332,6 +331,9 @@
           (TypeParameter . ,(nerd-icons-codicon "nf-cod-symbol_class"))
           (Template      . ,(nerd-icons-codicon "nf-cod-symbol_snippet"))))
       (setq company-box-icons-alist 'company-box-icons-nerd)
-      )))
+      ))
+  )
+
+
 
 (provide 'init-company)
