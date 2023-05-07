@@ -1,5 +1,5 @@
 ;; 配置文件
-;; #+UPDATED_AT:2023-05-05T20:05:19+0800
+;; #+UPDATED_AT:2023-05-07T15:05:23+0800
 
 ;;package 设置
 (require 'package)
@@ -47,6 +47,7 @@
   (require 'init-misc)
   (require 'init-develop)
   (require 'init-org)
+  (require 'init-note)
   )
 
 (custom-set-variables

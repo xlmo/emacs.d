@@ -1,5 +1,5 @@
 ;; org
-;; #+UPDATED_AT:2023-05-06T11:05:03+0800
+;; #+UPDATED_AT:2023-05-07T16:05:36+0800
 
 (use-package org
   :ensure nil
@@ -56,7 +56,7 @@
                        "Beautify org symbols."
                        (prettify-symbols-mode 1)))
          (org-indent-mode . (lambda()
-                           ;;   (diminish 'org-indent-mode)
+                              ;;   (diminish 'org-indent-mode)
                               ;; HACK: Prevent text moving around while using brackets
                               ;; @see https://github.com/seagle0128/.emacs.d/issues/88
                               (make-variable-buffer-local 'show-paren-mode)
@@ -140,14 +140,14 @@ prepended to the element after the #+HEADER: tag."
     (bind-key [remap org-set-tags-command] #'counsel-org-tag org-mode-map))
 
   ;; Prettify UI
-  (use-package org-modern
-    :hook ((org-mode . org-modern-mode)
-           (org-agenda-finalize . org-modern-agenda)
-           (org-modern-mode . (lambda ()
-                                "Adapt `org-modern-mode'."
-                                ;; Disable Prettify Symbols mode
-                                (setq prettify-symbols-alist nil)
-                                (prettify-symbols-mode -1)))))
+  ;; (use-package org-modern
+  ;;   :hook ((org-mode . org-modern-mode)
+  ;;          (org-agenda-finalize . org-modern-agenda)
+  ;;          (org-modern-mode . (lambda ()
+  ;;                               "Adapt `org-modern-mode'."
+  ;;                               ;; Disable Prettify Symbols mode
+  ;;                               (setq prettify-symbols-alist nil)
+  ;;                               (prettify-symbols-mode -1)))))
   (progn
     (use-package org-superstar
       :if (and (display-graphic-p) (char-displayable-p ?◉))
@@ -169,7 +169,9 @@ prepended to the element after the #+HEADER: tag."
   (defconst load-language-alist
     '((emacs-lisp . t)
       (perl       . t)
+      (go         . t)
       (python     . t)
+      (php        . t)
       (ruby       . t)
       (js         . t)
       (css        . t)

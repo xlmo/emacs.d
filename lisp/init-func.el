@@ -1,5 +1,5 @@
 ;; 定义函数
-;; #+UPDATED_AT:2023-05-06T17:05:33+0800
+;; #+UPDATED_AT:2023-05-08T00:05:06+0800
 
 ;; Font
 (defun font-installed-p (font-name)
@@ -117,35 +117,16 @@
       (make-directory folderMonth)
       )
     (find-file dayfile)
-    (goto-char (point-max))
-    )
-  )
+    (unless (file-exists-p dayfile)
+      (goto-char 0)
+      (insert-file-contents (expand-file-name "Template/diary.md" xlmo-note-dir))
+      (while(search-forward "@TITLE@" nil t)
+        (replace-match (format-time-string "%Y-%m-%d") nil t))
+      (while(search-forward "@DATE@" nil t)
+        (replace-match (format-time-string "%Y-%m-%d %H:%M:%S") nil t))
+      )
+    (goto-char (point-max))))
 
-
-(defun xlmo/open-trouble-log ()
-  "新建问题排查记录"
-  (interactive)
-  (let* (
-         (workDir (expand-file-name "Org/Troubleshooting" xlmo-note-dir))
-         (date (format-time-string "%Y%m%d" (current-time)))
-         (title (concat "问题排查 - " date ".org"))
-         )
-
-    (find-file (expand-file-name title workDir))
-    (goto-char 0)
-    (insert-file-contents (expand-file-name "tmpl.org" workDir))
-    (goto-char 0)
-    (while(search-forward "@TITLE@" nil t)
-      (replace-match (concat "问题排查 - " date) nil t))
-    )
-  (goto-char 0)
-  (while(search-forward "@DATETIME@" nil t)
-    (replace-match (format-time-string "%Y-%m-%d %a" (current-time)) nil t)
-    (goto-char 0)
-    (while(search-forward "@PID@" nil t)
-      (replace-match (concat "PID_" (format-time-string "%Y%m%d%H%M%S")) nil t))
-    )
-  )
 
 ;; Key Binding
 (global-set-key (kbd "M-n") 'xlmo/move-text-down)

@@ -1,5 +1,5 @@
 ;; web
-;; #+UPDATED_AT:2023-05-05T23:05:56+0800
+;; #+UPDATED_AT:2023-05-07T21:05:12+0800
 
 ;; CSS
 (use-package css-mode
@@ -40,8 +40,11 @@
 (use-package haml-mode)
 (use-package php-mode)
 
-(use-package go)
-
+(use-package go-mode)
+(use-package yaml-mode)
+(use-package es-mode)
 (use-package magit)
+
+
 
 (provide 'init-develop)
