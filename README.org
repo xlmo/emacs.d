@@ -1,12 +1,13 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-05-08T16:05:31+0800
+#+UPDATED_AT:2023-05-08T22:05:30+0800
 
 * 待完成
-** DONE company 的提示框太短
-company-box 稍微调整下
-CLOSED: [2023-05-08 Mon 10:48]
-** TODO counsel-rg 搜索中文问题(Win)
-** TODO 尝试gpg加密
-** TODO denote 修改默认模板
-增加更新时间 startup设置
+- [x] company 的提示框太短
+  company-box 稍微调整下
+- [ ] counsel-rg 搜索中文问题(Win)
+- [ ] 尝试gpg加密
+- [ ] denote 修改默认模板
+  增加更新时间 startup设置
+- [ ] 用pangu-spacing
+  https://github.com/coldnew/pangu-spacing
