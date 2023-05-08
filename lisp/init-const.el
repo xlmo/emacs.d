@@ -1,5 +1,5 @@
-;; 常量
-;; #+UPDATED_AT:2023-05-04T23:05:39+0800
+;; #+TITLE: 常量
+;; #+UPDATED_AT:2023-05-08T17:05:37+0800
 
 (defconst sys/win32p
   (eq system-type 'windows-nt)

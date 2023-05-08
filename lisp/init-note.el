@@ -1,5 +1,5 @@
-;; 笔记
-;; #+UPDATED_AT:2023-05-07T23:05:21+0800
+;; #+TITLE: 笔记
+;; #+UPDATED_AT:2023-05-08T17:05:18+0800
 
 ;; https://protesilaos.com/emacs/denote
 (use-package denote
@@ -11,6 +11,14 @@
          ("C-c n s" . denote-subdirectory)
          ("C-c n o" . denote-open-or-create)
          ("C-c n r" . denote-dired-rename-file))
+  :init
+  ;;   (setq denote-org-front-matter
+  ;;         "#+title:      %s
+  ;; #+date:       %s
+  ;; #+filetags:   %s
+  ;; #+identifier: %s
+  ;; #+UPDATED_AT: %s
+  ;; \n")
   :config
   (setq denote-directory (expand-file-name "Note/" xlmo-note-dir))
   (setq denote-known-keywords '("技术" "摘抄" "阅读" "学习" "工作" "个人" "游戏" "问题排查"))
@@ -62,21 +70,20 @@
   ;; OR if only want it in `denote-dired-directories':
   (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories)
   )
+;; https://orgmode.org/manual/Initial-visibility.html
+;; startup : overview | content | showall | show2levels | show3levels | show4levels | show5levels | showeverything
 
-
-;; (use-package consult-notes
-;;   :commands (consult-notes
-;;              consult-notes-search-in-all-notes)
-;;   :bind ("C-c n f" . consult-notes)
-;;   :config
-;;   (setq consult-notes-file-dir-sources
-;;         '(
-;;           ;;          ("denote" ?d ,(concat xlmo-note-dir "/Note/"))
-;;           ("denote" ?d  '(xlmo-note-dir))
-;;           ))
-;;   (consult-notes-org-headings-mode)
-;;   (when (locate-library "denote")
-;;     (consult-notes-denote-mode))
-;;   )
+(use-package consult-notes
+  :commands (consult-notes
+             consult-notes-search-in-all-notes)
+  :bind ("C-c n f" . consult-notes)
+  :config
+  (setq consult-notes-file-dir-sources
+        `(
+          ("Denote"  ?d ,(expand-file-name "Note" xlmo-note-dir))))
+  (consult-notes-org-headings-mode)
+  (when (locate-library "denote")
+    (consult-notes-denote-mode))
+  )
 
 (provide 'init-note)

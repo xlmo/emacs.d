@@ -1,5 +1,5 @@
-;; 一些工具和配置
-;; #+UPDATED_AT:2023-05-05T16:05:22+0800
+;; #+TITLE: 一些工具和配置
+;; #+UPDATED_AT:2023-05-08T17:05:31+0800
 
 ;; Fast search tool `ripgrep'
 (use-package rg

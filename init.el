@@ -1,5 +1,5 @@
-;; 配置文件
-;; #+UPDATED_AT:2023-05-07T15:05:23+0800
+;; #+TITLE: 配置文件
+;; #+UPDATED_AT:2023-05-08T17:05:57+0800
 
 ;;package 设置
 (require 'package)
@@ -49,17 +49,3 @@
   (require 'init-org)
   (require 'init-note)
   )
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(eshell-z esh-help eshell-prompt-extras aggressive-indent fd-dired nerd-icons-dired diredfl dired-rsync dired-git-info dired-quick-sort yasnippet company-box company-prescient prescient company cal-china-x mwim ivy-hydra amx counsel rg popper ace-window markdown-toc markdown-mode nerd-icons-ibuffer ibuffer-project pretty-hydra hydra goto-char-preview goto-chg vundo expand-region all-the-icons doom-modeline ef-themes which-key helpful no-littering use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

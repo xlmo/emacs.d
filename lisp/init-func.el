@@ -1,5 +1,5 @@
-;; 定义函数
-;; #+UPDATED_AT:2023-05-08T00:05:06+0800
+;; #+TITLE: 定义函数
+;; #+UPDATED_AT:2023-05-08T17:05:16+0800
 
 ;; Font
 (defun font-installed-p (font-name)
@@ -108,7 +108,7 @@
   (let* ((baseDir (expand-file-name "Diary" xlmo-note-dir))
          (folderMonth (expand-file-name (format-time-string "%Y/%m/") baseDir))
          (folderYear (expand-file-name (format-time-string "%Y/") baseDir))
-         (dayfile (expand-file-name (format-time-string "%Y/%m/%Y-%m-%d.md") baseDir))
+         (dayfile (expand-file-name (format-time-string "%Y/%m/%Y-%m-%d.org") baseDir))
          )
     (unless (file-exists-p folderYear)
       (make-directory folderYear)
@@ -119,7 +119,7 @@
     (find-file dayfile)
     (unless (file-exists-p dayfile)
       (goto-char 0)
-      (insert-file-contents (expand-file-name "Template/diary.md" xlmo-note-dir))
+      (insert-file-contents (expand-file-name "Template/diary.org" xlmo-note-dir))
       (while(search-forward "@TITLE@" nil t)
         (replace-match (format-time-string "%Y-%m-%d") nil t))
       (while(search-forward "@DATE@" nil t)

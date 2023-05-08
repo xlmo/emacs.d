@@ -1,5 +1,5 @@
-;; org
-;; #+UPDATED_AT:2023-05-07T16:05:36+0800
+;; #+TITLE: org
+;; #+UPDATED_AT:2023-05-08T17:05:35+0800
 
 (use-package org
   :ensure nil
@@ -86,14 +86,14 @@ prepended to the element after the #+HEADER: tag."
 
   ;; To speed up startup, don't put to init section
   (setq org-modules nil                 ; Faster loading
-        org-directory (concat xlmo-note-dir "/Org")
+        org-directory (concat xlmo-note-dir "/Misc")
         org-capture-templates
-        `(("i" "Idea 灵光一闪" entry (file ,(concat org-directory "/idea.org"))
+        `(("i" "Idea" entry (file ,(concat org-directory "/idea.org"))
            "*  %^{Title} %?\nCREATED_AT:%U\n")
-          ("t" "Todo 代办事项" entry (file ,(concat org-directory "/gtd.org"))
+          ("tc" "Todo - CRM" entry (file+headline ,(concat org-directory "/project-things.org") "CRM")
            "* TODO %?\nCREATED_AT:%U\n")
-          ("n" "Note 备忘录" entry (file ,(concat org-directory "/note.org"))
-           "* %? :NOTE:\nCREATED_AT:%U\n")
+          ("tt" "Todo - 土流" entry (file+headline ,(concat org-directory "/project-things.org") "土流")
+           "* TODO %?\nCREATED_AT:%U\n")
           ("j" "Journal 记录日志" entry (file+olp+datetree
                                          ,(concat org-directory "/journal.org"))
            "*  %^{Title} %?\nCREATED_AT:%U\n")
@@ -109,9 +109,9 @@ prepended to the element after the #+HEADER: tag."
         org-priority-faces '((?A . error)
                              (?B . warning)
                              (?C . success))
-
         ;; Agenda styling
-        org-agenda-files (list xlmo-note-dir)
+        org-agenda-files (list (expand-file-name "Misc/project-things.org" xlmo-note-dir)
+                               (expand-file-name "README.org" user-emacs-directory))
         org-agenda-block-separator ?─
         org-agenda-time-grid
         '((daily today require-timed)
@@ -126,7 +126,8 @@ prepended to the element after the #+HEADER: tag."
         org-startup-indented t
         org-ellipsis (if (char-displayable-p ?⏷) "\t⏷" nil)
         org-pretty-entities nil
-        org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t
+        )
 
   ;; Add new template
   (add-to-list 'org-structure-template-alist '("n" . "note"))
@@ -159,7 +160,8 @@ prepended to the element after the #+HEADER: tag."
       :init (setq org-fancy-priorities-list
                   (if (and (display-graphic-p) (char-displayable-p ?🅐))
                       '("🅐" "🅑" "🅒" "🅓")
-                    '("HIGH" "MEDIUM" "LOW" "OPTIONAL")))))
+                    '("HIGH" "MEDIUM" "LOW" "OPTIONAL"))))
+    )
 
   ;; Babel
   (setq org-confirm-babel-evaluate nil
@@ -225,5 +227,8 @@ prepended to the element after the #+HEADER: tag."
 (use-package valign
   :ensure t
   :hook ((markdown-mode org-mode) . valign-mode))
+
+;; org table 统计
+(use-package orgtbl-aggregate)
 
 (provide 'init-org)
