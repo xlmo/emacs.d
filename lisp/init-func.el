@@ -1,5 +1,5 @@
 ;; #+TITLE: 定义函数
-;; #+UPDATED_AT:2023-05-08T17:05:16+0800
+;; #+UPDATED_AT:2023-05-09T11:05:57+0800
 
 ;; Font
 (defun font-installed-p (font-name)
@@ -127,6 +127,25 @@
       )
     (goto-char (point-max))))
 
+
+(defun xlmo/new-worklog-file()
+  "打开当日的工作日志文件"
+  (interactive)
+  (let* ((baseDir (expand-file-name "Work/Logs/" xlmo-note-dir))
+         (folderYear (expand-file-name (format-time-string "%Y/") baseDir))
+         (workfile (expand-file-name (format-time-string "%Y/%Y-%m.org") baseDir))
+         )
+    (unless (file-exists-p folderYear)
+      (make-directory folderYear)
+      )
+    (find-file workfile)
+    (unless (file-exists-p workfile)
+      (goto-char 0)
+      (insert-file-contents (expand-file-name "Template/worklog.org" xlmo-note-dir))
+      (while(search-forward "@TITLE@" nil t)
+        (replace-match (format-time-string "%Y-%m") nil t))
+      )
+    (goto-char (point-max))))
 
 ;; Key Binding
 (global-set-key (kbd "M-n") 'xlmo/move-text-down)

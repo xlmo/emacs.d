@@ -1,5 +1,5 @@
 ;; #+TITLE: 界面配置
-;; #+UPDATED_AT:2023-05-08T17:05:56+0800
+;; #+UPDATED_AT:2023-05-09T17:05:45+0800
 
 ;; Optimization
 (setq-default cursor-in-non-selected-windows nil)
@@ -132,12 +132,12 @@
   (setq ef-themes-to-toggle '(ef-light ef-winter))
   ;; set org headings and function syntax
   (setq ef-themes-headings
-    '((0 . (bold 1))
-      (1 . (bold 1))
-      (2 . (rainbow bold 1))
-      (3 . (rainbow bold 1))
-      (4 . (rainbow bold 1))
-      (t . (rainbow bold 1))))
+        '((0 . (bold 1))
+          (1 . (bold 1))
+          (2 . (rainbow bold 1))
+          (3 . (rainbow bold 1))
+          (4 . (rainbow bold 1))
+          (t . (rainbow bold 1))))
   (setq ef-themes-region '(intense no-extend neutral))
   ;; Disable all other themes to avoid awkward blending:
   (mapc #'disable-theme custom-enabled-themes)
@@ -166,6 +166,7 @@
     ;;(ef-themes-select 'ef-summer)
     )
   )
+
 ;; doom用的图标
 (use-package nerd-icons
   :ensure t)
@@ -187,15 +188,14 @@
         doom-modeline-minor-modes t)
   )
 
-
 (use-package hide-mode-line
   :hook (((completion-list-mode
-       completion-in-region-mode
-       eshell-mode shell-mode
-       term-mode vterm-mode
-       treemacs-mode
-       lsp-ui-imenu-mode
-       pdf-annot-list-mode) . hide-mode-line-mode)))
+           completion-in-region-mode
+           eshell-mode shell-mode
+           term-mode vterm-mode
+           treemacs-mode
+           lsp-ui-imenu-mode
+           pdf-annot-list-mode) . hide-mode-line-mode)))
 
 ;; A minor-mode menu for mode-line
 (use-package minions
