@@ -1,5 +1,5 @@
 ;; #+TITLE: ivy
-;; #+UPDATED_AT:2023-05-08T17:05:58+0800
+;; #+UPDATED_AT:2023-05-10T10:05:32+0800
 
 ;; (use-package counsel
 ;;   :ensure t
@@ -528,6 +528,10 @@
                ("[pP][lL][iI][nN][kK]" utf-8-dos . gbk-dos)
                ("[cC][mM][dD][pP][rR][oO][xX][yY]" utf-8-dos . gbk-dos)
                ))
+
+;; windows下中文搜索编码
+(if sys/win32p
+    (setq process-coding-system-alist (cons '("rg" . (utf-8 . gbk)) process-coding-system-alist)))
 
 (defun counsel-locate-coding (orig-fun &rest args)
   (let ((process-coding-system-alist '(

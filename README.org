@@ -1,13 +1,13 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-05-08T22:05:30+0800
+#+UPDATED_AT:2023-05-10T10:05:04+0800
 
 * 待完成
 - [x] company 的提示框太短
   company-box 稍微调整下
-- [ ] counsel-rg 搜索中文问题(Win)
+- [x] counsel-rg 搜索中文问题(Win)
 - [ ] 尝试gpg加密
 - [ ] denote 修改默认模板
   增加更新时间 startup设置
-- [ ] 用pangu-spacing
+- [x] 用pangu-spacing
   https://github.com/coldnew/pangu-spacing
