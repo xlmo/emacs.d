@@ -1,5 +1,5 @@
 ;; #+TITLE: 配置文件
-;; #+UPDATED_AT:2023-05-08T17:05:57+0800
+;; #+UPDATED_AT:2023-05-10T23:05:12+0800
 
 ;;package 设置
 (require 'package)
@@ -42,10 +42,11 @@
   (require 'init-edit)
   (require 'init-window)
   (require 'init-ui)
-  (require 'init-company)
+  ;; (require 'init-company) ;; lsp-bridge,需要禁用company
   (require 'init-ivy)
   (require 'init-misc)
   (require 'init-develop)
   (require 'init-org)
   (require 'init-note)
+  (require 'init-lsp)
   )

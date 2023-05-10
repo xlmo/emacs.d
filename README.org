@@ -1,12 +1,17 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-05-10T10:05:04+0800
+#+UPDATED_AT:2023-05-10T23:05:09+0800
 
 * 待完成
 - [x] company 的提示框太短
   company-box 稍微调整下
 - [x] counsel-rg 搜索中文问题(Win)
 - [ ] 尝试gpg加密
+- [ ] 配置 lsp-bridge
+  - [x] 基本配置
+  - [ ] php
+  - [ ] go
+  - [ ] html
 - [ ] denote 修改默认模板
   增加更新时间 startup设置
 - [x] 用pangu-spacing
