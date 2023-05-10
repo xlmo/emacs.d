@@ -1,5 +1,5 @@
 ;; #+TITLE: 编辑相关配置
-;; #+UPDATED_AT:2023-05-08T17:05:50+0800
+;; #+UPDATED_AT:2023-05-09T20:05:56+0800
 
 ;; Emacs默认选择文本后直接输入，是不会直接删除所选择的文本进行替换的。通过内置的 delsel 插件来实现这个行为
 (use-package delsel
@@ -203,5 +203,7 @@
     (("0" mc/insert-numbers "insert numbers" :exit t)
      ("A" mc/insert-letters "insert letters" :exit t)))))
 
+;; 中英文之间加空格
+(use-package pangu-spacing)
 
 (provide 'init-edit)

@@ -1,5 +1,5 @@
 ;; #+TITLE: 界面配置
-;; #+UPDATED_AT:2023-05-09T17:05:45+0800
+;; #+UPDATED_AT:2023-05-09T20:05:32+0800
 
 ;; Optimization
 (setq-default cursor-in-non-selected-windows nil)
@@ -18,7 +18,7 @@
       frame-resize-pixelwise t
       inhibit-startup-echo-area-message user-login-name
       initial-scratch-message (concat ";; Happy hacking, "
-                      (capitalize user-login-name) " - Emacs ♥ you!\n\n") ;; 草稿缓冲区默认文字设置
+                                      (capitalize user-login-name) " - Emacs ♥ you!\n\n") ;; 草稿缓冲区默认文字设置
       bidi-paragraph-direction 'left-to-right ;; 设置缓冲区的文字方向为从左到右
       large-file-warning-threshold 100000000 ;; 设置大文件阈值为100MB，默认10MB
       display-raw-bytes-as-hex t ;; 以16进制显示字节数
@@ -46,6 +46,7 @@
       global-mark-ring-max 6
       frame-title-format '("Emacs - %b") ;; 设置标题
       icon-title-format frame-title-format
+      size-indication-mode t ;; modeline 显示文件 size
       initial-scratch-message nil)
 
 (unless (daemonp)

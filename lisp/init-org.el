@@ -1,5 +1,5 @@
 ;; #+TITLE: org
-;; #+UPDATED_AT:2023-05-08T17:05:35+0800
+;; #+UPDATED_AT:2023-05-09T20:05:43+0800
 
 (use-package org
   :ensure nil
@@ -171,9 +171,7 @@ prepended to the element after the #+HEADER: tag."
   (defconst load-language-alist
     '((emacs-lisp . t)
       (perl       . t)
-      (go         . t)
       (python     . t)
-      (php        . t)
       (ruby       . t)
       (js         . t)
       (css        . t)
@@ -188,6 +186,9 @@ prepended to the element after the #+HEADER: tag."
 
   (use-package ob-go
     :init (cl-pushnew '(go . t) load-language-alist))
+
+  (use-package ob-php
+    :init (cl-pushnew '(php . t) load-language-alist))
 
   (use-package ob-powershell
     :init (cl-pushnew '(powershell . t) load-language-alist))
