@@ -1,5 +1,4 @@
-;; #+TITLE: 自动补全
-;; #+UPDATED_AT:2023-05-08T17:05:27+0800
+;; 自动补全
 
 ;; (use-package yasnippet-snippets
 ;;   :ensure t

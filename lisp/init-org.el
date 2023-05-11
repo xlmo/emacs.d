@@ -1,5 +1,4 @@
-;; #+TITLE: org
-;; #+UPDATED_AT:2023-05-09T20:05:43+0800
+;; org
 
 (use-package org
   :ensure nil

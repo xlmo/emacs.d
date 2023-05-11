@@ -1,5 +1,4 @@
-;; #+TITLE: develop
-;; #+UPDATED_AT:2023-05-08T17:05:46+0800
+;; develop
 
 ;; CSS
 (use-package css-mode

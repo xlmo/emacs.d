@@ -1,5 +1,4 @@
-;; #+TITLE: 配置文件
-;; #+UPDATED_AT:2023-05-11T17:05:46+0800
+;;  init file
 
 ;;package 设置
 (require 'package)

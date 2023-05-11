@@ -1,5 +1,4 @@
-;; #+TITLE: 窗口配置
-;; #+UPDATED_AT:2023-05-08T17:05:23+0800
+;; 窗口配置
 
 ;; 撤销对窗口的操作
 (use-package winner

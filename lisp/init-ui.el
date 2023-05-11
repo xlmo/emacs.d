@@ -1,5 +1,4 @@
-;; #+TITLE: 界面配置
-;; #+UPDATED_AT:2023-05-09T20:05:32+0800
+;; 界面配置
 
 ;; Optimization
 (setq-default cursor-in-non-selected-windows nil)

@@ -1,21 +1,4 @@
-;; #+TITLE: ivy
-;; #+UPDATED_AT:2023-05-10T10:05:32+0800
-
-;; (use-package counsel
-;;   :ensure t
-;;   :init
-;;   (ivy-mode 1)
-;;   (counsel-mode 1)
-;;   :config
-;;   (setq ivy-use-virtual-buffers t)
-;;   (setq ivy-count-format "(%d/%d) ")
-;;   :bind(
-;;         ("C-s" . swiper-isearch)
-;;         ("C-x C-f" . counsel-find-file)
-;;         ("M-x" . counsel-M-x)
-;;         ("C-c g" . counsel-rg)))
-
-
+;; ivy
 
 (use-package counsel
   :diminish ivy-mode counsel-mode

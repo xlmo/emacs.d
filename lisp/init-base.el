@@ -1,5 +1,4 @@
-;; #+TITLE: 基本配置
-;; #+UPDATED_AT:2023-05-08T18:05:24+0800
+;; 基本配置
 
 ;; 配置目录保持简洁
 (use-package no-littering

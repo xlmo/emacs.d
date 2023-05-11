@@ -1,5 +1,4 @@
-;; #+TITLE: 笔记
-;; #+UPDATED_AT:2023-05-08T17:05:18+0800
+;; 笔记
 
 ;; https://protesilaos.com/emacs/denote
 (use-package denote

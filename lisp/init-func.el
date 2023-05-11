@@ -1,5 +1,4 @@
-;; #+TITLE: 定义函数
-;; #+UPDATED_AT:2023-05-09T11:05:57+0800
+;; 定义函数
 
 ;; Font
 (defun font-installed-p (font-name)
