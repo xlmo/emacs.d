@@ -1,18 +1,32 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-05-10T23:05:09+0800
+#+UPDATED_AT:2023-05-11T17:05:55+0800
+
+* 依赖
+** ripgrep
+** nodejs
+** python3
+*** windows: pip3 install epc orjson sexpdata six paramiko  -i https://pypi.tuna.tsinghua.edu.cn/simple
+*** linux: pypy3 -m pip install epc sexpdata six paramiko -i https://pypi.tuna.tsinghua.edu.cn/simple
+** lsp server
+*** html
+npm  --registry=https://registry.npmmirror.com i -g vscode-langservers-extracted
+*** typescript/javascript
+npm  --registry=https://registry.npmmirror.com i -g typescript-language-server typescript
+*** php ?
+npm  --registry=https://registry.npmmirror.com i -g intelephense
+
 
 * 待完成
 - [x] company 的提示框太短
   company-box 稍微调整下
 - [x] counsel-rg 搜索中文问题(Win)
-- [ ] 尝试gpg加密
 - [ ] 配置 lsp-bridge
   - [x] 基本配置
   - [ ] php
   - [ ] go
-  - [ ] html
-- [ ] denote 修改默认模板
-  增加更新时间 startup设置
+  - [x] html/css
+  - [x] typescript/javascript
+- [ ] 试用 org-roam
 - [x] 用pangu-spacing
   https://github.com/coldnew/pangu-spacing

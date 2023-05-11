@@ -1,5 +1,5 @@
 ;; #+TITLE: 常量
-;; #+UPDATED_AT:2023-05-08T17:05:37+0800
+;; #+UPDATED_AT:2023-05-11T17:05:40+0800
 
 (defconst sys/win32p
   (eq system-type 'windows-nt)
@@ -43,5 +43,9 @@
   (expand-file-name "Personal" xlmo-note-dir))
 (defconst note/work
   (expand-file-name "Work" xlmo-note-dir))
+
+(defconst emacs/>=27p
+  (>= emacs-major-version 27)
+  "Emacs is 27 or above.")
 
 (provide 'init-const)
