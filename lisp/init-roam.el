@@ -49,7 +49,7 @@
           ("t" "问题排查" plain
            (file ,(concat xlmo-note-dir "/Template/trouble_shooting.org"))
            :target
-           (file+head "trace:${slug}.org"
+           (file+head "trace_${slug}.org"
                       "#+title: ${title}\n\n")
            :unnarrowed t)))
   ;; 显示笔记类型
