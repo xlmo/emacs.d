@@ -48,5 +48,5 @@
   (require 'init-develop)
   (require 'init-org)
   ;; (require 'init-note) ;; replace by org-roam
-  ;; (require 'init-roam)
+  (require 'init-roam)
   )
