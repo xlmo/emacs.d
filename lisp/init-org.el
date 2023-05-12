@@ -93,9 +93,6 @@ prepended to the element after the #+HEADER: tag."
            "* TODO %?\nCREATED_AT:%U\n")
           ("tt" "Todo - 土流" entry (file+headline ,(concat org-directory "/project-things.org") "土流")
            "* TODO %?\nCREATED_AT:%U\n")
-          ("j" "Journal 记录日志" entry (file+olp+datetree
-                                         ,(concat org-directory "/journal.org"))
-           "*  %^{Title} %?\nCREATED_AT:%U\n")
           ("b" "Billing 记账" plain  (file, (concat org-directory "/bill.org"))
            " | %<%Y-%m> | %U | %^{名称} | %^{描述} | %^{金额} |" :kill-buffer t)
           )
