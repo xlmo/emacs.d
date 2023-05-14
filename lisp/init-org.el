@@ -61,6 +61,9 @@
                               (make-variable-buffer-local 'show-paren-mode)
                               (setq show-paren-mode nil))))
   :config
+  ;; 待验证
+  ;; https://coldnew.github.io/278279c4/
+  (setq org-image-actual-width `(600))
   ;; For hydra
   (defun hot-expand (str &optional mod)
     "Expand org template.
@@ -218,6 +221,10 @@ prepended to the element after the #+HEADER: tag."
   ;; Add graphical view of agenda
   (use-package org-timeline
     :hook (org-agenda-finalize . org-timeline-insert-timeline))
+
+  ;; org table 统计
+  (use-package orgtbl-aggregate)
+
   )
 
 ;; org markdown 表格对齐
@@ -225,7 +232,8 @@ prepended to the element after the #+HEADER: tag."
   :ensure t
   :hook ((markdown-mode org-mode) . valign-mode))
 
-;; org table 统计
-(use-package orgtbl-aggregate)
+
+;; orgmode中显示网络图片
+;;(use-package uimage)
 
 (provide 'init-org)

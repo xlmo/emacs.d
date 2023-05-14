@@ -206,4 +206,16 @@
 ;; 中英文之间加空格
 (use-package pangu-spacing)
 
+;; 代码片段
+(use-package yasnippet
+  :defer 10
+  :config
+  (require 'yasnippet)
+  (add-to-list
+   'yas-snippet-dirs (concat user-emacs-directory "snippets"))
+  (yas-global-mode 1)
+  ;;  (use-package warnings)
+  (setq warning-suppress-types '((yasnippet backquote-change))))
+
+
 (provide 'init-edit)

@@ -8,6 +8,7 @@
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
+         ("<f6>" . org-roam-dailies-capture-today)
          ("C-c n j" . org-roam-dailies-capture-today))
   :init
   (setq org-roam-directory (file-truename (expand-file-name "Notes" xlmo-note-dir))
@@ -25,28 +26,28 @@
                               "#+title: %<%Y-%m-%d>\n"))))
   :config
   (setq org-roam-capture-templates
-        `(("d" "Main" plain
+        `(("d" "Main 笔记" plain
            "%?"
            :target
            (file+head
             "Main/${slug}.org"
             "#+title: ${title}\n\n")
            :unnarrowed t)
-          ("p" "Porject" plain
-           "%?"
-           :target
-           (file+head
-            "Project/${slug}.org"
-            "#+title: ${title}\n\n")
-           :unnarrowed t)
-          ("c" "Extract" plain
+          ("c" "Extract 摘抄" plain
            (file ,(concat xlmo-note-dir "/Template/extract.org"))
            :target
            (file+head
             "Extract/${slug}.org"
             "#+title: ${title}\n\n")
            :unnarrowed t)
-          ("t" "问题排查" plain
+          ("e" "Entry 词条 " plain
+           "%?"
+           :target
+           (file+head
+            "Entry/${slug}.org"
+            "#+title: ${title}\n\n")
+           :unnarrowed t)
+          ("t" "Trouble 问题排查" plain
            (file ,(concat xlmo-note-dir "/Template/trouble_shooting.org"))
            :target
            (file+head "trace_${slug}.org"

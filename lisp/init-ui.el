@@ -248,5 +248,11 @@
   (add-to-list 'ibuffer-project-root-functions '(file-remote-p . "Remote"))
   (add-to-list 'ibuffer-project-root-functions '("\\*.+\\*" . "Default")))
 
+(setq display-time-24hr-format t)
+(setq display-time-day-and-date t)
+(setq display-time-format "%Y-%m-%d %H:%m")
+(setq display-time-default-load-average nil)
+(setq display-time-interval 10)
+(display-time-mode t)
 
 (provide 'init-ui)
