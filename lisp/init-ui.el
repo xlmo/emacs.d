@@ -124,53 +124,65 @@
 
 
 ;; 主题包
-(use-package ef-themes
-  :ensure t
-  :bind ("C-c t" . ef-themes-toggle)
-  :init
-  ;; set two specific themes and switch between them
-  (setq ef-themes-to-toggle '(ef-light ef-winter))
-  ;; set org headings and function syntax
-  (setq ef-themes-headings
-        '((0 . (bold 1))
-          (1 . (bold 1))
-          (2 . (rainbow bold 1))
-          (3 . (rainbow bold 1))
-          (4 . (rainbow bold 1))
-          (t . (rainbow bold 1))))
-  (setq ef-themes-region '(intense no-extend neutral))
-  ;; Disable all other themes to avoid awkward blending:
-  (mapc #'disable-theme custom-enabled-themes)
+;; (use-package ef-themes
+;;   :ensure t
+;;   :bind ("C-c t" . ef-themes-toggle)
+;;   :init
+;;   ;; set two specific themes and switch between them
+;;   (setq ef-themes-to-toggle '(ef-light ef-winter))
+;;   ;; set org headings and function syntax
+;;   (setq ef-themes-headings
+;;         '((0 . (bold 1))
+;;           (1 . (bold 1))
+;;           (2 . (rainbow bold 1))
+;;           (3 . (rainbow bold 1))
+;;           (4 . (rainbow bold 1))
+;;           (t . (rainbow bold 1))))
+;;   (setq ef-themes-region '(intense no-extend neutral))
+;;   ;; Disable all other themes to avoid awkward blending:
+;;   (mapc #'disable-theme custom-enabled-themes)
 
-  ;; Load the theme of choice:
-  ;; The themes we provide are recorded in the `ef-themes-dark-themes',
-  ;; `ef-themes-light-themes'.
+;;   ;; Load the theme of choice:
+;;   ;; The themes we provide are recorded in the `ef-themes-dark-themes',
+;;   ;; `ef-themes-light-themes'.
 
-  ;; 随机挑选一款主题，如果是命令行打开Emacs，则随机挑选一款黑色主题
-  (if (display-graphic-p)
-      (ef-themes-select 'ef-light) ;; (ef-themes-load-random)
-    (ef-themes-load-random 'dark))
+;;   ;; 随机挑选一款主题，如果是命令行打开Emacs，则随机挑选一款黑色主题
+;;   (if (display-graphic-p)
+;;       (ef-themes-select 'ef-light) ;; (ef-themes-load-random)
+;;     (ef-themes-load-random 'dark))
 
-  :config
-  ;; auto change theme, aligning with system themes.
-  (defun my/apply-theme (appearance)
-    "Load theme, taking current system APPEARANCE into consideration."
-    (mapc #'disable-theme custom-enabled-themes)
-    (pcase appearance
-      ('light (if (display-graphic-p) (ef-themes-load-random 'light) (ef-themes-load-random 'dark)))
-      ('dark (ef-themes-load-random 'dark))))
+;;   :config
+;;   ;; auto change theme, aligning with system themes.
+;;   (defun my/apply-theme (appearance)
+;;     "Load theme, taking current system APPEARANCE into consideration."
+;;     (mapc #'disable-theme custom-enabled-themes)
+;;     (pcase appearance
+;;       ('light (if (display-graphic-p) (ef-themes-load-random 'light) (ef-themes-load-random 'dark)))
+;;       ('dark (ef-themes-load-random 'dark))))
 
-  (if (eq system-type 'darwin)
-      ;; only for emacs-plus
-      (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
-    ;;(ef-themes-select 'ef-summer)
-    )
-  )
+;;   (if (eq system-type 'darwin)
+;;       ;; only for emacs-plus
+;;       (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
+;;     ;;(ef-themes-select 'ef-summer)
+;;     )
+;;   )
 
 ;; doom用的图标
 (use-package nerd-icons
   :ensure t)
 
+(use-package doom-themes
+  :ensure t
+  :when (display-graphic-p)
+  :config
+  (load-theme 'doom-one t)
+  (doom-themes-org-config))
+
+(use-package emacs
+  :ensure nil
+  :unless (display-graphic-p)
+  :config
+  (load-theme 'leuven t))
 
 ;; modeline
 (use-package doom-modeline
