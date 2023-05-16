@@ -3,4 +3,7 @@
 (setq user-mail-address "xx@ss.com")
 
 ;; 笔记目录
-(defconst xlmo-note-dir "~/NoteDataGitee")
+(setq xlmo-note-dir "~/NoteDataGitee")
+
+;; PARA 目录
+(setq xlmo-para-dir "~/PARA")

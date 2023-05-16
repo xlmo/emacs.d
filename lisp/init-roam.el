@@ -26,32 +26,40 @@
                               "#+title: %<%Y-%m-%d>\n"))))
   :config
   (setq org-roam-capture-templates
-        `(("d" "Main 笔记" plain
+        `(("i" "Inbox - Main" plain
            "%?"
            :target
            (file+head
-            "Main/${slug}.org"
+            "Inbox/${slug}.org"
             "#+title: ${title}\n\n")
            :unnarrowed t)
-          ("c" "Extract 摘抄" plain
-           (file ,(concat xlmo-note-dir "/Template/extract.org"))
-           :target
-           (file+head
-            "Extract/${slug}.org"
-            "#+title: ${title}\n\n")
-           :unnarrowed t)
-          ("e" "Entry 词条 " plain
+          ("p" "P.A.R.A. - Project " plain
            "%?"
            :target
            (file+head
-            "Entry/${slug}.org"
+            "PARA-Project/${slug}.org"
             "#+title: ${title}\n\n")
            :unnarrowed t)
-          ("t" "Trouble 问题排查" plain
+          ("a" "P.A.R.A. - Area " plain
+           "%?"
+           :target
+           (file+head
+            "PARA-Area/${slug}.org"
+            "#+title: ${title}\n\n")
+           :unnarrowed t)
+          ("r" "P.A.R.A. - Resource " plain
+           "%?"
+           :target
+           (file+head
+            "PARA-Resource/${slug}.org"
+            "#+title: ${title}\n\n")
+           :unnarrowed t)
+          ("t" "Inbox - Trouble" plain
            (file ,(concat xlmo-note-dir "/Template/trouble_shooting.org"))
            :target
-           (file+head "trace_${slug}.org"
-                      "#+title: ${title}\n\n")
+           (file+head
+            "Inbox/trace_${slug}.org"
+            "#+title: ${title}\n\n")
            :unnarrowed t)))
   ;; 显示笔记类型
   (cl-defmethod org-roam-node-type ((node org-roam-node))
