@@ -494,7 +494,7 @@
   :init
   ;; For better performance
   (setq ivy-rich-parse-remote-buffer nil)
-  (setq nerd-icons-ivy-rich-icon t)
+  (setq nerd-icons-ivy-rich-icon (if (display-graphic-p) t nil))
   :config
   (plist-put nerd-icons-ivy-rich-display-transformers-list
              'centaur-load-theme

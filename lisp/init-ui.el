@@ -182,22 +182,24 @@
   :ensure nil
   :unless (display-graphic-p)
   :config
-  (load-theme 'leuven t))
+  (load-theme 'tsdh-dark t))
+
 
 ;; modeline
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :init
-  (setq doom-modeline-icon t
-        doom-modeline-window-width-limit 110
-        doom-modeline-buffer-file-name-style 'auto
-        doom-modeline-time-icon t
-        doom-modeline-time t
-        doom-modeline-buffer-name t
-        doom-modeline-enable-word-count nil
-        doom-modeline-workspace-name t
-        doom-modeline-modal-icon t
-        doom-modeline-minor-modes t)
+  (setq
+   doom-modeline-window-width-limit 110
+   doom-modeline-buffer-file-name-style 'auto
+   doom-modeline-icon (if (display-graphic-p) t nil )
+   doom-modeline-time-icon (if (display-graphic-p) t nil )
+   doom-modeline-time t
+   doom-modeline-buffer-name t
+   doom-modeline-enable-word-count nil
+   doom-modeline-workspace-name t
+   doom-modeline-modal-icon (if (display-graphic-p) t nil )
+   doom-modeline-minor-modes t)
   )
 
 (use-package hide-mode-line
@@ -231,10 +233,11 @@
   :bind ("C-x C-b" . ibuffer)
   :init (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold)))
   :config
-  ;; Display icons for buffers
-  (use-package nerd-icons-ibuffer
-    :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
-    :init (setq nerd-icons-ibuffer-icon t))
+  (when (display-graphic-p)
+    ;; Display icons for buffers
+    (use-package nerd-icons-ibuffer
+      :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
+      :init (setq nerd-icons-ibuffer-icon t)))
 
   (with-eval-after-load 'counsel
     (with-no-warnings
