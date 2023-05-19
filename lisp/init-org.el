@@ -92,9 +92,9 @@ prepended to the element after the #+HEADER: tag."
         org-capture-templates
         `(("i" "Idea" entry (file ,(concat org-directory "/idea.org"))
            "*  %^{Title} %?\nCREATED_AT:%U\n")
-          ("tc" "Todo - CRM" entry (file+headline ,(concat org-directory "/project-things.org") "CRM")
+          ("w" "Work Things" entry (file ,(concat org-directory "/work-things.org"))
            "* TODO %?\nCREATED_AT:%U\n")
-          ("tt" "Todo - 土流" entry (file+headline ,(concat org-directory "/project-things.org") "土流")
+          ("s" "Some Things" entry (file ,(concat org-directory "/some-things.org") )
            "* TODO %?\nCREATED_AT:%U\n")
           ("b" "Billing 记账" plain  (file, (concat org-directory "/bill.org"))
            " | %<%Y-%m> | %U | %^{名称} | %^{描述} | %^{金额} |" :kill-buffer t)
@@ -164,8 +164,9 @@ prepended to the element after the #+HEADER: tag."
 
   ;; Babel
   (setq org-confirm-babel-evaluate nil
-        org-src-fontify-natively t
-        org-src-tab-acts-natively t)
+        org-src-fontify-natively 1
+        org-edit-src-content-indentation 0
+        org-src-tab-acts-natively 1)
 
   (defconst load-language-alist
     '((emacs-lisp . t)

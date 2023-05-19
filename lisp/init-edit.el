@@ -217,5 +217,9 @@
   ;;  (use-package warnings)
   (setq warning-suppress-types '((yasnippet backquote-change))))
 
+;; 换行
+(use-package unfill
+  :bind (("M-q" . unfill-toggle)
+         ))
 
 (provide 'init-edit)
