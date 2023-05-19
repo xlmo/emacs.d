@@ -50,4 +50,5 @@
   ;; (require 'init-note) ;; replace by org-roam
   (require 'init-roam)
   (require 'init-treemacs)
+  (require 'init-pyim)
   )
