@@ -50,5 +50,5 @@
   ;; (require 'init-note) ;; replace by org-roam
   (require 'init-roam)
   (require 'init-treemacs)
-  (require 'init-pyim)
+  ;; (require 'init-pyim) ;; 和counsel一起使用有问题，新建文件等场景下不能激活
   )

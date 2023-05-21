@@ -22,6 +22,9 @@
   (define-key pyim-mode-map "." 'pyim-page-next-page)
   (define-key pyim-mode-map "," 'pyim-page-previous-page)
 
+  ;; 开启代码搜索中文功能
+  (pyim-isearch-mode 1)
+
   ;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
   (global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
   ;; 设置 pyim 探针
