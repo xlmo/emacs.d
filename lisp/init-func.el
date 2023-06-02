@@ -146,6 +146,13 @@
       )
     (goto-char (point-max))))
 
+
+;; 插入当前日期
+(defun xlmo/insert-date ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d")))
+
 ;; Key Binding
 (global-set-key (kbd "M-n") 'xlmo/move-text-down)
 (global-set-key (kbd "M-p") 'xlmo/move-text-up)

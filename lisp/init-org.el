@@ -148,19 +148,19 @@ prepended to the element after the #+HEADER: tag."
   ;;                               ;; Disable Prettify Symbols mode
   ;;                               (setq prettify-symbols-alist nil)
   ;;                               (prettify-symbols-mode -1)))))
-  (progn
-    (use-package org-superstar
-      :if (and (display-graphic-p) (char-displayable-p ?◉))
-      :hook (org-mode . org-superstar-mode)
-      :init (setq org-superstar-headline-bullets-list '("◉""○""◈""◇""⁕")))
-    (use-package org-fancy-priorities
-      :diminish
-      :hook (org-mode . org-fancy-priorities-mode)
-      :init (setq org-fancy-priorities-list
-                  (if (and (display-graphic-p) (char-displayable-p ?🅐))
-                      '("🅐" "🅑" "🅒" "🅓")
-                    '("HIGH" "MEDIUM" "LOW" "OPTIONAL"))))
-    )
+  ;; (progn
+  ;;   (use-package org-superstar
+  ;;     :if (and (display-graphic-p) (char-displayable-p ?◉))
+  ;;     :hook (org-mode . org-superstar-mode)
+  ;;     :init (setq org-superstar-headline-bullets-list '("◉""○""◈""◇""⁕")))
+  ;;   (use-package org-fancy-priorities
+  ;;     :diminish
+  ;;     :hook (org-mode . org-fancy-priorities-mode)
+  ;;     :init (setq org-fancy-priorities-list
+  ;;                 (if (and (display-graphic-p) (char-displayable-p ?🅐))
+  ;;                     '("🅐" "🅑" "🅒" "🅓")
+  ;;                   '("HIGH" "MEDIUM" "LOW" "OPTIONAL"))))
+  ;;   )
 
   ;; Babel
   (setq org-confirm-babel-evaluate nil
@@ -170,14 +170,14 @@ prepended to the element after the #+HEADER: tag."
 
   (defconst load-language-alist
     '((emacs-lisp . t)
-      (perl       . t)
+      ;; (perl       . t)
+      ;; (ruby       . t)
+      ;; (sass       . t)
+      ;; (java       . t)
       (python     . t)
-      (ruby       . t)
       (js         . t)
       (css        . t)
-      (sass       . t)
       (C          . t)
-      (java       . t)
       (plantuml   . t))
     "Alist of org ob languages.")
 
@@ -190,15 +190,15 @@ prepended to the element after the #+HEADER: tag."
   (use-package ob-php
     :init (cl-pushnew '(php . t) load-language-alist))
 
-  (use-package ob-powershell
-    :init (cl-pushnew '(powershell . t) load-language-alist))
+  ;; (use-package ob-powershell
+  ;;   :init (cl-pushnew '(powershell . t) load-language-alist))
 
-  (use-package ob-rust
-    :init (cl-pushnew '(rust . t) load-language-alist))
+  ;; (use-package ob-rust
+  ;;   :init (cl-pushnew '(rust . t) load-language-alist))
 
   ;; Install: npm install -g @mermaid-js/mermaid-cli
-  (use-package ob-mermaid
-    :init (cl-pushnew '(mermaid . t) load-language-alist))
+  ;; (use-package ob-mermaid
+  ;;   :init (cl-pushnew '(mermaid . t) load-language-alist))
 
   (org-babel-do-load-languages 'org-babel-load-languages
                                load-language-alist)
@@ -213,11 +213,11 @@ prepended to the element after the #+HEADER: tag."
     :hook (org-mode . toc-org-mode))
 
   ;; Export text/html MIME emails
-  (use-package org-mime
-    :bind (:map message-mode-map
-                ("C-c M-o" . org-mime-htmlize)
-                :map org-mode-map
-                ("C-c M-o" . org-mime-org-buffer-htmlize)))
+  ;; (use-package org-mime
+  ;;   :bind (:map message-mode-map
+  ;;               ("C-c M-o" . org-mime-htmlize)
+  ;;               :map org-mode-map
+  ;;               ("C-c M-o" . org-mime-org-buffer-htmlize)))
 
   ;; Add graphical view of agenda
   (use-package org-timeline
@@ -225,6 +225,8 @@ prepended to the element after the #+HEADER: tag."
 
   ;; org table 统计
   (use-package orgtbl-aggregate)
+
+
 
   )
 
