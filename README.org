@@ -1,6 +1,6 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-06-09T14:06:33+0800
+#+UPDATED_AT:2023-06-09T15:06:32+0800
 
 * 说明
 这是我的 Emacs 配置文件。
@@ -30,3 +30,7 @@ npm  --registry=https://registry.npmmirror.com i -g intelephense
 - [ ] 配置 lsp-bridge
   - [ ] php
   - [ ] go
+
+* Tips
+- 原生tab 快捷键类似buffer, 不过是以 =C-x t= 为前缀
+  参考 https://www.gnu.org/software/emacs/manual/html_node/emacs/Tab-Bars.html
