@@ -1,6 +1,9 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-05-18T16:05:51+0800
+#+UPDATED_AT:2023-06-09T14:06:33+0800
+
+* 说明
+这是我的 Emacs 配置文件。
 
 * 依赖
 ** ripgrep
@@ -18,18 +21,12 @@ npm  --registry=https://registry.npmmirror.com i -g vscode-langservers-extracted
 npm  --registry=https://registry.npmmirror.com i -g typescript-language-server typescript
 *** php ?
 npm  --registry=https://registry.npmmirror.com i -g intelephense
-
+**
+** 常量
+- 图片路径 =~/Note-Attache=
+- 附件路径 =~/PARA=
 
 * 待完成
-- [x] company 的提示框太短
-  company-box 稍微调整下
-- [x] counsel-rg 搜索中文问题(Win)
 - [ ] 配置 lsp-bridge
-  - [x] 基本配置
   - [ ] php
   - [ ] go
-  - [x] html/css
-  - [x] typescript/javascript
-- [ ] 试用 org-roam
-- [x] 用pangu-spacing
-  https://github.com/coldnew/pangu-spacing
