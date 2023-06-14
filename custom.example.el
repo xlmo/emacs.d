@@ -7,3 +7,5 @@
 
 ;; PARA 目录
 (setq xlmo-para-dir "~/PARA")
+
+(setq xlmo-display-icon t)

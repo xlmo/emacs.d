@@ -170,6 +170,7 @@
 
 ;; doom用的图标
 (use-package nerd-icons
+  :when xlmo-display-icon
   :ensure t)
 
 ;; (use-package doom-themes
@@ -193,13 +194,13 @@
   (setq
    doom-modeline-window-width-limit 110
    doom-modeline-buffer-file-name-style 'auto
-   doom-modeline-icon (if (display-graphic-p) t nil )
-   doom-modeline-time-icon (if (display-graphic-p) t nil )
+   doom-modeline-icon xlmo-display-icon
+   doom-modeline-time-icon xlmo-display-icon
    doom-modeline-time t
    doom-modeline-buffer-name t
    doom-modeline-enable-word-count nil
    doom-modeline-workspace-name t
-   doom-modeline-modal-icon (if (display-graphic-p) t nil )
+   doom-modeline-modal-icon xlmo-display-icon
    doom-modeline-minor-modes t)
   )
 
@@ -219,7 +220,7 @@
 ;; 图标设置
 (use-package all-the-icons
   :ensure t
-  :when (display-graphic-p)
+  :when xlmo-display-icon
   :commands all-the-icons-install-fonts
   )
 
@@ -234,7 +235,7 @@
   :bind ("C-x C-b" . ibuffer)
   :init (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold)))
   :config
-  (when (display-graphic-p)
+  (when xlmo-display-icon
     ;; Display icons for buffers
     (use-package nerd-icons-ibuffer
       :hook (ibuffer-mode . nerd-icons-ibuffer-mode)

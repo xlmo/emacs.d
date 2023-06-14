@@ -11,6 +11,12 @@
       (> (car (buffer-line-statistics)) 10000)
     (> (buffer-size) 100000)))
 
+(defun icons-displayable-p ()
+  "Return non-nil if icons are displayable."
+  (and xlmo-display-icon
+       (or (featurep 'nerd-icons)
+           (require 'nerd-icons nil t))))
+
 ;; (defun childframe-completion-workable-p ()
 ;;   "Whether childframe completion is workable."
 ;;   (and (childframe-workable-p)))
