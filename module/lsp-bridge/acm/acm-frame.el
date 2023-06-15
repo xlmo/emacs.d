@@ -152,6 +152,21 @@
                 ))
   (add-function :after after-focus-change-function #'acm-frame-restore-font))
 
+(cl-defmacro acm-frame-new (frame frame-buffer buffer-name &optional max-width max-height popup-pos)
+  `(progn
+     (when (and (frame-live-p ,frame)
+                (not (eq (frame-parent ,frame) (selected-frame))))
+       (acm-frame-delete-frame ,frame))
+
+     (acm-frame-create-frame-if-not-exist ,frame ,frame-buffer ,buffer-name 1 t)
+
+     (acm-frame-set-frame-max-size ,frame ,max-width ,max-height)
+
+     (let ((pos (acm-frame-get-popup-position (point) 1)))
+       (acm-frame-set-frame-position ,frame (car pos) (cdr pos)))
+
+     (acm-frame-adjust-frame-pos ,frame ,popup-pos)))
+
 (cl-defmacro acm-frame-create-frame-if-not-exist (frame frame-buffer frame-name margin no-accept-focus)
   `(unless (frame-live-p ,frame)
      (setq ,frame (acm-frame-make-frame ,frame-name ,no-accept-focus))
@@ -212,7 +227,7 @@
          (y (+ (frame-parameter frame 'top) (/ (- parent-height frame-height) 2))))
     (acm-frame-set-frame-position frame x y)))
 
-(defun acm-frame-get-popup-position (frame-popup-point)
+(defun acm-frame-get-popup-position (frame-popup-point &optional line-bias)
   (let* ((edges (window-pixel-edges))
          (window-left (+ (nth 0 edges)
                          ;; We need adjust left margin for buffer centering module.
@@ -222,7 +237,7 @@
          (window-top (nth 1 edges))
          (pos (posn-x-y (posn-at-point frame-popup-point)))
          (x (car pos))
-         (y (cdr pos))
+         (y (+ (cdr pos) (* (or line-bias 0) (line-pixel-height))))
          (offset-y
           ;; We need move down to skip tab-line and header-line.
           (if (version< emacs-version "27.0")
@@ -282,10 +297,16 @@ influence of C1 on the result."
   (when (acm-frame-visible-p frame)
     (make-frame-invisible frame)))
 
-(defun acm-frame-adjust-frame-pos (frame &optional margin)
+(defun acm-frame-adjust-frame-pos (frame &optional popup-pos margin)
   "Adjust position to avoid out of screen."
   (let* ((frame-pos (frame-position frame))
          (main-frame-pos (frame-position acm-frame--emacs-frame))
+         (main-window-edges (with-selected-frame acm-frame--emacs-frame
+                              (window-edges nil t t t)))
+         (main-window-x (nth 0 main-window-edges))
+         (main-window-y (nth 1 main-window-edges))
+         (main-window-width (nth 2 main-window-edges))
+         (main-window-height (nth 3 main-window-edges))
          (frame-x (car frame-pos))
          (frame-y (cdr frame-pos))
          (frame-width (frame-pixel-width frame))
@@ -299,14 +320,32 @@ influence of C1 on the result."
          (emacs-frame-bottom-coordinate (- (+ (cdr main-frame-pos)
                                               (frame-pixel-height acm-frame--emacs-frame))
                                            margin)))
-    (if (> frame-right-coordinate emacs-frame-right-coordinate)
-        (set-frame-position frame
-                            (- frame-x (- frame-right-coordinate emacs-frame-right-coordinate))
-                            frame-y))
-    (if (> frame-bottom-coordinate emacs-frame-bottom-coordinate)
-        (set-frame-position frame
-                            frame-x
-                            (- frame-y frame-height (line-pixel-height))))))
+    (if (or (string-equal popup-pos "point")
+            (not popup-pos))
+        (progn
+          (if (> frame-right-coordinate emacs-frame-right-coordinate)
+              (set-frame-position frame
+                                  (- frame-x (- frame-right-coordinate emacs-frame-right-coordinate))
+                                  frame-y))
+          (if (> frame-bottom-coordinate emacs-frame-bottom-coordinate)
+              (set-frame-position frame
+                                  frame-x
+                                  (- frame-y frame-height (line-pixel-height)))))
+      (pcase popup-pos
+        ("top-left"
+         (set-frame-position frame main-window-x main-window-y))
+        ("top-right"
+         (set-frame-position frame (- main-window-width frame-width) main-window-y))
+        ("bottom-left"
+         (set-frame-position frame main-window-x (- main-window-height frame-height)))
+        ("bottom-right"
+         (set-frame-position frame (- main-window-width frame-width) (- main-window-height frame-height))
+         )))))
+
+(defun acm-frame-can-display-p ()
+  (not (or noninteractive
+           emacs-basic-display
+           (not (display-graphic-p)))))
 
 (provide 'acm-frame)
 ;;; acm-frame.el ends here
