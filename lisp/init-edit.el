@@ -24,6 +24,7 @@
   :ensure nil
   :hook (after-init . save-place-mode))
 ;; 记住最近打开的文件历史
+
 (use-package recentf
   :ensure nil
   :bind (("C-c h" . recentf-open-files))
@@ -31,6 +32,7 @@
   :hook (after-init . recentf-mode)
   :custom
   (recentf-max-saved-items 300)
+  ;; 不自动清理 recentf 记录。
   (recentf-auto-cleanup 'never)
   ;; `recentf-add-file' will apply handlers first, then call `string-prefix-p'
   ;; to check if it can be pushed to recentf list.

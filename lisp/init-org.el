@@ -239,4 +239,16 @@ prepended to the element after the #+HEADER: tag."
 ;; orgmode中显示网络图片
 ;;(use-package uimage)
 
+(use-package org-download
+  :config
+  (setq-default org-download-image-dir xlmo-note-attachement-dir)
+  (setq org-download-method 'directory
+        org-download-display-inline-images 'posframe
+        org-download-screenshot-method "pngpaste %s"
+        org-download-image-attr-list '("#+ATTR_HTML: :width 400 :align center"))
+  (add-hook 'dired-mode-hook 'org-download-enable)
+  (org-download-enable)
+  ;;(global-set-key (kbd "<f6>") #'org-download-screenshot)
+  )
+
 (provide 'init-org)

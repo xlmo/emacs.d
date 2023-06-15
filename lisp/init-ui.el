@@ -209,7 +209,7 @@
   (setq display-time-interval 10)
   (display-time-mode t)
   (size-indication-mode t) ;; modeline 显示文件 size
-  (display-battery-mode 1)
+  (display-battery-mode 0)
   (column-number-mode t)  ;; 在模式栏上显示当前光标的列号
   )
 

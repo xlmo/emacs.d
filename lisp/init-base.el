@@ -8,9 +8,11 @@
     (setq use-short-answers t)
   (fset 'yes-or-no-p 'y-or-n-p))
 
-;; 拷贝粘贴设置
-(setq select-enable-primary nil)        ; 选择文字时不拷贝
-(setq select-enable-clipboard t)        ; 拷贝时使用剪贴板
+;; 使用系统剪贴板，实现与其它程序相互粘贴。
+(setq select-enable-primary t)
+(setq select-enable-clipboard t)
+(setq x-select-enable-primary t)
+(setq x-select-enable-clipboard t)
 
 ;; 设置剪贴板历史长度300，默认为60
 (setq kill-ring-max 200)
@@ -71,7 +73,7 @@
 (prefer-coding-system 'utf-8)
 (setq system-time-locale "C")
 (unless sys/win32p
-(set-selection-coding-system 'utf-8))
+  (set-selection-coding-system 'utf-8))
 
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
@@ -90,13 +92,13 @@
   :ensure t
   :commands (helpful-callable helpful-variable helpful-command helpful-key helpful-mode)
   :bind (([remap describe-command] . helpful-command)
-     ("C-h f" . helpful-callable)
-     ("C-h v" . helpful-variable)
-     ("C-h s" . helpful-symbol)
-     ("C-h S" . describe-syntax)
-     ("C-h m" . describe-mode)
-     ("C-h F" . describe-face)
-     ([remap describe-key] . helpful-key))
+         ("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h s" . helpful-symbol)
+         ("C-h S" . describe-syntax)
+         ("C-h m" . describe-mode)
+         ("C-h F" . describe-face)
+         ([remap describe-key] . helpful-key))
   )
 
 ;; 提示快捷键
@@ -121,13 +123,13 @@
   :ensure nil
   :hook (after-init . savehist-mode)
   :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-          history-length 1000
-          savehist-additional-variables '(mark-ring
-                          global-mark-ring
-                          search-ring
-                          regexp-search-ring
-                          extended-command-history)
-          savehist-autosave-interval 300))
+              history-length 1000
+              savehist-additional-variables '(mark-ring
+                                              global-mark-ring
+                                              search-ring
+                                              regexp-search-ring
+                                              extended-command-history)
+              savehist-autosave-interval 300))
 
 (use-package hydra
   :hook (emacs-lisp-mode . hydra-add-imenu))
@@ -135,11 +137,11 @@
 (use-package pretty-hydra
   :init
   (cl-defun pretty-hydra-title (title &optional icon-type icon-name
-                      &key face height v-adjust)
+                                      &key face height v-adjust)
     "Add an icon in the hydra title."
     (let ((face (or face `(:foreground ,(face-background 'highlight))))
-      (height (or height 1.2))
-      (v-adjust (or v-adjust 0.0)))
+          (height (or height 1.2))
+          (v-adjust (or v-adjust 0.0)))
       (concat
        (propertize title 'face face)))))
 
@@ -267,12 +269,12 @@
 ;; Project integration
 (use-package persp-mode-project-bridge
   :autoload (persp-mode-project-bridge-find-perspectives-for-all-buffers
-         persp-mode-project-bridge-kill-perspectives)
+             persp-mode-project-bridge-kill-perspectives)
   :hook
   (persp-mode-project-bridge-mode . (lambda ()
-                      (if persp-mode-project-bridge-mode
-                      (persp-mode-project-bridge-find-perspectives-for-all-buffers)
-                    (persp-mode-project-bridge-kill-perspectives))))
+                                      (if persp-mode-project-bridge-mode
+                                          (persp-mode-project-bridge-find-perspectives-for-all-buffers)
+                                        (persp-mode-project-bridge-kill-perspectives))))
   (persp-mode . persp-mode-project-bridge-mode)
   :init
   (setq persp-mode-project-bridge-persp-name-prefix "")
@@ -281,25 +283,33 @@
     ;; HACK: Allow saving to files
     (defun my-persp-mode-project-bridge-add-new-persp (name)
       (let ((persp (persp-get-by-name name *persp-hash* :nil)))
-    (if (eq :nil persp)
-        (prog1
-        (setq persp (persp-add-new name))
-          (when persp
-        (set-persp-parameter 'persp-mode-project-bridge t persp)
-        (persp-add-buffer (cl-remove-if-not #'get-file-buffer (project-files (project-current)))
-                  persp nil nil)))
-      persp)))
+        (if (eq :nil persp)
+            (prog1
+                (setq persp (persp-add-new name))
+              (when persp
+                (set-persp-parameter 'persp-mode-project-bridge t persp)
+                (persp-add-buffer (cl-remove-if-not #'get-file-buffer (project-files (project-current)))
+                                  persp nil nil)))
+          persp)))
     (advice-add #'persp-mode-project-bridge-add-new-persp
-        :override #'my-persp-mode-project-bridge-add-new-persp)
+                :override #'my-persp-mode-project-bridge-add-new-persp)
 
     ;; HACK: Switch to buffer after switching perspective
     (defun my-persp-mode-project-bridge-hook-switch (fn &rest _args)
       "Switch to a perspective when hook is activated."
       (let ((buf (current-buffer)))
-    (funcall fn)
-    (when (buffer-live-p buf)
-      (switch-to-buffer buf))))
+        (funcall fn)
+        (when (buffer-live-p buf)
+          (switch-to-buffer buf))))
     (advice-add #'persp-mode-project-bridge-hook-switch
-        :around #'my-persp-mode-project-bridge-hook-switch)))
+                :around #'my-persp-mode-project-bridge-hook-switch)))
+
+;; 退出自动杀掉进程。
+(setq confirm-kill-processes nil)
+
+;; 启动 Server 。
+(unless (and (fboundp 'server-running-p)
+             (server-running-p))
+  (server-start)))
 
 (provide 'init-base)

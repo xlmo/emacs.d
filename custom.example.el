@@ -8,4 +8,7 @@
 ;; PARA 目录
 (setq xlmo-para-dir "~/PARA")
 
+;; 笔记附件目录
+(setq xlmo-note-attachement-dir "~/Note-Attache")
+
 (setq xlmo-display-icon t)

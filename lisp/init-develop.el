@@ -44,6 +44,11 @@
 (use-package es-mode)
 (use-package magit)
 
+;; 在帮助文档底部显示 lisp demo.
+(use-package elisp-demos
+  :config
+  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1)
+  (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
 
 
 (provide 'init-develop)
