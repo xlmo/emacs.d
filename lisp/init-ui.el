@@ -112,7 +112,7 @@
     (cl-loop for font in '("WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
              when (font-installed-p font)
              return (progn
-                      (setq face-font-rescale-alist `((,font . 1.3)))
+                      (setq face-font-rescale-alist `((,font . 1.0)))
                       (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
 
 (custom-setup-fonts)
@@ -207,7 +207,7 @@
   (setq display-time-format "%Y-%m-%d %H:%m")
   (setq display-time-default-load-average nil)
   (setq display-time-interval 10)
-  (display-time-mode t)
+  (display-time-mode 0)
   (size-indication-mode t) ;; modeline 显示文件 size
   (display-battery-mode 0)
   (column-number-mode t)  ;; 在模式栏上显示当前光标的列号
