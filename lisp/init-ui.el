@@ -45,7 +45,6 @@
       global-mark-ring-max 6
       frame-title-format '("Emacs - %b") ;; 设置标题
       icon-title-format frame-title-format
-      size-indication-mode t ;; modeline 显示文件 size
       initial-scratch-message nil)
 
 (unless (daemonp)
@@ -66,8 +65,6 @@
 ;; 在命令行里支持鼠标
 (xterm-mouse-mode 1)
 
-;; 在模式栏上显示当前光标的列号
-(column-number-mode t)
 
 ;; Fonts
 (defun custom-setup-fonts ()
@@ -75,48 +72,48 @@
   (when (display-graphic-p)
     ;; Set default font
     (cl-loop for font in '("Cascadia Code" "Fira Code" "Jetbrains Mono"
-               "SF Mono" "Hack" "Source Code Pro" "Menlo"
-               "Monaco" "DejaVu Sans Mono" "Consolas")
-         when (font-installed-p font)
-         return (set-face-attribute 'default nil
-                    :family font
-                    :height (cond (sys/macp 130)
-                              (sys/win32p 110)
-                              (t 100))))
+                           "SF Mono" "Hack" "Source Code Pro" "Menlo"
+                           "Monaco" "DejaVu Sans Mono" "Consolas")
+             when (font-installed-p font)
+             return (set-face-attribute 'default nil
+                                        :family font
+                                        :height (cond (sys/macp 130)
+                                                      (sys/win32p 110)
+                                                      (t 100))))
 
     ;; Set mode-line font
-    ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
-    ;;          when (font-installed-p font)
-    ;;          return (progn
-    ;;                   (set-face-attribute 'mode-line nil :family font :height 120)
-    ;;                   (when (facep 'mode-line-active)
-    ;;                     (set-face-attribute 'mode-line-active nil :family font :height 120))
-    ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
+    (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
+             when (font-installed-p font)
+             return (progn
+                      (set-face-attribute 'mode-line nil :family font :height 90)
+                      (when (facep 'mode-line-active)
+                        (set-face-attribute 'mode-line-active nil :family font :height 90))
+                      (set-face-attribute 'mode-line-inactive nil :family font :height 90)))
 
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
-         when (font-installed-p font)
-         return (if (< emacs-major-version 27)
-            (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
-              (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
+             when (font-installed-p font)
+             return (if (< emacs-major-version 27)
+                        (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
+                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
 
     ;; Emoji
     (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
-         when (font-installed-p font)
-         return (cond
-             ((< emacs-major-version 27)
-              (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
-             ((< emacs-major-version 28)
-              (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
-             (t
-              (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+             when (font-installed-p font)
+             return (cond
+                     ((< emacs-major-version 27)
+                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
+                     ((< emacs-major-version 28)
+                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
+                     (t
+                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
 
     ;; Specify font for Chinese characters
     (cl-loop for font in '("WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
-         when (font-installed-p font)
-         return (progn
-              (setq face-font-rescale-alist `((,font . 1.3)))
-              (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
+             when (font-installed-p font)
+             return (progn
+                      (setq face-font-rescale-alist `((,font . 1.3)))
+                      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
 
 (custom-setup-fonts)
 (add-hook 'window-setup-hook #'custom-setup-fonts)
@@ -190,7 +187,7 @@
 ;; modeline
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
-  :init
+  :custom
   (setq
    doom-modeline-window-width-limit 110
    doom-modeline-buffer-file-name-style 'auto
@@ -201,7 +198,19 @@
    doom-modeline-enable-word-count nil
    doom-modeline-workspace-name t
    doom-modeline-modal-icon xlmo-display-icon
+   doom-modeline-height 1
+   doom-modeline-github nil
    doom-modeline-minor-modes t)
+  :config
+  (setq display-time-24hr-format t)
+  (setq display-time-day-and-date t)
+  (setq display-time-format "%Y-%m-%d %H:%m")
+  (setq display-time-default-load-average nil)
+  (setq display-time-interval 10)
+  (display-time-mode t)
+  (size-indication-mode t) ;; modeline 显示文件 size
+  (display-battery-mode 1)
+  (column-number-mode t)  ;; 在模式栏上显示当前光标的列号
   )
 
 (use-package hide-mode-line
@@ -265,11 +274,7 @@
   (add-to-list 'ibuffer-project-root-functions '(file-remote-p . "Remote"))
   (add-to-list 'ibuffer-project-root-functions '("\\*.+\\*" . "Default")))
 
-(setq display-time-24hr-format t)
-(setq display-time-day-and-date t)
-(setq display-time-format "%Y-%m-%d %H:%m")
-(setq display-time-default-load-average nil)
-(setq display-time-interval 10)
-(display-time-mode t)
+;; 不显示 window fringe, 显示多个 window 时更紧凑
+(set-fringe-style 0)
 
 (provide 'init-ui)

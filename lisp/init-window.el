@@ -3,6 +3,7 @@
 ;; 撤销对窗口的操作
 (use-package winner
   :ensure nil
+  :when (display-graphic-p)
   :bind
   ("C-x /" . winner-undo)
   :commands (winner-undo winner-redo)

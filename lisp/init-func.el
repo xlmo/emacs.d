@@ -160,11 +160,16 @@
   (insert (format-time-string "%Y-%m-%d")))
 
 ;; Key Binding
+;; 自定义函数
 (global-set-key (kbd "M-n") 'xlmo/move-text-down)
 (global-set-key (kbd "M-p") 'xlmo/move-text-up)
 (global-set-key (kbd "<f5>") 'xlmo/refresh-file)
 (global-set-key (kbd "<f7>") 'xlmo/new-worklog-file)
 (global-set-key (kbd "C-c d") 'xlmo/duplicate-current-line-or-region)
+;; 向下翻另外的窗口。
+(global-set-key (kbd "s-v") 'scroll-other-window)
+;; 向上翻另外的窗口。
+(global-set-key (kbd "C-s-v") 'scroll-other-window-down)
 
 
 

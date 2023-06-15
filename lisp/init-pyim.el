@@ -4,7 +4,7 @@
 ;; https://github.com/tumashu/pyim
 (use-package pyim
   :config
-  (use-package pyim-basedict)
+  ;; (use-package pyim-basedict)
   (require 'pyim-cregexp-utils)
   ;; 让 ivy 支持拼音搜索
   (setq ivy-re-builders-alist
