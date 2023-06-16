@@ -4,3 +4,4 @@ elpa
 custom.el
 .cache
 eln-cache
+server
