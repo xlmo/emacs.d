@@ -126,7 +126,7 @@
   :bind ("C-c t" . ef-themes-toggle)
   :init
   ;; set two specific themes and switch between them
-  (setq ef-themes-to-toggle '(ef-light ef-winter))
+  (setq ef-themes-to-toggle '(ef-frost ef-dark))
   ;; set org headings and function syntax
   (setq ef-themes-headings
         '((0 . (bold 1))
@@ -145,9 +145,11 @@
 
   ;; 随机挑选一款主题，如果是命令行打开Emacs，则随机挑选一款黑色主题
   (if (display-graphic-p)
-      ;;      (ef-themes-select 'ef-light)
-      (ef-themes-load-random)
-    (ef-themes-load-random 'dark))
+      (ef-themes-select 'ef-frost)
+    ;;  (ef-themes-load-random)
+    ;;(ef-themes-load-random 'dark)
+    (ef-themes-select 'ef-dark)
+    )
 
   :config
   ;; auto change theme, aligning with system themes.
