@@ -5,3 +5,4 @@ custom.el
 .cache
 eln-cache
 server
+tmp_elpa
