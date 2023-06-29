@@ -51,4 +51,5 @@
   (require 'init-roam)
   (require 'init-treemacs)
   (require 'init-pyim)
+  (require 'init-eaf)
   )

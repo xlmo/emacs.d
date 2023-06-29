@@ -1,6 +1,6 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-06-09T15:06:32+0800
+#+UPDATED_AT:2023-06-29T11:06:22+0800
 
 * 说明
 这是我的 Emacs 配置文件。
@@ -22,6 +22,9 @@ npm  --registry=https://registry.npmmirror.com i -g typescript-language-server t
 *** php ?
 npm  --registry=https://registry.npmmirror.com i -g intelephense
 **
+** EAF
+sudo apt install python3-pyqt6.qtwebengine
+
 ** 常量
 - 图片路径 =~/Note-Attache=
 - 附件路径 =~/PARA=

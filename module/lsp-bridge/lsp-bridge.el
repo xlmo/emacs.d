@@ -458,7 +458,7 @@ Then LSP-Bridge will start by gdb, please send new issue with `*lsp-bridge*' buf
     python-mode-hook
     ruby-mode-hook
     lua-mode-hook
- 	  move-mode-hook
+ 	move-mode-hook
     rust-mode-hook
     rust-ts-mode-hook
     rustic-mode-hook
@@ -1440,6 +1440,16 @@ So we build this macro to restore postion after code format."
 (defun lsp-bridge-monitor-after-save ()
   (lsp-bridge-call-file-api "save_file" (buffer-name)))
 
+(defcustom lsp-bridge-find-def-fallback-function nil
+  "Fallback for find definition failure."
+  :type 'function
+  :group 'lsp-bridge)
+
+(defcustom lsp-bridge-find-ref-fallback-function nil
+  "Fallback for find referecences failure."
+  :type 'function
+  :group 'lsp-bridge)
+
 (defvar-local lsp-bridge-jump-to-def-in-other-window nil)
 
 (defun lsp-bridge-find-def ()
@@ -1501,12 +1511,22 @@ So we build this macro to restore postion after code format."
   (interactive)
   (lsp-bridge-call-file-api "find_references" (lsp-bridge--position)))
 
-(defun lsp-bridge-references--popup (references-content references-counter)
+(defun lsp-bridge-find-def-fallback (position)
+  (message "[LSP-Bridge] No definition found.")
+  (if (functionp lsp-bridge-find-def-fallback-function)
+      (funcall lsp-bridge-find-def-fallback-function position)))
+
+(defun lsp-bridge-find-ref-fallback (position)
+  (message "[LSP-Bridge] No references found.")
+  (if (functionp lsp-bridge-find-ref-fallback-function)
+      (funcall lsp-bridge-find-ref-fallback-function position)))
+
+(defun lsp-bridge-references--popup (references-content references-counter position)
   (if (> references-counter 0)
       (progn
         (lsp-bridge-ref-popup references-content references-counter)
         (message "[LSP-Bridge] Found %s references" references-counter))
-    (message "[LSP-Bridge] No references found.")))
+    (lsp-bridge-find-ref-fallback position)))
 
 (defun lsp-bridge-rename ()
   (interactive)
@@ -1767,12 +1787,15 @@ Default is `bottom-right', you can choose other value: `top-left', `top-right', 
     (acm-run-idle-func acm-backend-elisp-symbols-update-timer lsp-bridge-elisp-symbols-update-idle 'lsp-bridge-elisp-symbols-update)
 
     (when (or (lsp-bridge-has-lsp-server-p)
-              ;; init acm backend for org babel
-              (and lsp-bridge-enable-org-babel (eq major-mode 'org-mode)))
+              ;; Init acm backend for org babel, and need elimination org temp buffer.
+              (and lsp-bridge-enable-org-babel 
+                   (eq major-mode 'org-mode)
+                   (not (lsp-bridge-is-org-temp-buffer-p))))
       ;; When user open buffer by `ido-find-file', lsp-bridge will throw `FileNotFoundError' error.
       ;; So we need save buffer to disk before enable `lsp-bridge-mode'.
-      (unless (lsp-bridge-is-remote-file)
-        (unless (file-exists-p (buffer-file-name))
+      (when (not (lsp-bridge-is-remote-file))
+        (when (and (buffer-file-name)
+                   (not (file-exists-p (buffer-file-name))))
           (save-buffer)))
 
       (setq-local acm-backend-lsp-completion-trigger-characters nil)
@@ -1794,6 +1817,12 @@ Default is `bottom-right', you can choose other value: `top-left', `top-right', 
     ;; Flag `lsp-bridge-is-starting' make sure only call `lsp-bridge-start-process' once.
     (unless lsp-bridge-is-starting
       (lsp-bridge-start-process))))
+
+(defun lsp-bridge-is-org-temp-buffer-p ()
+  (or (string-match "\*org-src-fontification:" (buffer-name))
+      (string-match "\*Org Src" (buffer-name))
+      (string-match ".org-src-babel" (buffer-name))
+      (equal "*Capture*" (buffer-name))))
 
 (defun lsp-bridge--disable ()
   "Disable LSP Bridge mode."
@@ -2037,9 +2066,14 @@ SymbolKind (defined in the LSP)."
   (evil-add-command-properties #'lsp-bridge-find-impl :jump t))
 
 (defun lsp-bridge--rename-file-advisor (orig-fun &optional arg &rest args)
-  (when (and lsp-bridge-mode
-             (boundp 'acm-backend-lsp-filepath))
-    (let ((new-name (expand-file-name (nth 0 args))))
+  (let* ((current-file-name (buffer-file-name))
+         (current-file-name (and current-file-name
+                                 (expand-file-name current-file-name)))
+         (new-name (expand-file-name (nth 0 args))))
+    (when (and lsp-bridge-mode
+               (boundp 'acm-backend-lsp-filepath)
+               current-file-name
+               (string-equal current-file-name new-name))
       (lsp-bridge-call-file-api "rename_file" new-name)
       (if (lsp-bridge-is-remote-file)
           (lsp-bridge-remote-send-func-request "close_file" (list acm-backend-lsp-filepath))
