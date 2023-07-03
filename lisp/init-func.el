@@ -159,6 +159,13 @@
   (interactive)
   (insert (format-time-string "%Y-%m-%d")))
 
+;; 插入日志图片链接
+(defun xlmo/insert-note-pic-link(dir)
+  "Insert Note Pic Link with attr"
+  (interactive "fFile:")
+  (insert "#+ATTR_HTML: :width 400 :align center\n")
+  (org-insert-link nil (concat "file:" (concat "~/" (file-relative-name dir "~/"))) ""))
+
 ;; Key Binding
 ;; 自定义函数
 (global-set-key (kbd "M-n") 'xlmo/move-text-down)
@@ -166,10 +173,15 @@
 (global-set-key (kbd "<f5>") 'xlmo/refresh-file)
 (global-set-key (kbd "<f7>") 'xlmo/new-worklog-file)
 (global-set-key (kbd "C-c d") 'xlmo/duplicate-current-line-or-region)
+(global-set-key (kbd "C-c C-i") 'xlmo/insert-note-pic-link)
 ;; 向下翻另外的窗口。
 (global-set-key (kbd "s-v") 'scroll-other-window)
 ;; 向上翻另外的窗口。
 (global-set-key (kbd "C-s-v") 'scroll-other-window-down)
+
+
+
+
 
 
 

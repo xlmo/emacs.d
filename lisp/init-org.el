@@ -248,7 +248,6 @@ prepended to the element after the #+HEADER: tag."
         org-download-image-attr-list '("#+ATTR_HTML: :width 400 :align center"))
   (add-hook 'dired-mode-hook 'org-download-enable)
   (org-download-enable)
-  ;;(global-set-key (kbd "<f6>") #'org-download-screenshot)
   )
 
 (provide 'init-org)
