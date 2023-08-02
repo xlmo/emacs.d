@@ -11,12 +11,6 @@
                          ("nongnu" . "http://mirrors.bfsu.edu.cn/elpa/nongnu/")
                          ("melpa"  . "http://mirrors.bfsu.edu.cn/elpa/melpa/")))
 
-;; 如果use-package没安装
-(unless (package-installed-p 'use-package)
-  ;; 更新本地缓存
-  (package-refresh-contents)
-  (package-install 'use-package))
-
 (require 'use-package)
 
 ;; 永远按需安装
@@ -51,5 +45,5 @@
   (require 'init-roam)
   (require 'init-treemacs)
   (require 'init-pyim)
-  (require 'init-eaf)
+  ;;  (require 'init-eaf)
   )

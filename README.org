@@ -1,6 +1,5 @@
 #+TITLE: readme
 #+STARTUP:show2levels
-#+UPDATED_AT:2023-06-29T11:06:22+0800
 
 * 说明
 这是我的 Emacs 配置文件。

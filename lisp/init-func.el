@@ -28,24 +28,6 @@
 ;;                (not (display-graphic-p))))
 ;;       (daemonp)))
 
-;; 重复当前行
-(defun xlmo/duplicate-current-line-or-region (arg)
-  "重复当前行或区域"
-  (interactive "p")
-  (let (beg end (origin (point)))
-    (if (and mark-active (> (point) (mark)))
-        (exchange-point-and-mark))
-    (setq beg (line-beginning-position))
-    (if mark-active
-        (exchange-point-and-mark))
-    (setq end (line-end-position))
-    (let ((region (buffer-substring-no-properties beg end)))
-      (dotimes (i arg)
-        (goto-char end)
-        (newline)
-        (insert region)
-        (setq end (point)))
-      (goto-char (+ origin (* (length region) arg) arg)))))
 
 ;; 移动行
 (defun xlmo/move-text-internal (arg)
@@ -172,7 +154,7 @@
 (global-set-key (kbd "M-p") 'xlmo/move-text-up)
 (global-set-key (kbd "<f5>") 'xlmo/refresh-file)
 (global-set-key (kbd "<f7>") 'xlmo/new-worklog-file)
-(global-set-key (kbd "C-c d") 'xlmo/duplicate-current-line-or-region)
+(global-set-key (kbd "C-c d") 'duplicate-dwim)
 (global-set-key (kbd "C-c C-i") 'xlmo/insert-note-pic-link)
 ;; 向下翻另外的窗口。
 (global-set-key (kbd "s-v") 'scroll-other-window)

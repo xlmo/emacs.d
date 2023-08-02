@@ -64,10 +64,10 @@
                      "COMMIT_EDITMSG\\'")))
 
 ;; 自动更新时间
-(setq time-stamp-start "#\\+UPDATED_AT:[ \t]*"
-      time-stamp-end  "$"
-      time-stamp-format "%Y-%m-%dT%02H:%02m:%02S%5z")
-(add-hook 'before-save-hook 'time-stamp)
+;; (setq time-stamp-start "#\\+UPDATED_AT:[ \t]*"
+;;       time-stamp-end  "$"
+;;       time-stamp-format "%Y-%m-%dT%02H:%02m:%02S%5z")
+;; (add-hook 'before-save-hook 'time-stamp)
 
 ;; 扩展选择区
 (use-package expand-region

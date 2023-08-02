@@ -202,7 +202,6 @@ prepended to the element after the #+HEADER: tag."
 
   (org-babel-do-load-languages 'org-babel-load-languages
                                load-language-alist)
-
   ;; Rich text clipboard
   (use-package org-rich-yank
     :bind (:map org-mode-map
