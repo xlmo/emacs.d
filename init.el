@@ -36,7 +36,7 @@
   (require 'init-window)
   (require 'init-ui)
   ;; (require 'init-company) ;; replace by lsp-bridge
-  (require 'init-lsp)
+  ;; (require 'init-lsp)
   (require 'init-ivy)
   (require 'init-misc)
   (require 'init-develop)

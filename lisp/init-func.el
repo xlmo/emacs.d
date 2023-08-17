@@ -152,7 +152,7 @@
 ;; 自定义函数
 (global-set-key (kbd "M-n") 'xlmo/move-text-down)
 (global-set-key (kbd "M-p") 'xlmo/move-text-up)
-(global-set-key (kbd "<f5>") 'xlmo/refresh-file)
+;; (global-set-key (kbd "<f5>") 'xlmo/refresh-file)
 (global-set-key (kbd "<f7>") 'xlmo/new-worklog-file)
 (global-set-key (kbd "C-c d") 'duplicate-dwim)
 (global-set-key (kbd "C-c C-i") 'xlmo/insert-note-pic-link)

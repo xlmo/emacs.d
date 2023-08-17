@@ -206,7 +206,7 @@
      ("A" mc/insert-letters "insert letters" :exit t)))))
 
 ;; 中英文之间加空格
-(use-package pangu-spacing)
+;; (use-package pangu-spacing)
 
 ;; 代码片段
 (use-package yasnippet

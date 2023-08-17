@@ -9,6 +9,7 @@
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
          ("<f6>" . org-roam-dailies-capture-today)
+         ("<f5>" . org-roam-dailies-capture-yesterday)
          ("C-c n j" . org-roam-dailies-capture-today))
   :init
   (setq org-roam-directory (file-truename (expand-file-name "Notes" xlmo-note-dir))
