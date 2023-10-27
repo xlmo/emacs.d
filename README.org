@@ -6,33 +6,18 @@
 
 * 依赖
 ** ripgrep
-** nodejs
-** graphviz
 ** python3
 *** windows: pip3 install epc orjson sexpdata six paramiko  -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 *** linux:
 sudo apt install pypy3 python3-pip
 pypy3 -m pip install epc sexpdata six paramiko -i https://mirrors.bfsu.edu.cn/pypi/web/simple
-** lsp server
-*** html
-npm  --registry=https://registry.npmmirror.com i -g vscode-langservers-extracted
-*** typescript/javascript
-npm  --registry=https://registry.npmmirror.com i -g typescript-language-server typescript
-*** php ?
-npm  --registry=https://registry.npmmirror.com i -g intelephense
-**
-** EAF
-sudo apt install python3-pyqt6.qtwebengine
-
 ** 常量
 - 图片路径 =~/Note-Attache=
 - 附件路径 =~/PARA=
-
-* 待完成
-- [ ] 配置 lsp-bridge
-  - [ ] php
-  - [ ] go
-
+** 字体
+- SymbolsNerdFontMono-Regular.ttf
+- SymbolsNerdFont-Regular.ttf
+- all-the-icons.ttf
 * Tips
 - 原生tab 快捷键类似buffer, 不过是以 =C-x t= 为前缀
   参考 https://www.gnu.org/software/emacs/manual/html_node/emacs/Tab-Bars.html

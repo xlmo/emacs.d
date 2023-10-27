@@ -174,6 +174,7 @@ prepended to the element after the #+HEADER: tag."
       ;; (ruby       . t)
       ;; (sass       . t)
       ;; (java       . t)
+      (typescript . t)
       (python     . t)
       (js         . t)
       (css        . t)
@@ -189,6 +190,16 @@ prepended to the element after the #+HEADER: tag."
 
   (use-package ob-php
     :init (cl-pushnew '(php . t) load-language-alist))
+
+  (use-package ob-typescript
+    :init (cl-pushnew '(typescript . t) load-language-alist))
+  (setq org-babel-command:typescript "npx -p typescript -- tsc")
+
+  ;; 导出高亮
+  (use-package htmlize
+    :config
+    (setq org-src-fontify-natively t)
+    )
 
   ;; (use-package ob-powershell
   ;;   :init (cl-pushnew '(powershell . t) load-language-alist))

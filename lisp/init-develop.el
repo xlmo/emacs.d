@@ -20,8 +20,8 @@
 ;;               (executable-find "jshint"))
 ;;       (setq js2-mode-show-strict-warnings nil))))
 
-;; (use-package typescript-mode
-;;   :mode ("\\.ts[x]\\'" . typescript-mode))
+(use-package typescript-mode
+  :mode ("\\.ts[x]\\'" . typescript-mode))
 
 ;; Major mode for editing web templates
 ;; (use-package web-mode
